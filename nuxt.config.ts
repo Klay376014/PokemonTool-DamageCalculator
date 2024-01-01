@@ -1,12 +1,14 @@
+/* eslint-disable ts/ban-ts-comment */
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 
 export default defineNuxtConfig({
   app: {
+    // eslint-disable-next-line node/prefer-global/process
     baseURL: process.env.NODE_ENV === 'production' ? '/Calculator-2024ver/' : '/',
-    buildAssetsDir: '/static/',
+    buildAssetsDir: '/static/'
   },
   build: {
-    transpile: ['vuetify'],
+    transpile: ['vuetify']
   },
   modules: [
     (_options, nuxt) => {
@@ -20,20 +22,19 @@ export default defineNuxtConfig({
       {
         autoImports: [
           'defineStore',
-          ['defineStore', 'definePiniaStore'],
+          ['defineStore', 'definePiniaStore']
         ],
-      },
+      }
     ],
-    '@nuxtjs/eslint-module',
   ],
   vite: {
     vue: {
       template: {
-        transformAssetUrls,
+        transformAssetUrls
       },
-    },
+    }
   },
   typescript: {
-    typeCheck: true,
+    typeCheck: true
   },
 })
