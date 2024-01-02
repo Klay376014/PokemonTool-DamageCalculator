@@ -25,7 +25,7 @@ export default defineNuxtConfig({
           ['defineStore', 'definePiniaStore']
         ],
       }
-    ],
+    ]
   ],
   vite: {
     vue: {
