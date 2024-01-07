@@ -41,7 +41,7 @@ query fetchPokemonInfo($id: Int!) {
 async function getPokemon() {
   try {
     id.value = Math.round(Math.random() * 1020)
-    const variables = { id: 865 }
+    const variables = { id: id.value }
     const { data }: any = await useAsyncQuery(fetchPokemonInfo, variables)
 
     // 拿名字
