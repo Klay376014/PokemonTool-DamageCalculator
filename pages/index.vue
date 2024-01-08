@@ -2,15 +2,8 @@
 const name = ref('bulbasaur')
 const id = ref(1)
 const imgUrl = ref('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png')
-interface BaseStat {
-  hp: number
-  atk: number
-  def: number
-  spa: number
-  spd: number
-  spe: number
-}
-const baseStat = ref<BaseStat>({
+
+const baseStat = ref<Stats>({
   hp: 45,
   atk: 49,
   def: 49,
@@ -42,19 +35,22 @@ async function getPokemon() {
   try {
     id.value = Math.round(Math.random() * 1020)
     const variables = { id: id.value }
-    const { data }: any = await useAsyncQuery(fetchPokemonInfo, variables)
+    const response = await useAsyncQuery(fetchPokemonInfo, variables)
 
+    const validation = pokemonsResponseSchema.safeParse(response.data.value)
+    if (!validation.success) {
+      // TODO error handle
+      return
+    }
+    const targetPokemon = validation.data.pokemon_v2_pokemon[0]
     // 拿名字
-    name.value = data.value.pokemon_v2_pokemon[0].name
+    name.value = targetPokemon.name
     // 拿圖片網址
-    const sprites = data.value.pokemon_v2_pokemon[0].pokemon_v2_pokemonsprites[0]
-    imgUrl.value = JSON.parse(sprites.sprites).front_default
+    const sprites = targetPokemon.pokemon_v2_pokemonsprites[0]
+    imgUrl.value = sprites.sprites.front_default
     // 拿種族值
-    const stats = data.value.pokemon_v2_pokemon[0].pokemon_v2_pokemonstats
-    stats.forEach((stat: { base_stat: number }, index: number) => {
-      const statKey = Object.keys(baseStat.value)[index] as keyof BaseStat
-      baseStat.value[statKey] = stat.base_stat
-    })
+    const stats = targetPokemon.pokemon_v2_pokemonstats
+    baseStat.value = stats
   }
   catch (e) {
     if (e instanceof Error)
