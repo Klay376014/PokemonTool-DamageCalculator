@@ -37,6 +37,11 @@ export default defineNuxtConfig({
   },
   typescript: {
     typeCheck: true,
+    tsConfig: {
+      compilerOptions: {
+        verbatimModuleSyntax: false, // FIXME 友亮：測試過幾次但vue-tsc不讓我ignore codegen產生的檔案，只好disable此規則
+      }
+    },
   },
   apollo: {
     clients: {
