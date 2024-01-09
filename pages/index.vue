@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { graphql } from '../gql'
+
 const name = ref('bulbasaur')
 const id = ref(1)
 const imgUrl = ref('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png')
@@ -9,10 +11,10 @@ const baseStat = ref<Stats>({
   def: 49,
   spa: 65,
   spd: 65,
-  spe: 45
+  spe: 45,
 })
 
-const fetchPokemonInfo = gql`
+const fetchPokemonInfo = graphql(`
 query fetchPokemonInfo($id: Int!) {
   pokemon_v2_pokemon(distinct_on: name, where: {id: {_eq: $id}}) {
     name
@@ -29,8 +31,8 @@ query fetchPokemonInfo($id: Int!) {
       base_stat
     }
   }
-}
-`
+}`)
+
 async function getPokemon() {
   try {
     id.value = Math.round(Math.random() * 1020)
@@ -46,10 +48,9 @@ async function getPokemon() {
     // 拿名字
     name.value = targetPokemon.name
     // 拿圖片網址
-    const sprites = targetPokemon.pokemon_v2_pokemonsprites[0]
-    imgUrl.value = sprites.sprites.front_default
+    imgUrl.value = targetPokemon.sprite.front_default
     // 拿種族值
-    const stats = targetPokemon.pokemon_v2_pokemonstats
+    const stats = targetPokemon.stats
     baseStat.value = stats
   }
   catch (e) {
