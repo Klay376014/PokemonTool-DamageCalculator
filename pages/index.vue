@@ -11,7 +11,7 @@ const baseStat = ref<Stats>({
   def: 49,
   spa: 65,
   spd: 65,
-  spe: 45,
+  spe: 45
 })
 
 const fetchPokemonInfo = graphql(`
@@ -35,6 +35,7 @@ query fetchPokemonInfo($id: Int!) {
 
 async function getPokemon() {
   try {
+    const random = Math.random() * 8
     id.value = Math.round(Math.random() * 1020)
     const variables = { id: id.value }
     const response = await useAsyncQuery(fetchPokemonInfo, variables)
@@ -48,7 +49,7 @@ async function getPokemon() {
     // 拿名字
     name.value = targetPokemon.name
     // 拿圖片網址
-    imgUrl.value = targetPokemon.sprite.front_default
+    imgUrl.value = random > 1 ? targetPokemon.sprite.front_default : targetPokemon.sprite.front_shiny
     // 拿種族值
     const stats = targetPokemon.stats
     baseStat.value = stats
