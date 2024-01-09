@@ -46,10 +46,9 @@ async function getPokemon() {
     // 拿名字
     name.value = targetPokemon.name
     // 拿圖片網址
-    const sprites = targetPokemon.pokemon_v2_pokemonsprites[0]
-    imgUrl.value = sprites.sprites.front_default
+    imgUrl.value = targetPokemon.sprite.front_default
     // 拿種族值
-    const stats = targetPokemon.pokemon_v2_pokemonstats
+    const stats = targetPokemon.stats
     baseStat.value = stats
   }
   catch (e) {
