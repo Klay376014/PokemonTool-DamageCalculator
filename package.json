@@ -17,7 +17,6 @@
   "dependencies": {
     "@mdi/font": "^7.3.67",
     "@pinia/nuxt": "^0.5.1",
-    "@total-typescript/ts-reset": "^0.5.1",
     "gh-pages": "^6.1.1",
     "pinia": "^2.1.7",
     "vue-i18n": "^9.4.1",
@@ -31,6 +30,7 @@
     "@nuxt/devtools": "latest",
     "@nuxtjs/apollo": "^5.0.0-alpha.11",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
+    "@total-typescript/ts-reset": "^0.5.1",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
     "eslint": "^8.56.0",
