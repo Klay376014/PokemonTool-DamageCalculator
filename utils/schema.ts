@@ -8,7 +8,7 @@ export type Stats = Record<StatProperty, number>
 
 const spriteSchema = z.object({
   front_default: z.string().default(''), // put placeholder image
-  front_shiny: z.string()
+  front_shiny: z.string().default(''),
 })
 
 const pokemonSchema = z.object({
@@ -40,4 +40,4 @@ export type Pokemon = z.infer<typeof pokemonSchema>
 
 export const pokemonsResponseSchema = z.object({
   pokemon_v2_pokemon: z.array(pokemonSchema)
-})
+}).transform(arg => arg.pokemon_v2_pokemon)
