@@ -1,7 +1,9 @@
 {
   "hello": "ようこそポケモンの世界へ！",
   "title": "ポケモンダメージ計算（SV環境対応）",
-  "go": "",
+  "field": {
+    "field": "環境"
+  },
   "pokemon": {
     "bulbasaur": "フシギダネ",
     "ivysaur": "フシギソウ",

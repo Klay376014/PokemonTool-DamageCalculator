@@ -1,7 +1,9 @@
 {
   "hello": "Wow, you are Ryan? The BEST player in Taiwan?",
   "title": "Pokémon Damage Calculator for SV",
-  "go": "Go!",
+  "field": {
+    "field": "Field"
+  },
   "pokemon": {
     "bulbasaur": "Bulbasaur",
     "ivysaur": "Ivysaur",
