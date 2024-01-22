@@ -9,7 +9,7 @@ async function getPokemon() {
     // 拿名字
     pm1.name = targetPokemon1.name
     // 拿圖片網址
-    pm1.imgUrl = random > 1 && targetPokemon1.sprite.front_shiny ? targetPokemon1.sprite.front_default : targetPokemon1.sprite.front_shiny
+    pm1.imgUrl = random < 1 && targetPokemon1.sprite.front_shiny ? targetPokemon1.sprite.front_shiny : targetPokemon1.sprite.front_default
     // 拿種族值
     const stats = targetPokemon1.stats
     pm1.baseStat = stats
@@ -20,7 +20,7 @@ async function getPokemon() {
     // 拿名字
     pm2.name = targetPokemon2.name
     // 拿圖片網址
-    pm2.imgUrl = random > 1 && targetPokemon2.sprite.front_shiny ? targetPokemon2.sprite.front_default : targetPokemon2.sprite.front_shiny
+    pm2.imgUrl = random < 1 && targetPokemon2.sprite.front_shiny ? targetPokemon2.sprite.front_shiny : targetPokemon2.sprite.front_default
     // 拿種族值
     const stats = targetPokemon2.stats
     pm2.baseStat = stats

@@ -7,8 +7,8 @@ type StatProperty = typeof statKeys[number]
 export type Stats = Record<StatProperty, number>
 
 const spriteSchema = z.object({
-  front_default: z.string().default(''), // put placeholder image
-  front_shiny: z.string().default(''),
+  front_default: z.string().catch(''), // put placeholder image
+  front_shiny: z.string().catch(''),
 })
 
 const pokemonSchema = z.object({
