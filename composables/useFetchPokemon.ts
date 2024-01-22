@@ -23,7 +23,7 @@ query fetchPokemonInfo($id: Int!) {
 
 export default async function (): Promise<Pokemon | void> {
   try {
-    const id = Math.round(Math.random() * 60)
+    const id = Math.round(Math.random() * 1020)
     const cachedPokemonInfo = pokemonCache.get(id)
     if (cachedPokemonInfo.success)
       return cachedPokemonInfo.value
