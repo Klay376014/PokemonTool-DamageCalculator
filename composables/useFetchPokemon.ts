@@ -1,7 +1,8 @@
 import { graphql } from '../gql'
+import { Cache } from '~/utils/cache'
 
-export default async function () {
-  const fetchPokemonInfo = graphql(`
+const pokemonCache = new Cache<number, Pokemon>()
+const fetchPokemonInfo = graphql(`
 query fetchPokemonInfo($id: Int!) {
   pokemon_v2_pokemon(distinct_on: name, where: {id: {_eq: $id}}) {
     name
@@ -19,18 +20,26 @@ query fetchPokemonInfo($id: Int!) {
     }
   }
 }`)
+
+export default async function (): Promise<Pokemon | void> {
   try {
     const id = Math.round(Math.random() * 1020)
+    const cachedPokemonInfo = pokemonCache.get(id)
+    if (cachedPokemonInfo.success)
+      return cachedPokemonInfo.value
+
     const variables = { id }
     const response = await useAsyncQuery(fetchPokemonInfo, variables)
     const validation = pokemonsResponseSchema.safeParse(response.data.value)
     if (!validation.success) {
       // TODO error handle
+      console.error(validation.error)
+      return
     }
-    else {
-      const targetPokemon = validation.data
-      return targetPokemon.pokemon_v2_pokemon[0]
-    }
+
+    const targetPokemon = validation.data[0]
+    pokemonCache.set(id, targetPokemon)
+    return targetPokemon
   }
   catch (e) {
     if (e instanceof Error)

@@ -12,7 +12,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "gql:codegen": "graphql-codegen",
-    "gql:codegen-watch": "graphql-codegen --watch"
+    "gql:codegen-watch": "graphql-codegen --watch",
+    "test": "vitest"
   },
   "dependencies": {
     "@mdi/font": "^7.3.67",
@@ -37,6 +38,7 @@
     "eslint-plugin-vue": "^9.19.2",
     "nuxt": "^3.8.2",
     "vite-plugin-vuetify": "^2.0.1",
+    "vitest": "^1.2.1",
     "vue": "^3.3.12",
     "vue-router": "^4.2.5",
     "vuetify": "^3.4.8"
