@@ -66,16 +66,26 @@ export class Cache<K, V> implements ICache<K, V> {
       this.head = this.tail = newNode
     }
     else {
-      this.head.prev = newNode
-      newNode.next = this.head
+      const curHead = this.head
+      curHead.prev = newNode
+      newNode.next = curHead
       this.head = newNode
     }
-    if (this.counts > this.limit && this.tail) {
-      const newTail = this.tail.prev!
-      this.tail.prev = undefined
+
+    if (this.counts > this.limit) {
+      const prevTail = this.tail!
+      if (!prevTail)
+        return
+
+      const newTail = prevTail.prev
+      if (!newTail)
+        return
+
       newTail.next = undefined
       this.tail = newTail
+      prevTail.prev = undefined
       this.counts--
+      this.data.delete(prevTail.key)
     }
   }
 }
