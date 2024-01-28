@@ -8,8 +8,8 @@ import ja from '../locales/ja.json'
 const darkMode: ThemeDefinition = {
   dark: true,
   colors: {
-    'background': '#121212',
-    'surface': '#212121',
+    'background': '#202020',
+    'surface': '#121212',
     'primary': '#59359A',
     'primary-darken-1': '#533194',
     'secondary': '#DC3545',
@@ -21,7 +21,7 @@ const darkMode: ThemeDefinition = {
 const lightMode: ThemeDefinition = {
   dark: true,
   colors: {
-    'background': '#FFFFFF',
+    'background': '#d6d6d6',
     'surface': '#FFFFFF',
     'primary': '#59359A',
     'primary-darken-1': '#533194',

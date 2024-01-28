@@ -2,8 +2,14 @@
   "hello": "製作出記錄著世間所有寶可夢的完美的圖鑑！那就是我的夢想！",
   "title": "寶可夢傷害計算機（朱紫對應）",
   "field": {
-    "field": "場上狀況"
+    "title": "場上狀況"
   },
+  "open": "open",
+  "close": "close",
+  "input": {
+    "clear": "clear"
+  },
+  "choosePokemon": "選擇寶可夢",
   "pokemon": {
     "bulbasaur": "妙蛙種子",
     "ivysaur": "妙蛙草",
@@ -443,7 +449,7 @@
     "bronzor": "銅鏡怪",
     "bronzong": "青銅鐘",
     "bonsly": "盆才怪",
-    "mime-jr.": "魔尼尼",
+    "mime-jr": "魔尼尼",
     "happiny": "小福蛋",
     "chatot": "聒噪鳥",
     "spiritomb": "花岩怪",

@@ -2,8 +2,9 @@
   "hello": "Wow, you are Ryan? The BEST player in Taiwan?",
   "title": "Pokémon Damage Calculator for SV",
   "field": {
-    "field": "Field"
+    "title": "Field"
   },
+  "choosePokemon": "Choose Pokemon",
   "pokemon": {
     "bulbasaur": "Bulbasaur",
     "ivysaur": "Ivysaur",
@@ -443,7 +444,7 @@
     "bronzor": "Bronzor",
     "bronzong": "Bronzong",
     "bonsly": "Bonsly",
-    "mime jr.": "Mime Jr.",
+    "mime-jr": "Mime Jr.",
     "happiny": "Happiny",
     "chatot": "Chatot",
     "spiritomb": "Spiritomb",
@@ -1009,11 +1010,11 @@
     "chien-pao": "Chien-Pao",
     "ting-lu": "Ting-Lu",
     "chi-yu": "Chi-Yu",
-    "roaring moon": "Roaring Moon",
+    "roaring-moon": "Roaring Moon",
     "iron-valiant": "Iron Valiant",
     "koraidon": "Koraidon",
     "miraidon": "Miraidon",
-    "walking wake": "Walking Wake",
+    "walking-wake": "Walking Wake",
     "iron-leaves": "Iron Leaves",
     "dipplin": "Dipplin",
     "poltchageist": "Poltchageist",

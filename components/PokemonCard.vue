@@ -1,27 +1,44 @@
-<script setup>
+<script setup lang="ts">
+import json from '../locales/en.json'
+
 const show = ref(false)
+const loading = ref(false)
+const selectedPokemon = ref<string | null>(null)
+const pokemonList = Object.keys(json.pokemon)
 </script>
 
 <template>
   <div class="w-100">
     <v-card
-      class="mx-auto"
+      class="mx-auto px-4"
       max-width="630"
     >
       <v-card-title>
-        Top western road trips
+        Test text
       </v-card-title>
 
-      <v-card-subtitle>
-        1,000 miles of wonder
-      </v-card-subtitle>
+      <div>
+        <v-autocomplete
+          v-model="selectedPokemon"
+          :label="$t('choosePokemon')"
+          :items="pokemonList"
+          :loading="loading"
+          :item-title="item => $t(`pokemon.${item}`)"
+          class="w-50 pl-2"
+          bg-color="transparent"
+          variant="outlined"
+          no-data-text="No Pokemon found"
+          clearable
+          @update:model-value="() => console.log('test')"
+        />
+      </div>
 
       <v-card-actions>
         <v-btn
           color="purple-lighten-2"
           class="font-weight-bold"
         >
-          {{ $t("field.field") }}
+          {{ $t("field.title") }}
         </v-btn>
 
         <v-spacer />
@@ -36,7 +53,7 @@ const show = ref(false)
         <div v-show="show">
           <v-divider />
           <v-card-text>
-            I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
+            test
           </v-card-text>
         </div>
       </v-expand-transition>
