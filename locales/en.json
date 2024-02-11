@@ -1,10 +1,18 @@
 {
   "hello": "Wow, you are Ryan? The BEST player in Taiwan?",
-  "title": "Pokémon Damage Calculator for SV",
+  "title": "Pokémon Damage Calculator",
   "field": {
     "title": "Field"
   },
+  "stat": {
+    "iv": "IV",
+    "ev": "EV",
+    "stat": "Stats",
+    "stage": "Stages"
+  },
   "choosePokemon": "Choose Pokemon",
+  "condition": "Condition",
+  "terastal": "Terastal",
   "pokemon": {
     "bulbasaur": "Bulbasaur",
     "ivysaur": "Ivysaur",
@@ -1029,6 +1037,25 @@
     "terapagos": "Terapagos"
   },
   "type": {
-
+    "fire": "Fire",
+    "water": "Water",
+    "grass": "Grass",
+    "electric": "Electric",
+    "normal": "Normal",
+    "flying": "Flying",
+    "ice": "Ice",
+    "fighting": "Fighting",
+    "poison": "Poison",
+    "ghost": "Ghost",
+    "psychic": "Psychic",
+    "bug": "Bug",
+    "rock": "Rock",
+    "ground": "Ground",
+    "dragon": "Dragon",
+    "dark": "Dark",
+    "steel": "Steel",
+    "fairy": "Fairy",
+    "stellar": "Stellar",
+    "none": "None"
   }
 }

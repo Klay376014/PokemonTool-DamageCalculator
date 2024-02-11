@@ -23,9 +23,9 @@ function changeLanguage(lang: string) {
 
 <template>
   <v-toolbar density="compact" color="primary">
-    <v-app-bar-nav-icon />
-
-    <v-toolbar-title>{{ $t("title") }}</v-toolbar-title>
+    <v-toolbar-title class="text-subtitle-2 text-sm-h6 flex-basis-0">
+      {{ $t("title") }}
+    </v-toolbar-title>
 
     <v-spacer />
 
@@ -51,5 +51,7 @@ function changeLanguage(lang: string) {
 </template>
 
 <style scoped>
-
+.v-toolbar-title {
+  flex-basis: auto;
+}
 </style>

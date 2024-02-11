@@ -4,20 +4,24 @@
 <template>
   <div>
     <toolbar />
-    <v-container class="d-flex justify-center">
-      <v-row>
-        <v-col class="mx-auto" cols="12" md="6">
+    <v-container>
+      <v-row class="pt-8">
+        <v-col cols="12" md="6" class="px-0 px-sm-2 px-md-3">
           <div class="text-h4 mb-3">
-            <v-icon icon="mdi-sword-cross" class="text-h5 text-primary" />
-            Attcker
+            <div class="d-flex align-center">
+              <v-icon icon="mdi-sword-cross" class="text-h5 text-primary mr-3" />
+              <p>Attacker</p>
+            </div>
           </div>
           <pokemon-card />
         </v-col>
 
-        <v-col class="mx-auto" cols="12" md="6">
+        <v-col cols="12" md="6" class="px-0 px-sm-2 px-md-3">
           <div class="text-h4 mb-3">
-            <v-icon icon="mdi-shield-half-full" class="text-h5 text-secondary" />
-            Defender
+            <div class="d-flex align-center">
+              <v-icon icon="mdi-shield-half-full" class="text-h5 text-secondary mr-3" />
+              <p>Defender</p>
+            </div>
           </div>
           <pokemon-card />
         </v-col>

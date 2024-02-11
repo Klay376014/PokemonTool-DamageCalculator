@@ -4,12 +4,20 @@
   "field": {
     "title": "場上狀況"
   },
+  "stat": {
+    "iv": "個體",
+    "ev": "努力",
+    "stat": "實數",
+    "stage": "階段"
+  },
   "open": "open",
   "close": "close",
   "input": {
     "clear": "clear"
   },
   "choosePokemon": "選擇寶可夢",
+  "condition": "其他條件",
+  "terastal": "太晶化",
   "pokemon": {
     "bulbasaur": "妙蛙種子",
     "ivysaur": "妙蛙草",
@@ -1034,6 +1042,25 @@
     "terapagos": "太樂巴戈斯"
   },
   "type": {
-
+    "fire": "火",
+    "water": "水",
+    "grass": "草",
+    "electric": "電",
+    "normal": "普",
+    "flying": "飛",
+    "ice": "冰",
+    "fighting": "格",
+    "poison": "毒",
+    "ghost": "鬼",
+    "psychic": "超",
+    "bug": "蟲",
+    "rock": "岩",
+    "ground": "地",
+    "dragon": "龍",
+    "dark": "惡",
+    "steel": "鋼",
+    "fairy": "妖",
+    "stellar": "星",
+    "none": "無"
   }
 }

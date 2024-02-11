@@ -1,10 +1,18 @@
 {
   "hello": "ようこそポケモンの世界へ！",
-  "title": "ポケモンダメージ計算（SV環境対応）",
+  "title": "ダメージ計算（SV環境対応）",
   "field": {
     "title": "環境"
   },
+  "stat": {
+    "iv": "個体",
+    "ev": "努力",
+    "stat": "実数",
+    "stage": "ランク"
+  },
   "choosePokemon": "ポケモン",
+  "condition": "他条件",
+  "terastal": "テラスタル",
   "pokemon": {
     "bulbasaur": "フシギダネ",
     "ivysaur": "フシギソウ",
@@ -1029,6 +1037,25 @@
     "terapagos": "テラパゴス"
   },
   "type": {
-
+    "fire": "ほのお",
+    "water": "みず",
+    "grass": "くさ",
+    "electric": "でんき",
+    "normal": "ノーマル",
+    "flying": "ひこう",
+    "ice": "こおり",
+    "fighting": "かくとう",
+    "poison": "どく",
+    "ghost": "ゴースト",
+    "psychic": "エスパー",
+    "bug": "むし",
+    "rock": "いわ",
+    "ground": "じめん",
+    "dragon": "ドラゴン",
+    "dark": "あく",
+    "steel": "はがね",
+    "fairy": "フェアリー",
+    "stellar": "ステラ",
+    "none": "なし"
   }
 }
