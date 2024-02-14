@@ -12,10 +12,9 @@ function showData(value: string | null) {
 </script>
 
 <template>
-  <div class="w-100">
+  <div>
     <v-card
-      class="mx-auto px-4"
-      max-width="630"
+      class="mx-0 px-0 px-lg-4"
     >
       <pokemon-info />
       <v-autocomplete
