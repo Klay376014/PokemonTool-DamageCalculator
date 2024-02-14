@@ -11,8 +11,13 @@
     "stage": "Stages"
   },
   "choosePokemon": "Choose Pokemon",
+  "chooseMove": "Choose Move",
+  "chooseAbility": "Choose Ability",
+  "chooseItem": "Choose Item",
   "condition": "Condition",
   "terastal": "Terastal",
+  "Physical": "Physical",
+  "Special": "Special",
   "pokemon": {
     "bulbasaur": "Bulbasaur",
     "ivysaur": "Ivysaur",

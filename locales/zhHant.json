@@ -16,7 +16,12 @@
     "clear": "clear"
   },
   "choosePokemon": "選擇寶可夢",
+  "chooseMove": "選擇招式",
+  "chooseAbility": "選擇特性",
+  "chooseItem": "選擇道具",
   "condition": "其他條件",
+  "Physical": "物理",
+  "Special": "特殊",
   "terastal": "太晶化",
   "pokemon": {
     "bulbasaur": "妙蛙種子",

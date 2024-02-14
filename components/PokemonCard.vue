@@ -31,7 +31,7 @@ function showData(value: string | null) {
         @update:model-value="item => showData(item)"
       />
       <pokemon-stat />
-
+      <pokemon-move />
       <v-card-actions>
         <v-btn
           color="purple-lighten-2"
