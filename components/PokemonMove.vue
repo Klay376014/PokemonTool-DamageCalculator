@@ -32,15 +32,13 @@ function showData(value: string | null) {
       :label="$t('chooseMove')"
       :items="moveList"
       :loading="loading"
-      :item-value="item => item"
-      :item-title="item => item"
-      :item-props="item => itemProps(item)"
+      :item-props="itemProps"
       class="px-2 w-50"
       bg-color="transparent"
       variant="outlined"
       no-data-text="No Move found"
       density="compact"
-      @update:model-value="item => showData(item)"
+      @update:model-value="showData"
     />
   </div>
 </template>
