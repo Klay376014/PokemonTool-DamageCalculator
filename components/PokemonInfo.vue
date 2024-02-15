@@ -30,7 +30,7 @@
                 <v-img
                   max-width="24"
                   max-height="24"
-                  src="/terastal.png"
+                  src="/terastal.webp"
                   style="cursor:pointer"
                 />
               </div>

@@ -14,9 +14,9 @@ const languages = [
   { text: '中文', value: 'zhHant' },
   { text: 'English', value: 'en' },
   { text: '日本語', value: 'ja' },
-]
+] as const
 
-function changeLanguage(lang: string) {
+function changeLanguage(lang: (typeof languages)[number]['value']) {
   locale.value = lang
 }
 </script>

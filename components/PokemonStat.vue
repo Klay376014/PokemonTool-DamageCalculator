@@ -1,27 +1,86 @@
 <script setup lang="ts">
+import { Pokemon } from 'vgc_data_wrapper'
+
 const stages = ['+6', '+5', '+4', '+3', '+2', '+1', '0', '-1', '-2', '-3', '-4', '-5', '-6']
 
-const natureEffect: Ref<{
-  [key: string]: string
+// 自肥式串接
+const pokemon = new Pokemon({
+  baseStat: {
+    hp: 87,
+    attack: 60,
+    defense: 95,
+    specialAttack: 133,
+    specialDefense: 91,
+    speed: 84,
+  },
+  effortValues: {
+    hp: 252,
+    specialAttack: 252,
+    speed: 4
+  }
+})
+const pokemonRef = ref(pokemon)
+const stats = {
+  atk: 'Atk',
+  def: 'Def',
+  spa: 'Spa',
+  spd: 'Spd',
+  spe: 'Spe',
+} as const
+
+type Stat = keyof typeof stats
+
+const nature: Ref<{
+  plus: Stat | ''
+  minus: Stat | ''
 }> = ref({
-  atk: '',
-  def: '',
-  spa: '',
-  spd: '',
-  spe: ''
+  plus: '',
+  minus: '',
 })
 
-function setMinus(stat: string) {
-  if (natureEffect.value[stat] !== '')
-    natureEffect.value[stat] = ''
-  else
-    natureEffect.value[stat] = 'text-secondary'
+function setPlusNature(key: Stat) {
+  if (nature.value.minus === key) {
+    nature.value.minus = ''
+    pokemonRef.value.setNature({ minus: undefined })
+    return
+  }
+  nature.value.plus = key
+  pokemonRef.value.setNature({ plus: convertStatKey(key) })
 }
-function setPlus(stat: string) {
-  if (natureEffect.value[stat] !== '')
-    natureEffect.value[stat] = ''
-  else
-    natureEffect.value[stat] = 'text-primary'
+
+function setMinusNature(key: Stat) {
+  if (nature.value.plus === key) {
+    nature.value.plus = ''
+    pokemonRef.value.setNature({ plus: undefined })
+    return
+  }
+  nature.value.minus = key
+  pokemonRef.value.setNature({ minus: convertStatKey(key) })
+}
+
+function getColor(key: Stat): string {
+  if (nature.value.plus === key)
+    return 'text-primary'
+
+  if (nature.value.minus === key)
+    return 'text-secondary'
+
+  return ''
+}
+
+function convertStatKey(key: Stat): typeof pokemon.nature['minus'] {
+  switch (key) {
+  case 'atk':
+    return 'attack'
+  case 'def':
+    return 'defense'
+  case 'spa':
+    return 'specialAttack'
+  case 'spd':
+    return 'specialDefense'
+  case 'spe':
+    return 'speed'
+  }
 }
 </script>
 
@@ -40,48 +99,12 @@ function setPlus(stat: string) {
         <th class="text-center px-0 pr-md-3">
           <span class="font-weight-bold">Hp</span>
         </th>
-        <th class="text-center px-0 pr-md-3">
-          <v-icon id="atk" class="minus" @click="setMinus($event.target.id)">
+        <th v-for="(label, key) in stats" :key="key" class="text-center px-0 pr-md-3">
+          <v-icon class="minus" @click="setMinusNature(key)">
             mdi-minus-thick
           </v-icon>
-          <span class="font-weight-bold" :class="natureEffect.atk">Atk</span>
-          <v-icon id="atk" class="plus" @click="setPlus($event.target.id)">
-            mdi-plus-thick
-          </v-icon>
-        </th>
-        <th class="text-center px-0 pr-md-3">
-          <v-icon id="def" class="minus" @click="setMinus($event.target.id)">
-            mdi-minus-thick
-          </v-icon>
-          <span class="font-weight-bold" :class="natureEffect.def">Def</span>
-          <v-icon id="def" class="plus" @click="setPlus($event.target.id)">
-            mdi-plus-thick
-          </v-icon>
-        </th>
-        <th class="text-center px-0 pr-md-3">
-          <v-icon id="spa" class="minus" @click="setMinus($event.target.id)">
-            mdi-minus-thick
-          </v-icon>
-          <span class="font-weight-bold" :class="natureEffect.spa">Spa</span>
-          <v-icon id="spa" class="plus" @click="setPlus($event.target.id)">
-            mdi-plus-thick
-          </v-icon>
-        </th>
-        <th class="text-center px-0 pr-md-3">
-          <v-icon id="spd" class="minus" @click="setMinus($event.target.id)">
-            mdi-minus-thick
-          </v-icon>
-          <span class="font-weight-bold" :class="natureEffect.spd">Spd</span>
-          <v-icon id="spd" class="plus" @click="setPlus($event.target.id)">
-            mdi-plus-thick
-          </v-icon>
-        </th>
-        <th class="text-center px-0 pr-md-3">
-          <v-icon id="spe" class="minus" @click="setMinus($event.target.id)">
-            mdi-minus-thick
-          </v-icon>
-          <span class="font-weight-bold" :class="natureEffect.spe">Spe</span>
-          <v-icon id="spe" class="plus" @click="setPlus($event.target.id)">
+          <span class="font-weight-bold" :class="getColor(key)">{{ label }}</span>
+          <v-icon class="plus" @click="setPlusNature(key)">
             mdi-plus-thick
           </v-icon>
         </th>
@@ -108,12 +131,12 @@ function setPlus(stat: string) {
       </tr>
       <tr>
         <td>{{ $t('stat.stat') }}</td>
-        <td><input type="number" class="py-2" min="0" max="300" disabled value="162"></td>
-        <td><input type="number" class="py-2" min="0" max="300" disabled value="80"></td>
-        <td><input type="number" class="py-2" min="0" max="300" disabled value="115"></td>
-        <td><input type="number" class="py-2" min="0" max="300" disabled value="153"></td>
-        <td><input type="number" class="py-2" min="0" max="300" disabled value="111"></td>
-        <td><input type="number" class="py-2" min="0" max="300" disabled value="104"></td>
+        <td><input type="number" class="py-2" min="0" max="300" disabled :value="pokemonRef.getStat('hp')"></td>
+        <td><input type="number" class="py-2" min="0" max="300" disabled :value="pokemonRef.getStat('attack')"></td>
+        <td><input type="number" class="py-2" min="0" max="300" disabled :value="pokemonRef.getStat('defense')"></td>
+        <td><input type="number" class="py-2" min="0" max="300" disabled :value="pokemonRef.getStat('specialAttack')"></td>
+        <td><input type="number" class="py-2" min="0" max="300" disabled :value="pokemonRef.getStat('specialDefense')"></td>
+        <td><input type="number" class="py-2" min="0" max="300" disabled :value="pokemonRef.getStat('speed')"></td>
       </tr>
       <tr>
         <td>{{ $t('stat.stage') }}</td>
