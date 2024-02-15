@@ -11,7 +11,12 @@
     "stage": "ランク"
   },
   "choosePokemon": "ポケモン",
+  "chooseMove": "わざ",
+  "chooseAbility": "とくせい",
+  "chooseItem": "アイテム",
   "condition": "他条件",
+  "Physical": "物理",
+  "Special": "特殊",
   "terastal": "テラスタル",
   "pokemon": {
     "bulbasaur": "フシギダネ",
