@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import json from '../assets/pokemonMove.json'
+import moves from '../assets/pokemonMove.json'
 
 const { t } = useI18n()
 
 const loading = ref(false)
 
-const moveList = Object.keys(json)
-const moveDetail: { [key: string]: any } = json
+type Move = keyof typeof moves
 
-function itemProps(item: string) {
-  const type: string = moveDetail[item].type
-  const basePower = moveDetail[item].basePower
-  const category = moveDetail[item].category
+const moveList = Object.keys(moves) as unknown as Move[]
+
+function itemProps(item: Move) {
+  const type: string = moves[item].type
+  const basePower = moves[item].basePower
+  const category = moves[item].category
   return {
     title: item,
     subtitle: `${t(`type.${type.toLowerCase()}`)}/${basePower}/${t(`${category}`)}`
