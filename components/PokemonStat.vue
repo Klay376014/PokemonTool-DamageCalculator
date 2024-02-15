@@ -3,6 +3,23 @@ import { Pokemon } from 'vgc_data_wrapper'
 
 const stages = ['+6', '+5', '+4', '+3', '+2', '+1', '0', '-1', '-2', '-3', '-4', '-5', '-6']
 
+// 自肥式串接
+const pokemon = new Pokemon({
+  baseStat: {
+    hp: 87,
+    attack: 60,
+    defense: 95,
+    specialAttack: 133,
+    specialDefense: 91,
+    speed: 84,
+  },
+  effortValues: {
+    hp: 252,
+    specialAttack: 252,
+    speed: 4
+  }
+})
+const pokemonRef = ref(pokemon)
 const stats = {
   atk: 'Atk',
   def: 'Def',
@@ -24,17 +41,21 @@ const nature: Ref<{
 function setPlusNature(key: Stat) {
   if (nature.value.minus === key) {
     nature.value.minus = ''
+    pokemonRef.value.setNature({ minus: undefined })
     return
   }
   nature.value.plus = key
+  pokemonRef.value.setNature({ plus: convertStatKey(key) })
 }
 
 function setMinusNature(key: Stat) {
   if (nature.value.plus === key) {
     nature.value.plus = ''
+    pokemonRef.value.setNature({ plus: undefined })
     return
   }
   nature.value.minus = key
+  pokemonRef.value.setNature({ minus: convertStatKey(key) })
 }
 
 function getColor(key: Stat): string {
@@ -47,23 +68,20 @@ function getColor(key: Stat): string {
   return ''
 }
 
-// 自肥式串接
-const pokemon = new Pokemon({
-  baseStat: {
-    hp: 87,
-    attack: 60,
-    defense: 95,
-    specialAttack: 133,
-    specialDefense: 91,
-    speed: 84,
-  },
-  effortValues: {
-    hp: 252,
-    specialAttack: 252,
-    speed: 4
+function convertStatKey(key: Stat): typeof pokemon.nature['minus'] {
+  switch (key) {
+  case 'atk':
+    return 'attack'
+  case 'def':
+    return 'defense'
+  case 'spa':
+    return 'specialAttack'
+  case 'spd':
+    return 'specialDefense'
+  case 'spe':
+    return 'speed'
   }
-})
-const pokemonRef = ref(pokemon)
+}
 </script>
 
 <template>
