@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Pokemon } from 'vgc_data_wrapper'
+
 const stages = ['+6', '+5', '+4', '+3', '+2', '+1', '0', '-1', '-2', '-3', '-4', '-5', '-6']
 
 const stats = {
@@ -44,6 +46,24 @@ function getColor(key: Stat): string {
 
   return ''
 }
+
+// 自肥式串接
+const pokemon = new Pokemon({
+  baseStat: {
+    hp: 87,
+    attack: 60,
+    defense: 95,
+    specialAttack: 133,
+    specialDefense: 91,
+    speed: 84,
+  },
+  effortValues: {
+    hp: 252,
+    specialAttack: 252,
+    speed: 4
+  }
+})
+const pokemonRef = ref(pokemon)
 </script>
 
 <template>
@@ -93,12 +113,12 @@ function getColor(key: Stat): string {
       </tr>
       <tr>
         <td>{{ $t('stat.stat') }}</td>
-        <td><input type="number" class="py-2" min="0" max="300" disabled value="162"></td>
-        <td><input type="number" class="py-2" min="0" max="300" disabled value="80"></td>
-        <td><input type="number" class="py-2" min="0" max="300" disabled value="115"></td>
-        <td><input type="number" class="py-2" min="0" max="300" disabled value="153"></td>
-        <td><input type="number" class="py-2" min="0" max="300" disabled value="111"></td>
-        <td><input type="number" class="py-2" min="0" max="300" disabled value="104"></td>
+        <td><input type="number" class="py-2" min="0" max="300" disabled :value="pokemonRef.getStat('hp')"></td>
+        <td><input type="number" class="py-2" min="0" max="300" disabled :value="pokemonRef.getStat('attack')"></td>
+        <td><input type="number" class="py-2" min="0" max="300" disabled :value="pokemonRef.getStat('defense')"></td>
+        <td><input type="number" class="py-2" min="0" max="300" disabled :value="pokemonRef.getStat('specialAttack')"></td>
+        <td><input type="number" class="py-2" min="0" max="300" disabled :value="pokemonRef.getStat('specialDefense')"></td>
+        <td><input type="number" class="py-2" min="0" max="300" disabled :value="pokemonRef.getStat('speed')"></td>
       </tr>
       <tr>
         <td>{{ $t('stat.stage') }}</td>
