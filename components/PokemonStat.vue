@@ -20,67 +20,42 @@ const pokemon = new Pokemon({
   }
 })
 const pokemonRef = ref(pokemon)
+
+type Stat = keyof Pokemon['statStage']
+
 const stats = {
-  atk: 'Atk',
-  def: 'Def',
-  spa: 'Spa',
-  spd: 'Spd',
-  spe: 'Spe',
-} as const
-
-type Stat = keyof typeof stats
-
-const nature: Ref<{
-  plus: Stat | ''
-  minus: Stat | ''
-}> = ref({
-  plus: '',
-  minus: '',
-})
+  attack: 'Atk',
+  defense: 'Def',
+  specialAttack: 'Spa',
+  specialDefense: 'Spd',
+  speed: 'Spe',
+} satisfies Record<Stat, string>
 
 function setPlusNature(key: Stat) {
-  if (nature.value.minus === key) {
-    nature.value.minus = ''
+  if (pokemonRef.value.nature.minus === key) {
     pokemonRef.value.setNature({ minus: undefined })
     return
   }
-  nature.value.plus = key
-  pokemonRef.value.setNature({ plus: convertStatKey(key) })
+  pokemonRef.value.setNature({ plus: key })
 }
 
 function setMinusNature(key: Stat) {
-  if (nature.value.plus === key) {
-    nature.value.plus = ''
+  if (pokemonRef.value.nature.plus === key) {
     pokemonRef.value.setNature({ plus: undefined })
     return
   }
-  nature.value.minus = key
-  pokemonRef.value.setNature({ minus: convertStatKey(key) })
+  pokemonRef.value.nature.minus = key
+  pokemonRef.value.setNature({ minus: key })
 }
 
 function getColor(key: Stat): string {
-  if (nature.value.plus === key)
+  if (pokemonRef.value.nature.plus === key)
     return 'text-primary'
 
-  if (nature.value.minus === key)
+  if (pokemonRef.value.nature.minus === key)
     return 'text-secondary'
 
   return ''
-}
-
-function convertStatKey(key: Stat): typeof pokemon.nature['minus'] {
-  switch (key) {
-  case 'atk':
-    return 'attack'
-  case 'def':
-    return 'defense'
-  case 'spa':
-    return 'specialAttack'
-  case 'spd':
-    return 'specialDefense'
-  case 'spe':
-    return 'speed'
-  }
 }
 </script>
 
