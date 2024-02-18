@@ -22,7 +22,7 @@ function changeLanguage(lang: (typeof languages)[number]['value']) {
 </script>
 
 <template>
-  <v-toolbar density="compact" color="primary">
+  <v-toolbar density="compact" color="primary-darken-1">
     <v-toolbar-title class="text-subtitle-2 text-sm-h6 flex-basis-0">
       {{ $t("title") }}
     </v-toolbar-title>

@@ -12,6 +12,7 @@ const pokemon = new Pokemon({
     specialDefense: 91,
     speed: 84,
   },
+  level: 50
 })
 const pokemonRef = ref(pokemon)
 type StatKeys = keyof (Pokemon['stats'] & object) // use & object to filter out undefined
@@ -51,11 +52,41 @@ function getNatureToggleColor(key: StatKeysWithoutHP): string {
 
   return ''
 }
+
+const getEvRemaining = computed((): number => {
+  return 508 - Object.values(pokemonRef.value.effortValues).reduce((sum, value) => sum + value, 0)
+})
+
+function checkIv(key: StatKeys): void {
+  if (!pokemonRef.value.individualValues[key] || pokemonRef.value.individualValues[key] < 0)
+    pokemonRef.value.individualValues[key] = 0
+  else if (pokemonRef.value.individualValues[key] > 31)
+    pokemonRef.value.individualValues[key] = 31
+}
+
+function checkEv(key: StatKeys): void {
+  if (!pokemonRef.value.effortValues[key] || pokemonRef.value.effortValues[key] < 0)
+    pokemonRef.value.effortValues[key] = 0
+  else if (pokemonRef.value.effortValues[key] > 252)
+    pokemonRef.value.effortValues[key] = 252
+  else if (pokemonRef.value.effortValues[key] % 4 !== 0)
+    pokemonRef.value.effortValues[key] = Math.round(pokemonRef.value.effortValues[key] / 4) * 4
+}
+
+function setEvZero(key: StatKeys): void {
+  pokemonRef.value.effortValues[key] = 0
+}
+
+function setEvMax(key: StatKeys): void {
+  pokemonRef.value.effortValues[key] = 252
+}
+
 function setStatStages(key: StatKeysWithoutHP, value: typeof stages[number] | null) {
   if (!value)
     return
   pokemonRef.value.statStage[key] = +value
 }
+
 function getStageModelValue(val: number): typeof stages[number] {
   return (val > 0 ? `+${val}` : val === 0 ? '0' : `${val}`) as typeof stages[number]
 }
@@ -67,10 +98,10 @@ function getStageModelValue(val: number): typeof stages[number] {
       <tr>
         <th class="px-0">
           <div class="d-flex align-center justify-center">
-            <p class="d-none d-sm-block mr-2">
+            <p class="d-none d-sm-block mr-1">
               lv
             </p>
-            <input type="number" class="py-2 w-50" min="0" max="100" value="50">
+            <input v-model="pokemonRef.level" type="number" class="py-2 w-75" min="1" max="100">
           </div>
         </th>
         <th v-for="(label, key) in stats" :key="key" class="text-center px-0 pr-md-3">
@@ -91,13 +122,21 @@ function getStageModelValue(val: number): typeof stages[number] {
       <tr>
         <td>{{ $t('stat.iv') }}</td>
         <td v-for="(_, key) in stats" :key="key">
-          <input v-model="pokemonRef.individualValues[key]" :name="key" type="number" class="py-2" min="0" max="31">
+          <input v-model="pokemonRef.individualValues[key]" :name="key" type="number" class="py-2" min="0" max="31" @change="checkIv(key)">
         </td>
       </tr>
       <tr>
-        <td>{{ $t('stat.ev') }}<br><span class="font-weight-bold">{{ 508 }}</span></td>
+        <td>{{ $t('stat.ev') }}<br><span class="font-weight-bold" :class="{ 'text-secondary': getEvRemaining < 0 }">{{ getEvRemaining }}</span></td>
         <td v-for="(_, key) in stats" :key="key">
-          <input v-model="pokemonRef.effortValues[key]" :name="key" type="number" class="py-2" min="0" max="252" step="4">
+          <input v-model="pokemonRef.effortValues[key]" :name="key" type="number" class="py-2" min="0" max="252" step="4" @change="checkEv(key)">
+          <div class="d-flex justify-center pb-2">
+            <span class="px-2 evButton evButton-1" @click="setEvZero(key)">
+              0
+            </span>
+            <span class="px-2 ml-sm-1 mr-sm-2 evButton evButton-2" @click="setEvMax(key)">
+              M
+            </span>
+          </div>
         </td>
       </tr>
       <tr>
@@ -151,6 +190,40 @@ input:disabled {
   }
   &.plus {
     font-size: 10px;
+  }
+}
+
+.evButton {
+  background-color: #533194;
+  cursor: pointer;
+  border-radius: 4px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  list-style: none;
+  margin: 0;
+  text-align: center;
+  &-1{
+    background-color: #C42F3D;
+    &:hover {
+      background-color: #da5562;
+    }
+    &:focus {
+      background-color: #C42F3D;
+    }
+  }
+  &-2{
+    background-color: #533194;
+    &:hover {
+      background-color: #664f92;
+    }
+    &:focus {
+      background-color: #533194;
+    }
   }
 }
 </style>
