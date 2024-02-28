@@ -2,7 +2,35 @@
   "hello": "製作出記錄著世間所有寶可夢的完美的圖鑑！那就是我的夢想！",
   "title": "寶可夢傷害計算機（朱紫對應）",
   "field": {
-    "title": "場上狀況"
+    "title": "場上狀況",
+    "Single": "單打",
+    "Double": "雙打",
+    "weather": {
+      "title": "天氣",
+      "Sun": "晴天",
+      "Rain": "雨天",
+      "Sand": "沙暴",
+      "Snow": "下雪"
+    },
+    "terrain": {
+      "title": "場地",
+      "Electric": "電氣",
+      "Grassy": "青草",
+      "Misty": "薄霧",
+      "Psychic": "精神"
+    },
+    "ruin": {
+      "title": "災禍",
+      "Tablets": "簡",
+      "Sword": "劍",
+      "Vessel": "鼎",
+      "Beads": "玉"
+    },
+    "aura": {
+      "title": "氣場",
+      "Fairy": "妖精",
+      "Dark": "暗黑"
+    }
   },
   "stat": {
     "iv": "個體",

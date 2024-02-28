@@ -2,7 +2,35 @@
   "hello": "ようこそポケモンの世界へ！",
   "title": "ダメージ計算（SV環境対応）",
   "field": {
-    "title": "環境"
+    "title": "環境",
+    "Single": "シングル",
+    "Double": "ダブル",
+    "weather": {
+      "title": "天気",
+      "Sun": "はれ",
+      "Rain": "あめ",
+      "Sand": "すな",
+      "Snow": "ゆき"
+    },
+    "terrain": {
+      "title": "フィールド",
+      "Electric": "エレキ",
+      "Grassy": "グラス",
+      "Misty": "ミスト",
+      "Psychic": "サイコ"
+    },
+    "ruin": {
+      "title": "わざわい",
+      "Tablets": "おぶた",
+      "Sword": "つるぎ",
+      "Vessel": "うつわ",
+      "Beads": "たま"
+    },
+    "aura": {
+      "title": "オーラ",
+      "Fairy": "フェアリー",
+      "Dark": "ダーク"
+    }
   },
   "stat": {
     "iv": "個体",

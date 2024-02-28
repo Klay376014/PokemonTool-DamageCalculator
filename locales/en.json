@@ -2,7 +2,35 @@
   "hello": "Wow, you are Ryan? The BEST player in Taiwan?",
   "title": "Pokémon Damage Calculator",
   "field": {
-    "title": "Field"
+    "title": "Field",
+    "Single": "Single",
+    "Double": "Double",
+    "weather": {
+      "title": "Weather",
+      "Sun": "Sun",
+      "Rain": "Rain",
+      "Sand": "Sand",
+      "Snow": "Snow"
+    },
+    "terrain": {
+      "title": "Terrain",
+      "Electric": "Electric",
+      "Grassy": "Grassy",
+      "Misty": "Misty",
+      "Psychic": "Psychic"
+    },
+    "ruin": {
+      "title": "Ruin",
+      "Tablets": "Tablets",
+      "Sword": "Sword",
+      "Vessel": "Vessel",
+      "Beads": "Beads"
+    },
+    "aura": {
+      "title": "Aura",
+      "Fairy": "Fairy",
+      "Dark": "Dark"
+    }
   },
   "stat": {
     "iv": "IV",
