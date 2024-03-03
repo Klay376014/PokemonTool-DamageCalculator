@@ -19,6 +19,14 @@ function itemProps(item: Move) {
     subtitle: `${t(`type.${type.toLowerCase()}`)}/${basePower}/${t(`${category}`)}`
   }
 }
+
+function customFilter(itemText: string, queryText: string, item: any) {
+  const searchText = queryText.toLowerCase()
+  const textOne = item.value.toLowerCase().includes(searchText.toLowerCase())
+  const textTwo = itemText.toLowerCase().includes(searchText)
+  return textOne || textTwo
+}
+
 function showData(value: string | null) {
   if (!value)
     return
@@ -33,11 +41,13 @@ function showData(value: string | null) {
       :items="moveList"
       :loading="loading"
       :item-props="itemProps"
+      :custom-filter="customFilter"
       class="px-2 w-50"
       bg-color="transparent"
       variant="outlined"
-      no-data-text="No Move found"
+      no-data-text="No move found"
       density="compact"
+      hide-details
       @update:model-value="showData"
     />
   </div>

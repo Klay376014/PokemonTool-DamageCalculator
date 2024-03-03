@@ -2,13 +2,6 @@
 import json from '../locales/en.json'
 
 const show = ref(false)
-const loading = ref(false)
-const pokemonList = Object.keys(json.pokemon)
-function showData(value: string | null) {
-  if (!value)
-    return
-  console.log(value)
-}
 </script>
 
 <template>
@@ -17,21 +10,11 @@ function showData(value: string | null) {
       class="mx-0 px-0 px-lg-4"
     >
       <pokemon-info />
-      <v-autocomplete
-        :label="$t('choosePokemon')"
-        :items="pokemonList"
-        :loading="loading"
-        :item-value="item => item"
-        :item-title="item => $t(`pokemon.${item}`)"
-        class="pl-2"
-        bg-color="transparent"
-        variant="outlined"
-        no-data-text="No Pokemon found"
-        density="comfortable"
-        @update:model-value="item => showData(item)"
-      />
+      <pokemon-select />
       <pokemon-stat />
-      <pokemon-move />
+      <client-only>
+        <pokemon-move />
+      </client-only>
       <v-card-actions>
         <v-btn
           color="purple-lighten-2"
@@ -51,9 +34,18 @@ function showData(value: string | null) {
       <v-expand-transition>
         <div v-show="show">
           <v-divider />
-          <v-card-text>
-            test
-          </v-card-text>
+          <client-only>
+            <v-container class="px-2">
+              <v-row>
+                <v-col cols="6">
+                  <pokemon-item />
+                </v-col>
+                <v-col cols="6">
+                  <pokemon-ability />
+                </v-col>
+              </v-row>
+            </v-container>
+          </client-only>
         </div>
       </v-expand-transition>
     </v-card>
