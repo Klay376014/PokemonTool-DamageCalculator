@@ -15,7 +15,7 @@ function itemProps(item: Move) {
   const basePower = moves[item].basePower
   const category = moves[item].category
   return {
-    title: item,
+    title: `${t(`move.${item}`)}`,
     subtitle: `${t(`type.${type.toLowerCase()}`)}/${basePower}/${t(`${category}`)}`
   }
 }
