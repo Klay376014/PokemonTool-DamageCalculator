@@ -3,7 +3,7 @@
 
 <template>
   <div>
-    <v-container class="px-1 mt-4">
+    <v-container class="mt-4 px-0">
       <v-row class="pt-8" no-gutters justify="center">
         <v-col cols="12" md="8" lg="6" class="px-0 px-sm-2 px-md-3 mb-4 mb-lg-0">
           <div class="d-flex flex-column flex-shrink-0">

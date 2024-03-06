@@ -47,7 +47,7 @@ function showData(value: string | null) {
       :loading="loading"
       :item-props="itemProps"
       :custom-filter="customFilter"
-      class="px-2 w-50"
+      class="px-2"
       bg-color="transparent"
       variant="outlined"
       no-data-text="No move found"

@@ -94,14 +94,14 @@ function getStageModelValue(val: number): typeof stages[number] {
 
 <template>
   <v-table density="comfortable">
-    <thead>
+    <thead class="">
       <tr>
         <th class="px-0">
           <div class="d-flex align-center justify-center">
             <p class="d-none d-sm-block mr-1">
               lv
             </p>
-            <input v-model="pokemonRef.level" type="number" class="py-2 w-75" min="1" max="100">
+            <input v-model="pokemonRef.level" type="number" class="py-2" min="1" max="100">
           </div>
         </th>
         <th v-for="(label, key) in stats" :key="key" class="text-center px-0 pr-md-3">
@@ -119,7 +119,7 @@ function getStageModelValue(val: number): typeof stages[number] {
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr class="w-100">
         <td>{{ $t('stat.iv') }}</td>
         <td v-for="(_, key) in stats" :key="key">
           <input v-model="pokemonRef.individualValues[key]" :name="key" type="number" class="py-2" min="0" max="31" @change="checkIv(key)">
@@ -128,7 +128,7 @@ function getStageModelValue(val: number): typeof stages[number] {
       <tr>
         <td>{{ $t('stat.ev') }}<br><span class="font-weight-bold" :class="{ 'text-secondary': getEvRemaining < 0 }">{{ getEvRemaining }}</span></td>
         <td v-for="(_, key) in stats" :key="key">
-          <input v-model="pokemonRef.effortValues[key]" :name="key" type="number" class="py-2" min="0" max="252" step="4" @change="checkEv(key)">
+          <input v-model="pokemonRef.effortValues[key]" :name="key" type="number" class="py-2 w-100" min="0" max="252" step="4" @change="checkEv(key)">
           <div class="d-flex justify-center pb-2">
             <span class="px-2 evButton evButton-1" @click="setEvZero(key)">
               0
@@ -142,7 +142,7 @@ function getStageModelValue(val: number): typeof stages[number] {
       <tr>
         <td>{{ $t('stat.stat') }}</td>
         <td v-for="(value, key) in pokemonRef.getStats()" :key="key">
-          <input :name="key" type="number" class="py-2" min="0" max="300" :value="value">
+          <input :name="key" type="number" class="py-2 w-100" min="0" max="300" :value="value">
         </td>
       </tr>
       <tr>
