@@ -6,6 +6,15 @@ export default defineNuxtConfig({
     // eslint-disable-next-line node/prefer-global/process
     baseURL: process.env.NODE_ENV === 'production' ? '/Calculator-2024ver/' : '/',
     buildAssetsDir: '/static/',
+    head: {
+      meta: [
+        {
+          name: 'viewport',
+          content:
+          'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0'
+        }
+      ],
+    }
   },
   build: {
     transpile: ['vuetify'],

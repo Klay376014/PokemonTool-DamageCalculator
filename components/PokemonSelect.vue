@@ -40,7 +40,7 @@ function showData(value: string | null) {
     :item-props="itemProps"
     :loading="loading"
     :custom-filter="customFilter"
-    class="pl-2 mb-2"
+    class="px-2 mb-2"
     bg-color="transparent"
     variant="outlined"
     no-data-text="No Pokemon found"
