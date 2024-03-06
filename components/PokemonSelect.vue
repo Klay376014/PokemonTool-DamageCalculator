@@ -16,9 +16,14 @@ function itemProps(item: AllPokemon) {
 
 function customFilter(itemText: string, queryText: string, item: any) {
   const searchText = queryText.toLowerCase()
+  const kanaText = useHiraToKata(queryText)
+  const romanToKanaText = useRomanToKatakana(queryText)
+
   const textOne = item.value.toLowerCase().includes(searchText.toLowerCase())
   const textTwo = itemText.toLowerCase().includes(searchText)
-  return textOne || textTwo
+  const textForKana = itemText.includes(kanaText)
+  const textForRomanToKana = itemText.includes(romanToKanaText)
+  return textOne || textTwo || textForKana || textForRomanToKana
 }
 
 function showData(value: string | null) {

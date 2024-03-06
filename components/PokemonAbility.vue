@@ -18,9 +18,14 @@ function itemProps(item: Ability) {
 
 function customFilter(itemText: string, queryText: string, item: any) {
   const searchText = queryText.toLowerCase()
+  const kanaText = useHiraToKata(queryText)
+  const romanToKanaText = useRomanToKatakana(queryText)
+
   const textOne = item.value.toLowerCase().includes(searchText.toLowerCase())
   const textTwo = itemText.toLowerCase().includes(searchText)
-  return textOne || textTwo
+  const textForKana = useHiraToKata(itemText).includes(kanaText)
+  const textForRomanToKana = useHiraToKata(itemText).includes(romanToKanaText)
+  return textOne || textTwo || textForRomanToKana || textForKana
 }
 
 function showData(value: string | null) {
