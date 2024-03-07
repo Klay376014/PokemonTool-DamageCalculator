@@ -1,22 +1,40 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import moves from '../assets/pokemonMove.json'
 
+const props = defineProps({
+  listType: String
+})
+const json = await import(`../assets/pokemon${props.listType}.json`)
+const defaultList = json.default
 const { t } = useI18n()
-
+const list = Object.keys(defaultList)
 const loading = ref(false)
 
-type Move = keyof typeof moves
-
-const moveList = Object.keys(moves) as unknown as Move[]
-
-function itemProps(item: Move) {
-  const type: string = moves[item].type
-  const basePower = moves[item].basePower
-  const category = moves[item].category
-  return {
-    title: `${t(`move.${item}`)}`,
-    subtitle: `${t(`type.${type.toLowerCase()}`)}/${basePower}/${t(`${category}`)}`
+function itemProps(item: string) {
+  switch (props.listType) {
+  case 'Move': {
+    const type: string = defaultList[item].type
+    const basePower = defaultList[item].basePower
+    const category = defaultList[item].category
+    return {
+      title: `${t(`move.${item}`)}`,
+      subtitle: `${t(`type.${type ? type.toLowerCase() : type}`)}/${basePower}/${t(`${category}`)}`
+    }
+  }
+  case 'Item': {
+    const effect: string = defaultList[item].effect
+    return {
+      title: t(`item.${item}`),
+      subtitle: effect
+    }
+  }
+  case 'Ability': {
+    const effect: string = defaultList[item].effect
+    return {
+      title: t(`ability.${item}`),
+      subtitle: effect
+    }
+  }
   }
 }
 
@@ -42,15 +60,15 @@ function showData(value: string | null) {
 <template>
   <div class="mt-2">
     <v-autocomplete
-      :label="$t('chooseMove')"
-      :items="moveList"
+      :label="$t(`choose${props.listType}`)"
+      :items="list"
       :loading="loading"
       :item-props="itemProps"
       :custom-filter="customFilter"
       class="px-2"
       bg-color="transparent"
       variant="outlined"
-      no-data-text="No move found"
+      :no-data-text="`No ${props.listType} found`"
       density="compact"
       hide-details
       @update:model-value="showData"
