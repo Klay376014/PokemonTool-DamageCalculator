@@ -47,6 +47,11 @@ export default defineNuxtPlugin((app) => {
       locale: 'zhHant',
       fallback: 'en',
       messages: { zhHant, en, ja }
+    },
+    display: {
+      thresholds: {
+        xl: 1925,
+      },
     }
   })
   app.vueApp.use(vuetify)
