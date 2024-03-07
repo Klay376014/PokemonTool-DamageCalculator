@@ -13,8 +13,7 @@
     "lint:fix": "eslint . --fix",
     "gql:codegen": "graphql-codegen",
     "gql:codegen-watch": "graphql-codegen --watch",
-    "test": "vitest",
-    "tauri": "tauri"
+    "test": "vitest"
   },
   "dependencies": {
     "@mdi/font": "^7.3.67",
@@ -33,7 +32,6 @@
     "@nuxt/devtools": "latest",
     "@nuxtjs/apollo": "^5.0.0-alpha.11",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
-    "@tauri-apps/cli": "^1.5.10",
     "@total-typescript/ts-reset": "^0.5.1",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
