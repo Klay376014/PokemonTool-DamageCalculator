@@ -213,7 +213,7 @@
     "target": "normal",
     "type": "Normal"
   },
-  "Payday": {
+  "Pay Day": {
     "num": 6,
     "accuracy": 100,
     "basePower": 40,
@@ -623,7 +623,7 @@
     "target": "normal",
     "type": "Normal"
   },
-  "Head Butt": {
+  "Headbutt": {
     "num": 29,
     "accuracy": 100,
     "basePower": 70,
@@ -842,7 +842,7 @@
     "target": "normal",
     "type": "Normal"
   },
-  "Takedown": {
+  "Take Down": {
     "num": 36,
     "accuracy": 85,
     "basePower": 90,
@@ -1036,7 +1036,7 @@
     "target": "normal",
     "type": "Normal"
   },
-  "Boom Burst": {
+  "Boomburst": {
     "num": 586,
     "accuracy": 100,
     "basePower": 140,
@@ -1171,7 +1171,7 @@
     "target": "normal",
     "type": "Water"
   },
-  "Tripledive": {
+  "Triple Dive": {
     "num": 865,
     "accuracy": 95,
     "basePower": 30,
@@ -1986,7 +1986,7 @@
     "target": "normal",
     "type": "Fire"
   },
-  "Firelash": {
+  "Fire Lash": {
     "num": 680,
     "accuracy": 100,
     "basePower": 80,
@@ -2859,7 +2859,7 @@
     "target": "normal",
     "type": "Ground"
   },
-  "Stomping Ttantrum": {
+  "Stomping Tantrum": {
     "num": 707,
     "accuracy": 100,
     "basePower": 75,
@@ -3342,7 +3342,7 @@
     "target": "normal",
     "type": "Rock"
   },
-  "Accele Rock": {
+  "Accelerock": {
     "num": 709,
     "accuracy": 100,
     "basePower": 40,
@@ -3916,7 +3916,7 @@
     "target": "normal",
     "type": "Ghost"
   },
-  "Shadowclaw": {
+  "Shadow Claw": {
     "num": 421,
     "accuracy": 100,
     "basePower": 70,
@@ -3992,7 +3992,7 @@
     "target": "normal",
     "type": "Ghost"
   },
-  "Phantomforce": {
+  "Phantom Force": {
     "num": 566,
     "accuracy": 100,
     "basePower": 90,
@@ -5509,7 +5509,7 @@
     "target": "normal",
     "type": "Grass"
   },
-  "Megadrain": {
+  "Mega Drain": {
     "num": 72,
     "accuracy": 100,
     "basePower": 40,
@@ -5573,7 +5573,7 @@
     "target": "normal",
     "type": "Grass"
   },
-  "Trail Blaze": {
+  "Trailblaze": {
     "num": 885,
     "accuracy": 100,
     "basePower": 50,
@@ -6052,7 +6052,7 @@
     "target": "normal",
     "type": "Grass"
   },
-  "Chloro Blast": {
+  "Chloroblast": {
     "num": 835,
     "accuracy": 95,
     "basePower": 150,
@@ -6322,7 +6322,7 @@
     "target": "normal",
     "type": "Dark"
   },
-  "Lash Out - 2": {
+  "Lash Out-2": {
     "num": 808,
     "accuracy": 100,
     "basePower": 150,
@@ -6553,7 +6553,7 @@
     "target": "normal",
     "type": "Psychic"
   },
-  "Psy Beam": {
+  "Psybeam": {
     "num": 60,
     "accuracy": 100,
     "basePower": 65,
@@ -7020,7 +7020,7 @@
     "target": "normal",
     "type": "Electric"
   },
-  "Electro Web": {
+  "Electroweb": {
     "num": 527,
     "accuracy": 95,
     "basePower": 55,
@@ -8274,7 +8274,7 @@
     "target": "normal",
     "type": "Bug"
   },
-  "U-Turn": {
+  "U-turn": {
     "num": 369,
     "accuracy": 100,
     "basePower": 70,
@@ -8439,7 +8439,7 @@
     "target": "normal",
     "type": "Bug"
   },
-  "Mega Horn": {
+  "Megahorn": {
     "num": 224,
     "accuracy": 85,
     "basePower": 120,
