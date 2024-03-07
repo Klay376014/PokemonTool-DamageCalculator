@@ -15,10 +15,23 @@ function itemProps(item: Move) {
   const basePower = moves[item].basePower
   const category = moves[item].category
   return {
-    title: item,
+    title: `${t(`move.${item}`)}`,
     subtitle: `${t(`type.${type.toLowerCase()}`)}/${basePower}/${t(`${category}`)}`
   }
 }
+
+function customFilter(itemText: string, queryText: string, item: any) {
+  const searchText = queryText.toLowerCase()
+  const romanToKanaText = useRomanToKatakana(queryText)
+  const kanaText = useHiraToKata(queryText)
+
+  const textOne = item.value.toLowerCase().includes(searchText.toLowerCase())
+  const textTwo = itemText.toLowerCase().includes(searchText)
+  const textForKana = useHiraToKata(itemText).includes(kanaText)
+  const textForRomanToKana = useHiraToKata(itemText).includes(romanToKanaText)
+  return textOne || textTwo || textForRomanToKana || textForKana
+}
+
 function showData(value: string | null) {
   if (!value)
     return
@@ -33,11 +46,13 @@ function showData(value: string | null) {
       :items="moveList"
       :loading="loading"
       :item-props="itemProps"
-      class="px-2 w-50"
+      :custom-filter="customFilter"
+      class="px-2"
       bg-color="transparent"
       variant="outlined"
-      no-data-text="No Move found"
+      no-data-text="No move found"
       density="compact"
+      hide-details
       @update:model-value="showData"
     />
   </div>

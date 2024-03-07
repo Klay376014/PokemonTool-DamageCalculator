@@ -19,20 +19,26 @@ const languages = [
 function changeLanguage(lang: (typeof languages)[number]['value']) {
   locale.value = lang
 }
+
+const nv = useNavigationStore()
+
+const group = ref(null)
+
+watch(group, () => {
+  nv.drawer = false
+})
 </script>
 
 <template>
-  <v-toolbar density="compact" color="primary-darken-1">
-    <v-toolbar-title class="text-subtitle-2 text-sm-h6 flex-basis-0">
-      {{ $t("title") }}
-    </v-toolbar-title>
-
-    <v-spacer />
+  <v-app-bar density="compact" color="primary-darken-1" prominent class="mb-4">
+    <template #prepend>
+      <v-app-bar-nav-icon class="w-100 pl-1" @click.stop="nv.drawer = !nv.drawer" />
+    </template>
+    <v-app-bar-title class="text-caption text-sm-h6 flex-basis-0" :text="$t('title')" />
 
     <v-btn icon @click="toggleTheme">
       <v-icon>mdi-theme-light-dark</v-icon>
     </v-btn>
-
     <v-btn icon>
       <v-menu activator="parent">
         <v-list>
@@ -47,11 +53,10 @@ function changeLanguage(lang: (typeof languages)[number]['value']) {
     <v-btn icon>
       <v-icon>mdi-dots-vertical</v-icon>
     </v-btn>
-  </v-toolbar>
+  </v-app-bar>
+
+  <navigation />
 </template>
 
 <style scoped>
-.v-toolbar-title {
-  flex-basis: auto;
-}
 </style>
