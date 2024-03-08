@@ -41,7 +41,6 @@ function itemsProps(item: JSONKey<typeof items>, value: JSONValue<typeof items>)
     <v-card
       class="mx-0 px-0 px-lg-4"
     >
-      xw
       <pokemon-info />
       <pokemon-select />
       <pokemon-stat />
