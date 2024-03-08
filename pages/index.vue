@@ -29,4 +29,10 @@
   </div>
 </template>
 
-<style></style>
+<style scope>
+@media (min-width: 1920px) {
+  .v-container {
+    max-width: 1200px !important;
+  }
+}
+</style>
