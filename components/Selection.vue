@@ -1,41 +1,19 @@
-<script setup lang="ts">
-import { useI18n } from 'vue-i18n'
+<script setup lang="ts" generic="T extends string, U">
+interface ISelection {
+  listType: 'Move' | 'Item' | 'Ability'
+  convertItemProps: (item: T, value: U) => {
+    title: string
+    subtitle: string
+  }
+}
 
-const props = defineProps({
-  listType: String
-})
-const json = await import(`../assets/pokemon${props.listType}.json`)
-const defaultList = json.default
-const { t } = useI18n()
-const list = Object.keys(defaultList)
+const props = defineProps<ISelection>()
+const defaultList = (await import(`../assets/pokemon${props.listType}.json`)).default as Record<T, U>
+const list = Object.keys(defaultList) as Array<T>
 const loading = ref(false)
 
-function itemProps(item: string) {
-  switch (props.listType) {
-  case 'Move': {
-    const type: string = defaultList[item].type
-    const basePower = defaultList[item].basePower
-    const category = defaultList[item].category
-    return {
-      title: `${t(`move.${item}`)}`,
-      subtitle: `${t(`type.${type ? type.toLowerCase() : type}`)}/${basePower}/${t(`${category}`)}`
-    }
-  }
-  case 'Item': {
-    const effect: string = defaultList[item].effect
-    return {
-      title: t(`item.${item}`),
-      subtitle: effect
-    }
-  }
-  case 'Ability': {
-    const effect: string = defaultList[item].effect
-    return {
-      title: t(`ability.${item}`),
-      subtitle: effect
-    }
-  }
-  }
+function itemProps(item: T) {
+  return props.convertItemProps(item, defaultList[item])
 }
 
 function customFilter(itemText: string, queryText: string, item: any) {
