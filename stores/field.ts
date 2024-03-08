@@ -1,13 +1,14 @@
-import { Battle } from 'vgc_data_wrapper'
+import type { Battle } from 'vgc_data_wrapper'
 
 export const useFieldStore = defineStore('field', () => {
-  type Weather = 'Sun' | 'Rain' | 'Sand' | 'Snow'
-  type Terrain = 'Electric' | 'Grassy' | 'Misty' | 'Psychic'
-  type Aura = 'Fairy' | 'Dark'
-  type Ruin = 'Tablets' | 'Sword' | 'Vessel' | 'Beads'
+  type Weather = NonNullable<Battle['field']['weather']>
+  type Terrain = NonNullable<Battle['field']['terrain']>
+  type Aura = NonNullable<Battle['field']['aura']>[number]
+  type Ruin = NonNullable<Battle['field']['ruin']>[number]
+  type MaybeField<T> = T | 'None'
 
-  const weather: Ref<Weather | 'None'> = ref('None')
-  const terrain: Ref<Terrain | 'None'> = ref('None')
+  const weather: Ref<MaybeField<Weather>> = ref('None')
+  const terrain: Ref<MaybeField<Terrain>> = ref('None')
   const aura: Ref<Aura[]> = ref([])
   const ruin: Ref<Ruin[]> = ref([])
   const isDouble: Ref<boolean> = ref(true)
