@@ -16,8 +16,8 @@ function itemProps(item: AllPokemon) {
 
 function customFilter(itemText: string, queryText: string, item: any) {
   const searchText = queryText.toLowerCase()
-  const kanaText = useHiraToKata(queryText)
-  const romanToKanaText = useRomanToKatakana(queryText)
+  const kanaText = hiraToKata(queryText)
+  const romanToKanaText = romanToKana(queryText)
 
   const textOne = item.value.toLowerCase().includes(searchText.toLowerCase())
   const textTwo = itemText.toLowerCase().includes(searchText)

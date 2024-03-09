@@ -1,3 +1,9 @@
+export function hiraToKata(kana: string): string {
+  return kana.replace(/[\u3041-\u3096]/g, ch =>
+    String.fromCharCode(ch.charCodeAt(0) + 0x60)
+  )
+}
+
 interface ITree {
   [key: string]: ITree | string
 }
@@ -193,7 +199,7 @@ const tree: ITree = {
   },
 }
 
-export default function (original: string) {
+export function romanToKana(original: string) {
   const str = original.replace(/[Ａ-Ｚａ-ｚ]/, s => String.fromCharCode(s.charCodeAt(0) - 65248)).toLowerCase() // 全角→半角→小文字
   let result = ''
   let tmp = ''

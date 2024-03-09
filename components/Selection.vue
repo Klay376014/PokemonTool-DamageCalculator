@@ -20,13 +20,13 @@ function customFilter(itemText: string, queryText: string, item?: {
   value: unknown
 }) {
   const searchText = queryText.toLowerCase()
-  const romanToKanaText = useRomanToKatakana(queryText)
-  const kanaText = useHiraToKata(queryText)
+  const romanToKanaText = romanToKana(queryText)
+  const kanaText = hiraToKata(queryText)
 
   const textOne = typeof item?.value === 'string' ? item.value.toLowerCase().includes(searchText.toLowerCase()) : ''
   const textTwo = itemText.toLowerCase().includes(searchText)
-  const textForKana = useHiraToKata(itemText).includes(kanaText)
-  const textForRomanToKana = useHiraToKata(itemText).includes(romanToKanaText)
+  const textForKana = hiraToKata(itemText).includes(kanaText)
+  const textForRomanToKana = hiraToKata(itemText).includes(romanToKanaText)
   return textOne || textTwo || textForRomanToKana || textForKana
 }
 

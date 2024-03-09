@@ -1,4 +1,3 @@
-import { useI18n } from 'vue-i18n'
 import type moves from '../assets/pokemonMove.json'
 import type abilities from '../assets/pokemonAbility.json'
 import type items from '../assets/pokemonItem.json'
@@ -8,7 +7,7 @@ export type AssetType = 'Move' | 'Item' | 'Ability'
 type JSONKey<T extends Record<string, any>> = keyof T
 type JSONValue<T extends Record<string, any>> = T[JSONKey<T>]
 
-const { t } = useI18n()
+const t = i18n.global.t
 
 export async function getAsset<T extends string, U>(assetType: AssetType) {
   return (await import(`../assets/pokemon${assetType}.json`)).default as Record<T, U>
