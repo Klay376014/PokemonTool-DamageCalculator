@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="T extends string, U">
 interface ISelection {
-  listType: 'Move' | 'Item' | 'Ability'
+  listType: AssetType
   convertItemProps: (item: T, value: U) => {
     title: string
     subtitle: string
@@ -8,7 +8,7 @@ interface ISelection {
 }
 
 const props = defineProps<ISelection>()
-const defaultList = (await import(`../assets/pokemon${props.listType}.json`)).default as Record<T, U>
+const defaultList = await getAsset<T, U>(props.listType)
 const list = Object.keys(defaultList) as Array<T>
 const loading = ref(false)
 
@@ -16,12 +16,14 @@ function itemProps(item: T) {
   return props.convertItemProps(item, defaultList[item])
 }
 
-function customFilter(itemText: string, queryText: string, item: any) {
+function customFilter(itemText: string, queryText: string, item?: {
+  value: unknown
+}) {
   const searchText = queryText.toLowerCase()
   const romanToKanaText = useRomanToKatakana(queryText)
   const kanaText = useHiraToKata(queryText)
 
-  const textOne = item.value.toLowerCase().includes(searchText.toLowerCase())
+  const textOne = typeof item?.value === 'string' ? item.value.toLowerCase().includes(searchText.toLowerCase()) : ''
   const textTwo = itemText.toLowerCase().includes(searchText)
   const textForKana = useHiraToKata(itemText).includes(kanaText)
   const textForRomanToKana = useHiraToKata(itemText).includes(romanToKanaText)
