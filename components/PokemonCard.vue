@@ -41,7 +41,6 @@ function itemsProps(item: JSONKey<typeof items>, value: JSONValue<typeof items>)
     <v-card
       class="mx-0 px-0 px-lg-4"
     >
-      xw
       <pokemon-info />
       <pokemon-select />
       <pokemon-stat />
@@ -50,8 +49,9 @@ function itemsProps(item: JSONKey<typeof items>, value: JSONValue<typeof items>)
         <v-btn
           color="purple-lighten-2"
           class="font-weight-bold"
+          disabled
         >
-          {{ $t("condition") }}
+          {{ $t("condition.title") }}
         </v-btn>
 
         <v-spacer />
@@ -65,22 +65,29 @@ function itemsProps(item: JSONKey<typeof items>, value: JSONValue<typeof items>)
       <v-expand-transition>
         <div v-show="show">
           <v-divider />
-          <client-only>
-            <v-container class="px-0">
-              <v-row>
-                <v-col cols="12" sm="6">
-                  <selection list-type="Item" :convert-item-props="itemsProps" />
-                </v-col>
-                <v-col cols="12" sm="6">
-                  <selection list-type="Ability" :convert-item-props="abilityProps" />
-                </v-col>
-              </v-row>
-            </v-container>
-          </client-only>
+          <v-container class="px-0">
+            <v-row>
+              <v-col cols="12" sm="6" class="pb-0 pb-sm-2">
+                <selection list-type="Item" :convert-item-props="itemsProps" />
+              </v-col>
+              <v-col cols="12" sm="6" class="pb-0 pb-sm-2">
+                <selection list-type="Ability" :convert-item-props="abilityProps" />
+              </v-col>
+            </v-row>
+          </v-container>
+          <condition />
         </div>
       </v-expand-transition>
     </v-card>
   </div>
 </template>
 
-<style></style>
+<style scope>
+.v-btn--disabled {
+  pointer-events: none;
+  opacity: 1;
+}
+.v-btn--disabled:hover {
+  opacity: 1;
+}
+</style>

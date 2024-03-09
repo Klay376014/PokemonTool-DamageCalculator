@@ -1,0 +1,73 @@
+<script lang="ts" setup>
+
+</script>
+
+<template>
+  <v-container>
+    <v-row>
+      <v-switch
+        :label="$t('condition.helpingHand')"
+        color="red"
+        value="helpingHand"
+        hide-details
+        density="comfortable"
+      />
+      <v-switch
+        :label="$t('condition.burned')"
+        color="red"
+        value="burned"
+        hide-details
+        density="comfortable"
+      />
+      <v-switch
+        color="red"
+        :label="$t('condition.charge')"
+        value="charge"
+        hide-details
+        density="comfortable"
+      />
+      <v-switch
+        color="red"
+        :label="$t('condition.critical')"
+        value="critical"
+        hide-details
+        density="comfortable"
+      />
+      <v-switch
+        color="red"
+        :label="$t('condition.powerSpot')"
+        value="powerSpot"
+        hide-details
+        density="comfortable"
+      />
+      <v-switch
+        color="red"
+        :label="$t('condition.lightScreen')"
+        value="lightScreen"
+        hide-details
+        density="comfortable"
+      />
+      <v-switch
+        color="red"
+        :label="$t('condition.reflect')"
+        value="reflect"
+        hide-details
+        density="comfortable"
+      />
+      <v-switch
+        color="red"
+        :label="$t('condition.steelySpirit')"
+        value="steelySpirit"
+        hide-details
+        density="comfortable"
+      />
+      <v-switch
+        color="red"
+        :label="$t('condition.friendGuard')"
+        value="friendlyGuard"
+        hide-details
+        density="comfortable"
+      />
+    </v-row>
+  </v-container>
+</template>
