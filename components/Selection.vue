@@ -1,4 +1,6 @@
 <script setup lang="ts" generic="T extends string, U">
+import { useI18n } from 'vue-i18n'
+
 interface ISelection {
   listType: AssetType
   convertItemProps: (item: T, value: U) => {
@@ -6,14 +8,20 @@ interface ISelection {
     subtitle: string
   }
 }
-
 const props = defineProps<ISelection>()
+const { t } = useI18n()
 const defaultList = await getAsset<T, U>(props.listType)
 const list = Object.keys(defaultList) as Array<T>
 const loading = ref(false)
 
 function itemProps(item: T) {
-  return props.convertItemProps(item, defaultList[item])
+  const oriItem = (props.convertItemProps(item, defaultList[item]))
+  const splitSubtitle = oriItem.subtitle.split('/')
+  const i18nItem = {
+    title: t(`${oriItem.title}`),
+    subtitle: splitSubtitle.length !== 3 ? t(oriItem.subtitle) : `${t(`${splitSubtitle[0]}`)}/${splitSubtitle[1]}/${t(`${splitSubtitle[2]}`)}`
+  }
+  return i18nItem
 }
 
 function customFilter(itemText: string, queryText: string, item?: {

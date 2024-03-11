@@ -1,73 +1,29 @@
 <script lang="ts" setup>
-
+const switchGroup1 = ['helpingHand', 'burned', 'charge', 'critical', 'powerSpot']
+const switchGroup2 = ['lightScreen', 'reflect', 'steelySpirit', 'friendGuard']
 </script>
 
 <template>
   <v-container>
     <v-row>
-      <v-col cols="6">
+      <v-col cols="6" class="pr-0">
         <v-switch
-          :label="$t('condition.helpingHand')"
-          color="red"
-          value="helpingHand"
-          hide-details
-          density="comfortable"
-        />
-        <v-switch
-          :label="$t('condition.burned')"
-          color="red"
-          value="burned"
-          hide-details
-          density="comfortable"
-        />
-        <v-switch
-          color="red"
-          :label="$t('condition.charge')"
-          value="charge"
-          hide-details
-          density="comfortable"
-        />
-        <v-switch
-          color="red"
-          :label="$t('condition.critical')"
-          value="critical"
-          hide-details
-          density="comfortable"
-        />
-        <v-switch
-          color="red"
-          :label="$t('condition.powerSpot')"
-          value="powerSpot"
+          v-for="switchInfo in switchGroup1"
+          :key="switchInfo"
+          :label="$t(`condition.${switchInfo}`)"
+          color="secondary"
+          :value="switchInfo"
           hide-details
           density="comfortable"
         />
       </v-col>
-      <v-col cols="6">
+      <v-col cols="6" class="pl-0">
         <v-switch
-          color="red"
-          :label="$t('condition.lightScreen')"
-          value="lightScreen"
-          hide-details
-          density="comfortable"
-        />
-        <v-switch
-          color="red"
-          :label="$t('condition.reflect')"
-          value="reflect"
-          hide-details
-          density="comfortable"
-        />
-        <v-switch
-          color="red"
-          :label="$t('condition.steelySpirit')"
-          value="steelySpirit"
-          hide-details
-          density="comfortable"
-        />
-        <v-switch
-          color="red"
-          :label="$t('condition.friendlyGuard')"
-          value="friendlyGuard"
+          v-for="switchInfo in switchGroup2"
+          :key="switchInfo"
+          :label="$t(`condition.${switchInfo}`)"
+          color="primary"
+          :value="switchInfo"
           hide-details
           density="comfortable"
         />
@@ -75,3 +31,9 @@
     </v-row>
   </v-container>
 </template>
+
+<style scoped>
+  .v-switch.v-label {
+    font-size: 14px !important;
+  }
+</style>
