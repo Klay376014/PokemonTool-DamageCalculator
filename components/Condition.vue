@@ -9,7 +9,7 @@ const conditions = frequentlyUsedConditions.concat(lessUsedConditions)
   <v-container>
     <v-row>
       <!-- v-for 設在v-col處，由grid system去自動左右排列 -->
-      <v-col v-for="(condition, index) in conditions" :key="condition" cols="6" class="pr-0">
+      <v-col v-for="(condition, index) in conditions" :key="condition" cols="6" class="pr-0 py-1">
         <!-- color 處保留既有左右不同色的設計 -->
         <v-switch
           :label="$t(`condition.${condition}`)"
