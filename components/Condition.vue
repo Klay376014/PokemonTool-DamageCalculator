@@ -1,29 +1,20 @@
 <script lang="ts" setup>
-const switchGroup1 = ['helpingHand', 'burned', 'charge', 'critical', 'powerSpot']
-const switchGroup2 = ['lightScreen', 'reflect', 'steelySpirit', 'friendGuard']
+// 改成更好讀的variable name
+const frequentlyUsedConditions = ['helpingHand', 'burned']
+const lessUsedConditions = ['charge', 'critical', 'powerSpot', 'lightScreen', 'reflect', 'steelySpirit', 'friendGuard']
+const conditions = frequentlyUsedConditions.concat(lessUsedConditions)
 </script>
 
 <template>
   <v-container>
     <v-row>
-      <v-col cols="6" class="pr-0">
+      <!-- v-for 設在v-col處，由grid system去自動左右排列 -->
+      <v-col v-for="(condition, index) in conditions" :key="condition" cols="6" class="pr-0 py-1">
+        <!-- color 處保留既有左右不同色的設計 -->
         <v-switch
-          v-for="switchInfo in switchGroup1"
-          :key="switchInfo"
-          :label="$t(`condition.${switchInfo}`)"
-          color="secondary"
-          :value="switchInfo"
-          hide-details
-          density="comfortable"
-        />
-      </v-col>
-      <v-col cols="6" class="pl-0">
-        <v-switch
-          v-for="switchInfo in switchGroup2"
-          :key="switchInfo"
-          :label="$t(`condition.${switchInfo}`)"
-          color="primary"
-          :value="switchInfo"
+          :label="$t(`condition.${condition}`)"
+          :color="index % 2 === 0 ? 'secondary' : 'primary'"
+          :value="condition"
           hide-details
           density="comfortable"
         />

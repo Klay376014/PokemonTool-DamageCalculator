@@ -11,7 +11,13 @@ export async function getAsset<T extends string, U>(assetType: AssetType) {
   return (await import(`../assets/pokemon${assetType}.json`)).default as Record<T, U>
 }
 
-export function movesProps(move: JSONKey<typeof moves>, value: JSONValue<typeof moves>) {
+export const assetToPropsMapping: Record<AssetType, (...args: any) => { title: string, subtitle: string }> = {
+  Move: movesProps,
+  Ability: abilityProps,
+  Item: itemsProps
+}
+
+function movesProps(move: JSONKey<typeof moves>, value: JSONValue<typeof moves>) {
   const { type, basePower, category } = value
   return {
     title: `move.${move}`,
@@ -19,7 +25,7 @@ export function movesProps(move: JSONKey<typeof moves>, value: JSONValue<typeof 
   }
 }
 
-export function abilityProps(ability: JSONKey<typeof abilities>, value: JSONValue<typeof abilities>) {
+function abilityProps(ability: JSONKey<typeof abilities>, value: JSONValue<typeof abilities>) {
   const { effect } = value
   return {
     title: `ability.${ability}`,
@@ -27,7 +33,7 @@ export function abilityProps(ability: JSONKey<typeof abilities>, value: JSONValu
   }
 }
 
-export function itemsProps(item: JSONKey<typeof items>, value: JSONValue<typeof items>) {
+function itemsProps(item: JSONKey<typeof items>, value: JSONValue<typeof items>) {
   const { effect } = value
   return {
     title: `item.${item}`,
