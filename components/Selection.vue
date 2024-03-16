@@ -1,12 +1,10 @@
 <script setup lang="ts" generic="T extends string, U">
 import { useI18n } from 'vue-i18n'
+import { assetToPropsMapping } from '~/composables/useAssetKeyToContext'
+import { hiraToKata, romanToKana } from '~/utils/convertKana'
 
 interface ISelection {
   listType: AssetType
-  convertItemProps: (item: T, value: U) => {
-    title: string
-    subtitle: string
-  }
 }
 const props = defineProps<ISelection>()
 const { t } = useI18n()
@@ -15,7 +13,7 @@ const list = Object.keys(defaultList) as Array<T>
 const loading = ref(false)
 
 function itemProps(item: T) {
-  const oriItem = (props.convertItemProps(item, defaultList[item]))
+  const oriItem = (assetToPropsMapping[props.listType](item, defaultList[item]))
   const splitSubtitle = oriItem.subtitle.split('/')
   const i18nItem = {
     title: t(`${oriItem.title}`),

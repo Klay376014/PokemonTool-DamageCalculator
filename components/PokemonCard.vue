@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { abilityProps, itemsProps, movesProps } from '~/composables/useAssetKeyToContext'
-
 const show = ref(false)
 </script>
 
@@ -12,7 +10,7 @@ const show = ref(false)
       <pokemon-info />
       <pokemon-select />
       <pokemon-stat />
-      <selection list-type="Move" :convert-item-props="movesProps" />
+      <selection list-type="Move" />
       <v-card-actions>
         <v-btn
           color="purple-lighten-2"
@@ -36,10 +34,10 @@ const show = ref(false)
           <v-container class="px-0">
             <v-row>
               <v-col cols="12" sm="6" class="pb-0 pb-sm-2">
-                <selection list-type="Item" :convert-item-props="itemsProps" />
+                <selection list-type="Item" />
               </v-col>
               <v-col cols="12" sm="6" class="pb-0 pb-sm-2">
-                <selection list-type="Ability" :convert-item-props="abilityProps" />
+                <selection list-type="Ability" />
               </v-col>
             </v-row>
           </v-container>
