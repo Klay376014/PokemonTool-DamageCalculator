@@ -16,7 +16,7 @@ const conditions = frequentlyUsedConditions.concat(lessUsedConditions)
           :color="index % 2 === 0 ? 'secondary' : 'primary'"
           :value="condition"
           hide-details
-          density="comfortable"
+          density="compact"
         />
       </v-col>
     </v-row>

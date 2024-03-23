@@ -1,10 +1,13 @@
-<script setup lang="ts">
-
+<script lang="ts" setup>
+const teraType = ref('none')
+function changeTeraType(type: string) {
+  teraType.value = type
+}
 </script>
 
 <template>
   <div>
-    <v-container class="px-0">
+    <v-container class="px-0 py-1">
       <v-row
         align="center"
         no-gutters
@@ -25,14 +28,9 @@
               </p>
               <div class="d-flex">
                 <p>
-                  {{ `${$t('terastal')}\ufe30${$t('type.none')}` }}
+                  {{ `${$t('terastal')}\ufe30${$t(`type.${teraType}`)}` }}
                 </p>
-                <v-img
-                  max-width="24"
-                  max-height="24"
-                  src="/terastal.webp"
-                  style="cursor:pointer"
-                />
+                <tera-select :tera-type="teraType" @change-tera-type="changeTeraType" />
               </div>
 
               <p class="text-grey text-subtitle-2 pt-2">

@@ -11,7 +11,7 @@ const show = ref(false)
       <pokemon-select />
       <pokemon-stat />
       <selection list-type="Move" />
-      <v-card-actions>
+      <v-card-actions class="py-0">
         <v-btn
           color="purple-lighten-2"
           class="font-weight-bold"
@@ -31,7 +31,7 @@ const show = ref(false)
       <v-expand-transition>
         <div v-show="show">
           <v-divider />
-          <v-container class="px-0">
+          <v-container class="px-0 py-2">
             <v-row>
               <v-col cols="12" sm="6" class="pb-0 pb-sm-2">
                 <selection list-type="Item" />
