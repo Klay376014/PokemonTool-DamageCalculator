@@ -1,10 +1,16 @@
 <script lang="ts" setup>
 import json from '../locales/en.json'
 
-const props = defineProps({
-  teraType: String
-})
-const emit = defineEmits(['changeTeraType'])
+// 用原有寫法會判斷成optional，使用時需要多一層處理
+const props = defineProps<{
+  teraType: string
+}>()
+
+// 既有寫法沒辦法讓parent知道這個event會帶什麼參數/參數type為何
+// 參考：https://vuejs.org/guide/typescript/composition-api#typing-component-emits
+const emit = defineEmits<{
+  changeTeraType: [teraType: string]
+}>()
 
 const dialog = ref(false)
 const currentTeraType = ref(props.teraType)
