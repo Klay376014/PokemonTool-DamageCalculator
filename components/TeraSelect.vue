@@ -1,10 +1,13 @@
 <script lang="ts" setup>
 import json from '../locales/en.json'
 
-const props = defineProps({
-  teraType: String
-})
-const emit = defineEmits(['changeTeraType'])
+const props = defineProps<{
+  teraType: string
+}>()
+
+const emit = defineEmits<{
+  changeTeraType: [teraType: string]
+}>()
 
 const dialog = ref(false)
 const currentTeraType = ref(props.teraType)
