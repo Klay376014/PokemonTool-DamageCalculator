@@ -10,7 +10,7 @@ const darkMode: ThemeDefinition = {
   colors: {
     'background': '#202020',
     'surface': '#121212',
-    'primary': '#AD16FF',
+    'primary': '#8A4DFF',
     'primary-darken-1': '#533194',
     'secondary': '#DC3545',
     'secondary-darken-1': '#C42F3D',

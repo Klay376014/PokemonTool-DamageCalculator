@@ -1,7 +1,9 @@
 export const useNavigationStore = defineStore('navigation', () => {
-  const drawer = ref(false)
+  const condition = ref(false)
+  const damage = ref(false)
 
   return {
-    drawer
+    condition,
+    damage
   }
 })

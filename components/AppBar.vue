@@ -21,18 +21,12 @@ function changeLanguage(lang: (typeof languages)[number]['value']) {
 }
 
 const nv = useNavigationStore()
-
-const group = ref(null)
-
-watch(group, () => {
-  nv.drawer = false
-})
 </script>
 
 <template>
   <v-app-bar density="compact" color="primary-darken-1" prominent class="mb-4">
     <template #prepend>
-      <v-app-bar-nav-icon class="w-100 pl-1" @click.stop="nv.drawer = !nv.drawer" />
+      <v-app-bar-nav-icon class="w-100 pl-1" @click.stop="nv.condition = !nv.condition" />
     </template>
     <v-app-bar-title class="text-caption text-sm-h6 flex-basis-0" :text="$t('title')" />
 
@@ -50,12 +44,12 @@ watch(group, () => {
       <v-icon>mdi-translate</v-icon>
     </v-btn>
 
-    <v-btn icon>
-      <v-icon>mdi-dots-vertical</v-icon>
+    <v-btn icon @click.stop="nv.damage = !nv.damage">
+      <v-icon>mdi-calculator-variant</v-icon>
     </v-btn>
   </v-app-bar>
-
   <navigation />
+  <damage-result />
 </template>
 
 <style scoped>

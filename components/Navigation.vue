@@ -6,9 +6,8 @@ const nv = useNavigationStore()
 
 <template>
   <v-navigation-drawer
-    v-model="nv.drawer"
+    v-model="nv.condition"
     location="left"
-    temporary
     width="350"
   >
     <v-container>
