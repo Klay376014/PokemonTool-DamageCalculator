@@ -1,4 +1,11 @@
 <script setup lang="ts">
+const props = defineProps({
+  role: {
+    type: String,
+    required: true,
+    default: 'attacker'
+  }
+})
 const show = ref(false)
 </script>
 
@@ -9,7 +16,7 @@ const show = ref(false)
     >
       <pokemon-info />
       <pokemon-select />
-      <pokemon-stat />
+      <pokemon-stat :role="props.role" />
       <selection list-type="Move" />
       <v-card-actions class="py-0">
         <v-btn
