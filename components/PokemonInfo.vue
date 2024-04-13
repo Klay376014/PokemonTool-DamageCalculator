@@ -1,4 +1,11 @@
 <script lang="ts" setup>
+const props = defineProps({
+  role: {
+    type: String,
+    required: true
+  }
+})
+const pm = usePokemonDataStore(props.role)
 const teraType = ref('none')
 function changeTeraType(type: string) {
   teraType.value = type
@@ -34,7 +41,7 @@ function changeTeraType(type: string) {
               </div>
 
               <p class="text-grey text-subtitle-2 pt-2">
-                {{ 'H87 A60 B95 C133 D91 S84' }}
+                {{ `H${pm.pokemonRef.baseStat.hp} A${pm.pokemonRef.baseStat.attack} B${pm.pokemonRef.baseStat.defense} C${pm.pokemonRef.baseStat.specialAttack} D${pm.pokemonRef.baseStat.specialDefense} S${pm.pokemonRef.baseStat.speed}` }}
               </p>
             </div>
           </div>

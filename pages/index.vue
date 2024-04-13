@@ -11,7 +11,7 @@
               <v-icon icon="mdi-sword-cross" class="text-h5 text-primary mr-3" />
               <p>Attacker</p>
             </div>
-            <pokemon-card />
+            <pokemon-card role="attacker" />
           </div>
         </v-col>
 
@@ -21,7 +21,7 @@
               <v-icon icon="mdi-shield-half-full" class="text-h5 text-secondary mr-3" />
               <p>Defender</p>
             </div>
-            <pokemon-card />
+            <pokemon-card role="defender" />
           </div>
         </v-col>
       </v-row>

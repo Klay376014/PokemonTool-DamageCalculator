@@ -59,4 +59,8 @@ export default defineNuxtConfig({
       }
     }
   },
+  experimental: {
+    renderJsonPayloads: false
+  },
+  ssr: false
 })

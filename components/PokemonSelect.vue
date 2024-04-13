@@ -2,11 +2,19 @@
 import { useI18n } from 'vue-i18n'
 import json from '../locales/en.json'
 
+const props = defineProps({
+  role: {
+    type: String,
+    required: true
+  }
+})
 const { t } = useI18n()
 const loading = ref(false)
 
 type AllPokemon = keyof typeof json.pokemon
 const pokemonList = Object.keys(json.pokemon) as unknown as AllPokemon[]
+
+const pm = usePokemonDataStore(props.role)
 
 function itemProps(item: AllPokemon) {
   return {
@@ -26,10 +34,10 @@ function customFilter(itemText: string, queryText: string, item: any) {
   return textOne || textTwo || textForKana || textForRomanToKana
 }
 
-function showData(value: string | null) {
+function pokemonSelect(value: string | null) {
   if (!value)
     return
-  console.log(value)
+  pm.setPokemon()
 }
 </script>
 
@@ -46,6 +54,6 @@ function showData(value: string | null) {
     no-data-text="No Pokemon found"
     density="comfortable"
     hide-details
-    @update:model-value="showData"
+    @update:model-value="pokemonSelect"
   />
 </template>
