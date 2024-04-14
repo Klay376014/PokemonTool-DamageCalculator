@@ -1,7 +1,7 @@
 import { Pokemon } from 'vgc_data_wrapper'
 
 // eslint-disable-next-line antfu/top-level-function
-export const usePokemonDataStore = (id: string) => defineStore(id, () => {
+export const usePokemonDataStore = (role: string) => defineStore(role, () => {
   const createNewPokemon = () => {
     return new Pokemon({
       baseStat: {
@@ -19,7 +19,7 @@ export const usePokemonDataStore = (id: string) => defineStore(id, () => {
   const pokemonRef = ref(createNewPokemon())
 
   const setPokemon = () => {
-    if (id === 'attacker') {
+    if (role === 'attacker') {
       pokemonRef.value.baseStat = {
         hp: 70,
         attack: 130,

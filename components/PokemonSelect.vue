@@ -34,9 +34,11 @@ function customFilter(itemText: string, queryText: string, item: any) {
   return textOne || textTwo || textForKana || textForRomanToKana
 }
 
-function pokemonSelect(value: string | null) {
+async function pokemonSelect(value: string | null) {
   if (!value)
     return
+  const r = await useFetchPokemon(value)
+  console.log(r)
   pm.setPokemon()
 }
 </script>

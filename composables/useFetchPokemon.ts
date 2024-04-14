@@ -1,12 +1,12 @@
 import { graphql } from '../gql'
 import { Cache } from '~/utils/cache'
 
-const pokemonCache = new Cache<number, Pokemon>()
+const pokemonCache = new Cache<string, Pokemon>()
 const fetchPokemonInfo = graphql(`
-query fetchPokemonInfo($id: Int!) {
-  pokemon_v2_pokemon(distinct_on: name, where: {id: {_eq: $id}}) {
+query fetchPokemonInfo($pokemon: String!) {
+  pokemon_v2_pokemon(distinct_on: name, where: {name: {_eq: $pokemon}}) {
     name
-    pokemon_v2_pokemonmoves(where: {pokemon_id: {_eq: $id}, pokemon_v2_versiongroup: {name: {_eq: "scarlet-violet"}}}) {
+    pokemon_v2_pokemonmoves(where: {pokemon_v2_versiongroup: {name: {_eq: "scarlet-violet"}}, pokemon_v2_pokemon: {name: {_eq: $pokemon}}}) {
       pokemon_v2_move {
         name
         move_damage_class_id
@@ -21,14 +21,13 @@ query fetchPokemonInfo($id: Int!) {
   }
 }`)
 
-export default async function (): Promise<Pokemon | void> {
+export default async function (pokemon: string): Promise<Pokemon | void> {
   try {
-    const id = Math.round(Math.random() * 1020)
-    const cachedPokemonInfo = pokemonCache.get(id)
+    const cachedPokemonInfo = pokemonCache.get(pokemon)
     if (cachedPokemonInfo.success)
       return cachedPokemonInfo.value
 
-    const variables = { id }
+    const variables = { pokemon }
     const response = await useAsyncQuery(fetchPokemonInfo, variables)
     const validation = pokemonsResponseSchema.safeParse(response.data.value)
     if (!validation.success) {
@@ -38,7 +37,7 @@ export default async function (): Promise<Pokemon | void> {
     }
 
     const targetPokemon = validation.data[0]
-    pokemonCache.set(id, targetPokemon)
+    pokemonCache.set(pokemon, targetPokemon)
     return targetPokemon
   }
   catch (e) {
