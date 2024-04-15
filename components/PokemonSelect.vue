@@ -3,6 +3,7 @@ import { useI18n } from 'vue-i18n'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/css/index.css'
 import json from '../locales/en.json'
+import type { PokemonType } from '~/utils/schema'
 
 const props = defineProps({
   role: {
@@ -42,8 +43,9 @@ async function pokemonSelect(value: string | null) {
     return
   isLoading.value = true
   const r = await useFetchPokemon(value) as Pokemon
-  const stats = r.stats
-  pm.setPokemon(stats)
+  console.log(r)
+  const { stats, types, sprite } = r
+  pm.setPokemon(stats, types as PokemonType, sprite)
   isLoading.value = false
 }
 </script>

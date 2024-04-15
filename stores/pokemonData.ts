@@ -1,4 +1,5 @@
 import { Pokemon } from 'vgc_data_wrapper'
+import type { PokemonType, Sprite } from '~/utils/schema'
 
 // eslint-disable-next-line antfu/top-level-function
 export const usePokemonDataStore = (role: string) => defineStore(role, () => {
@@ -12,17 +13,22 @@ export const usePokemonDataStore = (role: string) => defineStore(role, () => {
         specialDefense: 100,
         speed: 100,
       },
+      types: ['Normal'],
       level: 50
     })
   }
 
   const pokemonRef = ref(createNewPokemon())
+  const pokemonSprite = ref('/default.png')
 
-  const setPokemon = (stats: Stats) => {
+  const setPokemon = (stats: Stats, types: PokemonType, sprite: Sprite) => {
     pokemonRef.value.baseStat = stats
+    pokemonRef.value.types = types
+    pokemonSprite.value = sprite.front_default
   }
   return {
     pokemonRef,
+    pokemonSprite,
     setPokemon
   }
 })()

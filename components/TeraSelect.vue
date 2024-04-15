@@ -20,7 +20,7 @@ const typeList = Object.keys(json.type)
 function changeTeraType(reset?: boolean) {
   dialog.value = false
   if (reset)
-    currentTeraType.value = 'none'
+    currentTeraType.value = 'None'
   emit('changeTeraType', currentTeraType.value)
 }
 </script>

@@ -18,6 +18,11 @@ query fetchPokemonInfo($pokemon: String!) {
     pokemon_v2_pokemonstats {
       base_stat
     }
+    pokemon_v2_pokemontypes {
+      pokemon_v2_type {
+        name
+      }
+    }
   }
 }`)
 

@@ -6,6 +6,17 @@ type StatProperty = typeof statKeys[number]
 
 export type Stats = Record<StatProperty, number>
 
+const types = ['Normal', 'Fire', 'Water', 'Grass', 'Electric', 'Ice', 'Fighting', 'Poison', 'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dragon', 'Dark', 'Steel', 'Fairy'] as const
+
+type Type = (typeof types)[number]
+
+export type PokemonType = [Type] | [Type, Type]
+
+export interface Sprite {
+  front_default: string
+  front_shiny?: string
+}
+
 const spriteSchema = z.object({
   front_default: z.string().catch(''), // put placeholder image
   front_shiny: z.string().catch(''),
@@ -29,11 +40,17 @@ const pokemonSchema = z.object({
       return pre
     }, {} as Stats) // tranform from stats array to stat object
   }),
-}).transform(({ name, pokemon_v2_pokemonmoves, pokemon_v2_pokemonsprites, pokemon_v2_pokemonstats }) => ({
+  pokemon_v2_pokemontypes: z.array(z.object({
+    pokemon_v2_type: z.object({
+      name: z.string()
+    })
+  })).transform(arg => arg.map(type => type.pokemon_v2_type.name.replace(/^./, type.pokemon_v2_type.name[0].toUpperCase())))
+}).transform(({ name, pokemon_v2_pokemonmoves, pokemon_v2_pokemonsprites, pokemon_v2_pokemonstats, pokemon_v2_pokemontypes }) => ({
   name,
   stats: pokemon_v2_pokemonstats,
   sprite: pokemon_v2_pokemonsprites[0].sprites,
-  moves: pokemon_v2_pokemonmoves
+  moves: pokemon_v2_pokemonmoves,
+  types: pokemon_v2_pokemontypes
 })) // transform into more readable property names
 
 export type Pokemon = z.infer<typeof pokemonSchema>

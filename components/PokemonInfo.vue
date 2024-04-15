@@ -6,7 +6,7 @@ const props = defineProps({
   }
 })
 const pm = usePokemonDataStore(props.role)
-const teraType = ref('none')
+const teraType = ref('None')
 function changeTeraType(type: string) {
   teraType.value = type
 }
@@ -24,14 +24,16 @@ function changeTeraType(type: string) {
           <v-img
             max-width="75"
             aspect-ratio="1"
-            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/1000.png"
+            :src="pm.pokemonSprite"
           />
         </v-col>
         <v-col cols="8">
           <div class="d-flex justify-space-between">
             <div>
               <p class="pt-2 font-weight-bold">
-                {{ `${$t('type.ghost')} / ${$t('type.steel')}` }}
+                {{ pm.pokemonRef.types.length > 1
+                  ? `${$t(`type.${pm.pokemonRef.types[0]}`)} / ${$t(`type.${pm.pokemonRef.types[1]}`)}`
+                  : `${$t(`type.${pm.pokemonRef.types[0]}`)}` }}
               </p>
               <div class="d-flex">
                 <p>
