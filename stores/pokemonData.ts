@@ -18,27 +18,8 @@ export const usePokemonDataStore = (role: string) => defineStore(role, () => {
 
   const pokemonRef = ref(createNewPokemon())
 
-  const setPokemon = () => {
-    if (role === 'attacker') {
-      pokemonRef.value.baseStat = {
-        hp: 70,
-        attack: 130,
-        defense: 100,
-        specialAttack: 55,
-        specialDefense: 80,
-        speed: 65,
-      }
-    }
-    else {
-      pokemonRef.value.baseStat = {
-        hp: 55,
-        attack: 55,
-        defense: 55,
-        specialAttack: 135,
-        specialDefense: 135,
-        speed: 135,
-      }
-    }
+  const setPokemon = (stats: Stats) => {
+    pokemonRef.value.baseStat = stats
   }
   return {
     pokemonRef,

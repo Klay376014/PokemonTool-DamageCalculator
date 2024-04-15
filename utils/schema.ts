@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const statKeys = ['hp', 'atk', 'def', 'spa', 'spd', 'spe'] as const
+export const statKeys = ['hp', 'attack', 'defense', 'specialAttack', 'specialDefense', 'speed'] as const
 
 type StatProperty = typeof statKeys[number]
 

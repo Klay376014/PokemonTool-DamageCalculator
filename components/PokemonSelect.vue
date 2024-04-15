@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/css/index.css'
 import json from '../locales/en.json'
 
 const props = defineProps({
@@ -15,6 +17,7 @@ type AllPokemon = keyof typeof json.pokemon
 const pokemonList = Object.keys(json.pokemon) as unknown as AllPokemon[]
 
 const pm = usePokemonDataStore(props.role)
+const isLoading = ref(false)
 
 function itemProps(item: AllPokemon) {
   return {
@@ -37,13 +40,21 @@ function customFilter(itemText: string, queryText: string, item: any) {
 async function pokemonSelect(value: string | null) {
   if (!value)
     return
-  const r = await useFetchPokemon(value)
-  console.log(r)
-  pm.setPokemon()
+  isLoading.value = true
+  const r = await useFetchPokemon(value) as Pokemon
+  const stats = r.stats
+  pm.setPokemon(stats)
+  isLoading.value = false
 }
 </script>
 
 <template>
+  <Loading
+    v-model:active="isLoading"
+    :is-full-page="false"
+    :can-cancel="false"
+    class="px-0"
+  />
   <v-autocomplete
     :label="$t('choosePokemon')"
     :items="pokemonList"

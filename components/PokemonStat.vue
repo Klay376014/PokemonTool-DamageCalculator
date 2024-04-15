@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Pokemon } from 'vgc_data_wrapper'
-import { usePokemonDataStore } from '~/stores/pokemonData'
 
 const props = defineProps({
   role: {
