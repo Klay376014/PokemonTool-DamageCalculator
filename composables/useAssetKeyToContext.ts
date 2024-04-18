@@ -21,7 +21,7 @@ function movesProps(move: JSONKey<typeof moves>, value: JSONValue<typeof moves>)
   const { type, basePower, category } = value
   return {
     title: `move.${move}`,
-    subtitle: `type.${type ? type.toLowerCase() : type}/${basePower}/${category}`
+    subtitle: `type.${type}/${basePower}/${category}`
   }
 }
 
