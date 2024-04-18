@@ -19,12 +19,15 @@ export const usePokemonDataStore = (role: string) => defineStore(role, () => {
   }
 
   const pokemonRef = ref(createNewPokemon())
-  const pokemonSprite = ref('/default.png')
+  const pokemonSprite = ref(new URL(
+    '../assets/src/default.png',
+    import.meta.url
+  ).href)
 
   const setPokemon = (stats: Stats, types: PokemonType, sprite: Sprite) => {
     pokemonRef.value.baseStat = stats
     pokemonRef.value.types = types
-    pokemonSprite.value = sprite.front_default
+    pokemonSprite.value = sprite.front_default.length > 0 ? sprite.front_default : pokemonSprite.value
   }
   return {
     pokemonRef,
