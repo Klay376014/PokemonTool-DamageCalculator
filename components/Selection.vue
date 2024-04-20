@@ -1,5 +1,6 @@
 <script setup lang="ts" generic="T extends string, U">
 import { useI18n } from 'vue-i18n'
+import type { Pokemon as WrapperPokemon } from 'vgc_data_wrapper'
 import { assetToPropsMapping } from '~/composables/useAssetKeyToContext'
 import { hiraToKata, romanToKana } from '~/utils/convertKana'
 
@@ -51,10 +52,10 @@ function setSelection(value: string | null) {
     pm.pokemonRef.moves = [value]
     break;
   case 'Ability':
-    pm.pokemonRef.ability = value
-    break;
+    pm.pokemonRef.ability = value as WrapperPokemon['ability']
+    break
   case 'Item':
-    pm.pokemonRef.item = value
+    pm.pokemonRef.item = value as WrapperPokemon['item']
     break;
   }
   console.log(pm.pokemonRef)
