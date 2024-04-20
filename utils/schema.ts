@@ -24,6 +24,7 @@ const spriteSchema = z.object({
 
 const pokemonSchema = z.object({
   name: z.string(),
+  weight: z.number(),
   pokemon_v2_pokemonmoves: z.array(z.object({
     pokemon_v2_move: z.object({
       name: z.string(),
@@ -45,8 +46,9 @@ const pokemonSchema = z.object({
       name: z.string()
     })
   })).transform(arg => arg.map(type => type.pokemon_v2_type.name.replace(/^./, type.pokemon_v2_type.name[0].toUpperCase())))
-}).transform(({ name, pokemon_v2_pokemonmoves, pokemon_v2_pokemonsprites, pokemon_v2_pokemonstats, pokemon_v2_pokemontypes }) => ({
+}).transform(({ name, weight, pokemon_v2_pokemonmoves, pokemon_v2_pokemonsprites, pokemon_v2_pokemonstats, pokemon_v2_pokemontypes }) => ({
   name,
+  weight,
   stats: pokemon_v2_pokemonstats,
   sprite: pokemon_v2_pokemonsprites[0].sprites,
   moves: pokemon_v2_pokemonmoves,

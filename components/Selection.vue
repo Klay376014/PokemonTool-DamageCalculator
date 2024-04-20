@@ -3,14 +3,21 @@ import { useI18n } from 'vue-i18n'
 import { assetToPropsMapping } from '~/composables/useAssetKeyToContext'
 import { hiraToKata, romanToKana } from '~/utils/convertKana'
 
-interface ISelection {
-  listType: AssetType
-}
-const props = defineProps<ISelection>()
+const props = defineProps({
+  listType: {
+    type: Object as PropType<AssetType>,
+    required: true
+  },
+  role: {
+    type: String,
+    required: true,
+    default: 'attacker'
+  }
+})
 const { t } = useI18n()
 const defaultList = await getAsset<T, U>(props.listType)
 const list = Object.keys(defaultList) as Array<T>
-const loading = ref(false)
+const pm = usePokemonDataStore(props.role)
 
 function itemProps(item: T) {
   const oriItem = (assetToPropsMapping[props.listType](item, defaultList[item]))
@@ -36,10 +43,21 @@ function customFilter(itemText: string, queryText: string, item?: {
   return textOne || textTwo || textForRomanToKana || textForKana
 }
 
-function showData(value: string | null) {
+function setSelection(value: string | null) {
   if (!value)
     return
-  console.log(value)
+  switch (props.listType) {
+  case 'Move':
+    pm.pokemonRef.moves = [value]
+    break;
+  case 'Ability':
+    pm.pokemonRef.ability = value
+    break;
+  case 'Item':
+    pm.pokemonRef.item = value
+    break;
+  }
+  console.log(pm.pokemonRef)
 }
 </script>
 
@@ -48,7 +66,6 @@ function showData(value: string | null) {
     <v-autocomplete
       :label="$t(`choose${props.listType}`)"
       :items="list"
-      :loading="loading"
       :item-props="itemProps"
       :custom-filter="customFilter"
       class="px-2"
@@ -57,7 +74,7 @@ function showData(value: string | null) {
       :no-data-text="`No ${props.listType} found`"
       density="compact"
       hide-details
-      @update:model-value="showData"
+      @update:model-value="setSelection"
     />
   </div>
 </template>

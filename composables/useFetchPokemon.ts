@@ -6,6 +6,7 @@ const fetchPokemonInfo = graphql(`
 query fetchPokemonInfo($pokemon: String!) {
   pokemon_v2_pokemon(distinct_on: name, where: {name: {_eq: $pokemon}}) {
     name
+    weight
     pokemon_v2_pokemonmoves(where: {pokemon_v2_versiongroup: {name: {_eq: "scarlet-violet"}}, pokemon_v2_pokemon: {name: {_eq: $pokemon}}}) {
       pokemon_v2_move {
         name

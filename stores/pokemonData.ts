@@ -24,10 +24,11 @@ export const usePokemonDataStore = (role: string) => defineStore(role, () => {
     import.meta.url
   ).href)
 
-  const setPokemon = (stats: Stats, types: PokemonType, sprite: Sprite) => {
+  const setPokemon = (stats: Stats, types: PokemonType, sprite: Sprite, weight: number) => {
     pokemonRef.value.baseStat = stats
     pokemonRef.value.types = types
     pokemonSprite.value = sprite.front_default.length > 0 ? sprite.front_default : pokemonSprite.value
+    pokemonRef.value.weight = weight
   }
   return {
     pokemonRef,
