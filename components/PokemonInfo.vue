@@ -24,7 +24,7 @@ function changeTeraType(type: string) {
           <v-img
             max-width="75"
             aspect-ratio="1"
-            :src="pm.pokemonSprite"
+            :src="pm.pokemonRef.sprite"
           />
         </v-col>
         <v-col cols="8">

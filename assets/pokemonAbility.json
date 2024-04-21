@@ -238,5 +238,21 @@
   "Light Metal": {
     "name": "輕金屬",
     "effect": "description.ability['Light Metal']"
+  },
+  "Tablets of Ruin": {
+    "name": "（不受災禍之簡氣場影響）",
+    "effect": "description.ability['Tablets of Ruin']"
+  },
+  "Sword of Ruin": {
+    "name": "（不受災禍之劍氣場影響）",
+    "effect": "description.ability['Sword of Ruin']"
+  },
+  "Vessel of Ruin": {
+    "name": "（不受災禍之鼎氣場影響）",
+    "effect": "description.ability['Vessel of Ruin']"
+  },
+  "Beads of Ruin": {
+    "name": "（不受災禍之玉氣場影響）",
+    "effect": "description.ability['Beads of Ruin']"
   }
 }

@@ -1302,7 +1302,11 @@
     "Ice Scales": "Ice Scales",
     "Dry Skin": "Dry Skin",
     "Heavy Metal": "Heavy Metal",
-    "Light Metal": "Light Metal"
+    "Light Metal": "Light Metal",
+    "Tablets of Ruin": "Tablets of Ruin",
+    "Sword of Ruin": "Sword of Ruin",
+    "Vessel of Ruin": "Vessel of Ruin",
+    "Beads of Ruin": "Beads of Ruin"
   },
   "move": {
     "Flail-20": "",
@@ -1870,7 +1874,11 @@
       "Ice Scales": "（受到特殊招式的傷害減半）",
       "Dry Skin": "（受到火系招式攻擊時，傷害x1.25）",
       "Heavy Metal": "（自己的體重變成2倍）",
-      "Light Metal": "（自己的體重減半）"
+      "Light Metal": "（自己的體重減半）",
+      "Tablets of Ruin": "（不受災禍之簡氣場影響）",
+      "Sword of Ruin": "（不受災禍之劍氣場影響）",
+      "Vessel of Ruin": "（不受災禍之鼎氣場影響）",
+      "Beads of Ruin": "（不受災禍之玉氣場影響）"
     }
   }
 }

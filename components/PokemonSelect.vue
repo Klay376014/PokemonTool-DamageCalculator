@@ -38,14 +38,16 @@ function customFilter(itemText: string, queryText: string, item: any) {
   return textOne || textTwo || textForKana || textForRomanToKana
 }
 
-async function pokemonSelect(value: string | null) {
-  if (!value)
+async function pokemonSelect(name: string | null) {
+  if (!name)
     return
   isLoading.value = true
-  const r = await useFetchPokemon(value) as Pokemon
+  const r = await useFetchPokemon(name) as Pokemon
   console.log(r)
   const { stats, types, sprite, weight } = r
-  pm.setPokemon(stats, types as PokemonType, sprite, weight)
+  pm.setPokemon(name, stats, types as PokemonType, sprite, weight)
+  pm.setDefaultSelection(name)
+  console.log(pm.pokemonRef)
   isLoading.value = false
 }
 </script>
@@ -69,6 +71,7 @@ async function pokemonSelect(value: string | null) {
     no-data-text="No Pokemon found"
     density="comfortable"
     hide-details
+    clearable
     @update:model-value="pokemonSelect"
   />
 </template>

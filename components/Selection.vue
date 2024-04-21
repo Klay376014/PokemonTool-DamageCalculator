@@ -6,7 +6,7 @@ import { hiraToKata, romanToKana } from '~/utils/convertKana'
 
 const props = defineProps({
   listType: {
-    type: Object as PropType<AssetType>,
+    type: String as PropType<AssetType>,
     required: true
   },
   role: {
@@ -37,7 +37,7 @@ function customFilter(itemText: string, queryText: string, item?: {
   const romanToKanaText = romanToKana(queryText)
   const kanaText = hiraToKata(queryText)
 
-  const textOne = typeof item?.value === 'string' ? item.value.toLowerCase().includes(searchText.toLowerCase()) : ''
+  const textOne = typeof item?.value === 'string' ? item.value.toLowerCase().includes(searchText.toLowerCase()) : false
   const textTwo = itemText.toLowerCase().includes(searchText)
   const textForKana = hiraToKata(itemText).includes(kanaText)
   const textForRomanToKana = hiraToKata(itemText).includes(romanToKanaText)
@@ -58,7 +58,7 @@ function setSelection(value: string | null) {
     pm.pokemonRef.item = value as WrapperPokemon['item']
     break;
   }
-  console.log(pm.pokemonRef)
+  customFilter('Blaze', 'Blaze')
 }
 </script>
 
@@ -75,6 +75,7 @@ function setSelection(value: string | null) {
       :no-data-text="`No ${props.listType} found`"
       density="compact"
       hide-details
+      clearable
       @update:model-value="setSelection"
     />
   </div>
