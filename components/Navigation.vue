@@ -2,6 +2,33 @@
 <script lang="ts" setup>
 const field = useFieldStore()
 const nv = useNavigationStore()
+const battleByAttacker = usePokemonBattleStore('attacker')
+const battleByDefender = usePokemonBattleStore('defender')
+
+function setWeather() {
+  battleByAttacker.battleField.setField({ weather: field.weather === 'None' ? undefined : field.weather })
+  battleByDefender.battleField.setField({ weather: field.weather === 'None' ? undefined : field.weather })
+}
+
+function setTerrain() {
+  battleByAttacker.battleField.setField({ terrain: field.terrain === 'None' ? undefined : field.terrain })
+  battleByDefender.battleField.setField({ terrain: field.terrain === 'None' ? undefined : field.terrain })
+}
+
+function setRuin() {
+  battleByAttacker.battleField.setField({ ruin: field.ruin })
+  battleByDefender.battleField.setField({ ruin: field.ruin })
+}
+
+function setAura() {
+  battleByAttacker.battleField.setField({ aura: field.aura })
+  battleByDefender.battleField.setField({ aura: field.aura })
+}
+
+function setIsDouble() {
+  battleByAttacker.battleField.setField({ isDouble: field.isDouble })
+  battleByDefender.battleField.setField({ isDouble: field.isDouble })
+}
 </script>
 
 <template>
@@ -26,6 +53,7 @@ const nv = useNavigationStore()
             density="comfortable"
             variant="elevated"
             mandatory
+            @click="setWeather"
           >
             <v-btn value="None">
               -
@@ -63,6 +91,7 @@ const nv = useNavigationStore()
             density="comfortable"
             variant="elevated"
             mandatory
+            @click="setTerrain"
           >
             <v-btn value="None">
               -
@@ -102,6 +131,7 @@ const nv = useNavigationStore()
             density="comfortable"
             variant="elevated"
             multiple
+            @click="setRuin"
           >
             <v-btn value="Tablets">
               <v-icon>mdi-snail</v-icon>
@@ -138,6 +168,7 @@ const nv = useNavigationStore()
             density="comfortable"
             variant="elevated"
             multiple
+            @click="setAura"
           >
             <v-btn value="Fairy">
               <v-icon>mdi-butterfly</v-icon>
@@ -160,6 +191,7 @@ const nv = useNavigationStore()
             density="comfortable"
             variant="elevated"
             mandatory
+            @click="setIsDouble"
           >
             <v-btn value="Single" size="large" @click="field.isDouble = false">
               {{ $t('field.Single') }}
