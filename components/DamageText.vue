@@ -17,6 +17,7 @@ const damageDetail = ref(
 const battle = usePokemonBattleStore(props.pokemon[0])
 battle.battleField.setPokemon('attacker', attacker.pokemonRef as Pokemon)
 battle.battleField.setPokemon('defender', defender.pokemonRef as Pokemon)
+
 watch ([attacker.pokemonRef, defender.pokemonRef, battle.battleField], () => {
   if (attacker.pokemonRef.name && defender.pokemonRef.name && attacker.pokemonRef.moves) {
     const text = moves[attacker.pokemonRef.moves[0] as keyof typeof moves]

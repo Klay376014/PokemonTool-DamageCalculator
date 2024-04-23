@@ -1,8 +1,4 @@
 <script lang="ts" setup>
-import type { Pokemon } from 'vgc_data_wrapper'
-import { createMove } from 'vgc_data_wrapper'
-import moves from '../assets/pokemonMove.json'
-
 const nv = useNavigationStore()
 const pokemonSet = ref([
   ['attacker', 'defender']

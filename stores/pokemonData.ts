@@ -27,7 +27,7 @@ export const usePokemonDataStore = (role: string) => defineStore(role, () => {
     pokemonRef.value.baseStat = stats
     pokemonRef.value.types = types
     pokemonRef.value.sprite = sprite.front_default.length > 0 ? sprite.front_default : defaultImage
-    pokemonRef.value.weight = weight
+    pokemonRef.value.weight = weight / 10
   }
 
   const setDefaultSelection = (name: string) => {
