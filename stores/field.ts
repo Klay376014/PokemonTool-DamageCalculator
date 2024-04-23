@@ -11,7 +11,7 @@ export const useFieldStore = defineStore('field', () => {
   const terrain: Ref<MaybeField<Terrain>> = ref('None')
   const aura: Ref<Aura[]> = ref([])
   const ruin: Ref<Ruin[]> = ref([])
-  const isDouble: Ref<boolean> = ref(true)
+  const isDouble = ref(true)
 
   return {
     weather,
