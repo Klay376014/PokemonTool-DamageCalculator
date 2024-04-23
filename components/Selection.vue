@@ -60,6 +60,17 @@ function setSelection(value: string | null) {
   }
   customFilter('Blaze', 'Blaze')
 }
+
+function clearSelection() {
+  switch (props.listType) {
+  case 'Ability':
+    pm.pokemonRef.ability = undefined
+    break
+  case 'Item':
+    pm.pokemonRef.item = undefined
+    break;
+  }
+}
 </script>
 
 <template>
@@ -77,6 +88,7 @@ function setSelection(value: string | null) {
       hide-details
       clearable
       @update:model-value="setSelection"
+      @click:clear="clearSelection"
     />
   </div>
 </template>

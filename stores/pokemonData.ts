@@ -66,6 +66,7 @@ export const usePokemonDataStore = (role: string) => defineStore(role, () => {
   return {
     pokemonRef,
     setPokemon,
-    setDefaultSelection
+    setDefaultSelection,
+    defaultImage
   }
 })()

@@ -18,7 +18,7 @@ const battle = usePokemonBattleStore(props.pokemon[0])
 battle.battleField.setPokemon('attacker', attacker.pokemonRef as Pokemon)
 battle.battleField.setPokemon('defender', defender.pokemonRef as Pokemon)
 
-watch ([attacker.pokemonRef, defender.pokemonRef, battle.battleField], () => {
+const unwatch = watch ([attacker.pokemonRef, defender.pokemonRef, battle.battleField.field, battle.battleField.attacker, battle.battleField.defender], () => {
   if (attacker.pokemonRef.name && defender.pokemonRef.name && attacker.pokemonRef.moves) {
     const text = moves[attacker.pokemonRef.moves[0] as keyof typeof moves]
     const move = createMove({
@@ -32,10 +32,20 @@ watch ([attacker.pokemonRef, defender.pokemonRef, battle.battleField], () => {
 
     battle.battleField.move = move
     const damageResult = battle.battleField.getDamage()
-    console.log(damageResult, battle.battleField)
     damageText.value = `${damageResult.rolls[0].number} ~ ${damageResult.rolls[15].number} (${damageResult.rolls[0].percentage}% ~${damageResult.rolls[15].percentage}%)`
   }
 }, { deep: true, immediate: true })
+
+const stoppedResult: Ref<{ [key: string]: string | null }> = ref({
+  attackerSprite: null,
+  defenderSprite: null,
+})
+
+function stopWatch() {
+  unwatch()
+  stoppedResult.value.attackerSprite = attacker.pokemonRef.sprite ?? attacker.defaultImage
+  stoppedResult.value.defenderSprite = defender.pokemonRef.sprite ?? defender.defaultImage
+}
 
 function copyText() {
   navigator.clipboard.writeText(damageDetail.value)
@@ -49,13 +59,13 @@ function copyText() {
         <v-img
           max-width="50"
           aspect-ratio="1"
-          :src="attacker.pokemonRef.sprite"
+          :src="stoppedResult.attackerSprite ?? attacker.pokemonRef.sprite"
         />
         <v-icon icon="mdi-arrow-right-bold" class="text-h4 text-primary" />
         <v-img
           max-width="50"
           aspect-ratio="1"
-          :src="defender.pokemonRef.sprite"
+          :src="stoppedResult.defenderSprite ?? defender.pokemonRef.sprite"
         />
       </div>
 
@@ -67,8 +77,8 @@ function copyText() {
             </v-icon>
           </template>
         </v-tooltip>
-        <v-icon color="secondary" class="mx-3" style="cursor: pointer;">
-          mdi-close-box
+        <v-icon color="secondary" class="mx-3" style="cursor: pointer;" @click="stopWatch">
+          mdi-cancel
         </v-icon>
       </div>
     </div>
