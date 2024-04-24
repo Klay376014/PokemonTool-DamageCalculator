@@ -58,7 +58,7 @@
     "lightScreen": "光牆",
     "reflect": "反射壁",
     "steelySpirit": "鋼之意志",
-    "friendGuard": "友情防守"
+    "hasFriendGuard": "友情防守"
   },
   "Physical": "物理",
   "Special": "特殊",

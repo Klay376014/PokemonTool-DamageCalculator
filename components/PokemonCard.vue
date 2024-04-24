@@ -48,7 +48,7 @@ const show = ref(false)
               </v-col>
             </v-row>
           </v-container>
-          <condition />
+          <condition :role="props.role" />
         </div>
       </v-expand-transition>
     </v-card>

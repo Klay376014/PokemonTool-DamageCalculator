@@ -53,7 +53,7 @@
     "lightScreen": "ひかりのかべ",
     "reflect": "レフレクター",
     "steelySpirit": "はがねのせいしん",
-    "friendGuard": "フレンドガード"
+    "hasFriendGuard": "フレンドガード"
   },
   "Physical": "物理",
   "Special": "特殊",

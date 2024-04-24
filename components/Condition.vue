@@ -1,8 +1,26 @@
 <script lang="ts" setup>
-// 改成更好讀的variable name
+const props = defineProps({
+  role: {
+    type: String,
+    required: true,
+    default: 'attacker',
+  }
+})
 const frequentlyUsedConditions = ['helpingHand', 'burned']
-const lessUsedConditions = ['charge', 'critical', 'powerSpot', 'lightScreen', 'reflect', 'steelySpirit', 'friendGuard']
+const lessUsedConditions = ['charge', 'critical', 'powerSpot', 'lightScreen', 'reflect', 'steelySpirit', 'hasFriendGuard']
 const conditions = frequentlyUsedConditions.concat(lessUsedConditions)
+
+const cd = useConditionStore(props.role)
+const pm = usePokemonDataStore(props.role)
+
+function switchCondition(event: Event) {
+  if (event.target) {
+    const condition = (event.target as HTMLInputElement).value
+    cd.conditions[condition] = !cd.conditions[condition]
+    if (condition !== 'critical' && condition !== 'burned')
+      pm.pokemonRef.setFlags({ [condition]: cd.conditions[condition] })
+  }
+}
 </script>
 
 <template>
@@ -17,6 +35,7 @@ const conditions = frequentlyUsedConditions.concat(lessUsedConditions)
           :value="condition"
           hide-details
           density="compact"
+          @change="switchCondition"
         />
       </v-col>
     </v-row>
