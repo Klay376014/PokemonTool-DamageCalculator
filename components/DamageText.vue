@@ -8,17 +8,16 @@ const props = defineProps<{
 }>()
 const attacker = usePokemonDataStore(props.pokemon[0])
 const defender = usePokemonDataStore(props.pokemon[1])
+const battle = usePokemonBattleStore(props.pokemon[0])
+battle.battleField.setPokemon('attacker', attacker.pokemonRef as Pokemon)
+battle.battleField.setPokemon('defender', defender.pokemonRef as Pokemon)
+const cd = useConditionStore(props.pokemon[0])
 
 const damageText = ref('wait for pokemon set')
 const damageDetail = ref(
   'to be checked...'
 )
-
-const battle = usePokemonBattleStore(props.pokemon[0])
-battle.battleField.setPokemon('attacker', attacker.pokemonRef as Pokemon)
-battle.battleField.setPokemon('defender', defender.pokemonRef as Pokemon)
-
-const unwatch = watch ([attacker.pokemonRef, defender.pokemonRef, battle.battleField.field, battle.battleField.attacker, battle.battleField.defender], () => {
+const unwatch = watch ([attacker.pokemonRef, defender.pokemonRef, battle.battleField, cd.conditions], () => {
   if (attacker.pokemonRef.name && defender.pokemonRef.name && attacker.pokemonRef.moves) {
     const text = moves[attacker.pokemonRef.moves[0] as keyof typeof moves]
     const move = createMove({
@@ -27,7 +26,10 @@ const unwatch = watch ([attacker.pokemonRef, defender.pokemonRef, battle.battleF
       id: text.num,
       type: text.type as any,
       target: text.target as any,
-      flags: text.flags as any
+      flags: {
+        isCriticalHit: cd.conditions.critical,
+        ...text.flags
+      }
     })
 
     battle.battleField.move = move

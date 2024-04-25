@@ -2,9 +2,17 @@
 import json from '../locales/en.json'
 
 // 用原有寫法會判斷成optional，使用時需要多一層處理
-const props = defineProps<{
-  teraType: string
-}>()
+const props = defineProps({
+  teraType: {
+    type: String,
+    required: true,
+    default: 'None'
+  },
+  role: {
+    type: String,
+    required: true
+  }
+})
 
 // 既有寫法沒辦法讓parent知道這個event會帶什麼參數/參數type為何
 // 參考：https://vuejs.org/guide/typescript/composition-api#typing-component-emits
@@ -12,6 +20,7 @@ const emit = defineEmits<{
   changeTeraType: [teraType: string]
 }>()
 
+const pm = usePokemonDataStore(props.role)
 const dialog = ref(false)
 const currentTeraType = ref(props.teraType)
 // 移除 none
@@ -19,8 +28,10 @@ const typeList = Object.keys(json.type)
 
 function changeTeraType(reset?: boolean) {
   dialog.value = false
-  if (reset)
+  if (reset) {
     currentTeraType.value = 'None'
+    pm.pokemonRef.isTera = false
+  }
   emit('changeTeraType', currentTeraType.value)
 }
 </script>
