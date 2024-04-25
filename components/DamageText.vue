@@ -17,7 +17,7 @@ const damageText = ref('wait for pokemon set')
 const damageDetail = ref(
   'to be checked...'
 )
-const unwatch = watch ([attacker.pokemonRef, defender.pokemonRef, battle.battleField, cd.conditions], () => {
+const unwatch = watch ([attacker.pokemonRef, defender.pokemonRef, battle.battleField.attacker, battle.battleField.defender, battle.battleField.field, cd.conditions], () => {
   if (attacker.pokemonRef.name && defender.pokemonRef.name && attacker.pokemonRef.moves) {
     const text = moves[attacker.pokemonRef.moves[0] as keyof typeof moves]
     const move = createMove({
@@ -33,6 +33,7 @@ const unwatch = watch ([attacker.pokemonRef, defender.pokemonRef, battle.battleF
     })
 
     battle.battleField.move = move
+    console.log(battle.battleField.move, battle.battleField.defender)
     const damageResult = battle.battleField.getDamage()
     damageText.value = `${damageResult.rolls[0].number} ~ ${damageResult.rolls[15].number} (${damageResult.rolls[0].percentage}% ~${damageResult.rolls[15].percentage}%)`
   }
