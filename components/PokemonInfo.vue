@@ -51,10 +51,7 @@ function changeTeraType(type: string) {
           </div>
         </v-col>
         <v-col cols="2">
-          <div class="d-md-flex">
-            <v-btn icon="mdi-content-save" color="purple-lighten-2" variant="plain" class="text-md-h6" size="40" />
-            <v-btn icon="mdi-import" color="red-lighten-1" variant="plain" class="text-h6" size="40" />
-          </div>
+          <save-load :role="props.role" />
         </v-col>
       </v-row>
     </v-container>

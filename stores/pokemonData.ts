@@ -22,12 +22,12 @@ export const usePokemonDataStore = (role: string) => defineStore(role, () => {
 
   const pokemonRef = ref(createNewPokemon())
 
-  const setPokemon = (name: string, stats: Stats, types: PokemonType, sprite: Sprite, weight: number) => {
+  const setPokemon = (name: string, stats: Stats, types: PokemonType, sprite: string, weight: number) => {
     pokemonRef.value.name = name
     pokemonRef.value.baseStat = stats
     pokemonRef.value.types = types
-    pokemonRef.value.sprite = sprite.front_default.length > 0 ? sprite.front_default : defaultImage
-    pokemonRef.value.weight = weight / 10
+    pokemonRef.value.sprite = sprite || defaultImage
+    pokemonRef.value.weight = weight
   }
 
   const setDefaultSelection = (name: string) => {

@@ -48,7 +48,7 @@ const pokemonSchema = z.object({
   })).transform(arg => arg.map(type => type.pokemon_v2_type.name.replace(/^./, type.pokemon_v2_type.name[0].toUpperCase())))
 }).transform(({ name, weight, pokemon_v2_pokemonmoves, pokemon_v2_pokemonsprites, pokemon_v2_pokemonstats, pokemon_v2_pokemontypes }) => ({
   name,
-  weight,
+  weight: weight / 10,
   stats: pokemon_v2_pokemonstats,
   sprite: pokemon_v2_pokemonsprites[0].sprites,
   moves: pokemon_v2_pokemonmoves,

@@ -44,9 +44,8 @@ async function pokemonSelect(name: string | null) {
   isLoading.value = true
   const r = await useFetchPokemon(name) as Pokemon
   const { stats, types, sprite, weight } = r
-  pm.setPokemon(name, stats, types as PokemonType, sprite, weight)
+  pm.setPokemon(name, stats, types as PokemonType, sprite.front_default, weight)
   pm.setDefaultSelection(name)
-  console.log(pm.pokemonRef)
   isLoading.value = false
 }
 </script>
