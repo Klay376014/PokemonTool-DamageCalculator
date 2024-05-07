@@ -44,13 +44,13 @@ const stoppedResult: Ref<{ [key: string]: string | null }> = ref({
   defenderSprite: null,
 })
 
-function stopWatch() {
+const stopWatch = () => {
   unwatch()
   stoppedResult.value.attackerSprite = attacker.pokemonRef.sprite ?? attacker.defaultImage
   stoppedResult.value.defenderSprite = defender.pokemonRef.sprite ?? defender.defaultImage
 }
 
-function copyText() {
+const copyText = () => {
   navigator.clipboard.writeText(damageDetail.value)
 }
 </script>

@@ -5,27 +5,27 @@ const nv = useNavigationStore()
 const battleByAttacker = usePokemonBattleStore('attacker')
 const battleByDefender = usePokemonBattleStore('defender')
 
-function setWeather() {
+const setWeather = () => {
   battleByAttacker.battleField.setField({ weather: field.weather === 'None' ? undefined : field.weather })
   battleByDefender.battleField.setField({ weather: field.weather === 'None' ? undefined : field.weather })
 }
 
-function setTerrain() {
+const setTerrain = () => {
   battleByAttacker.battleField.setField({ terrain: field.terrain === 'None' ? undefined : field.terrain })
   battleByDefender.battleField.setField({ terrain: field.terrain === 'None' ? undefined : field.terrain })
 }
 
-function setRuin() {
+const setRuin = () => {
   battleByAttacker.battleField.setField({ ruin: field.ruin })
   battleByDefender.battleField.setField({ ruin: field.ruin })
 }
 
-function setAura() {
+const setAura = () => {
   battleByAttacker.battleField.setField({ aura: field.aura })
   battleByDefender.battleField.setField({ aura: field.aura })
 }
 
-function setIsDouble() {
+const setIsDouble = () => {
   battleByAttacker.battleField.setField({ isDouble: field.isDouble })
   battleByDefender.battleField.setField({ isDouble: field.isDouble })
 }

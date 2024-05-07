@@ -20,7 +20,7 @@ const defaultList = await getAsset<T, U>(props.listType)
 const list = Object.keys(defaultList) as Array<T>
 const pm = usePokemonDataStore(props.role)
 
-function itemProps(item: T) {
+const itemProps = (item: T) => {
   const oriItem = (assetToPropsMapping[props.listType](item, defaultList[item]))
   const splitSubtitle = oriItem.subtitle.split('/')
   const i18nItem = {
@@ -30,9 +30,9 @@ function itemProps(item: T) {
   return i18nItem
 }
 
-function customFilter(itemText: string, queryText: string, item?: {
+const customFilter = (itemText: string, queryText: string, item?: {
   value: unknown
-}) {
+}) => {
   const searchText = queryText.toLowerCase()
   const romanToKanaText = romanToKana(queryText)
   const kanaText = hiraToKata(queryText)
@@ -44,7 +44,7 @@ function customFilter(itemText: string, queryText: string, item?: {
   return textOne || textTwo || textForRomanToKana || textForKana
 }
 
-function setSelection(value: string | null) {
+const setSelection = (value: string | null) => {
   if (!value)
     return
   switch (props.listType) {
@@ -58,10 +58,9 @@ function setSelection(value: string | null) {
     pm.pokemonRef.item = value as WrapperPokemon['item']
     break;
   }
-  customFilter('Blaze', 'Blaze')
 }
 
-function clearSelection() {
+const clearSelection = () => {
   switch (props.listType) {
   case 'Ability':
     pm.pokemonRef.ability = undefined

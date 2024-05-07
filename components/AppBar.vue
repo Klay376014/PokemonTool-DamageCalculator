@@ -6,7 +6,7 @@ const { locale } = useI18n()
 
 const theme = useTheme()
 
-function toggleTheme() {
+const toggleTheme = () => {
   theme.global.name.value = theme.global.name.value === 'darkMode' ? 'lightMode' : 'darkMode'
 }
 
@@ -16,7 +16,7 @@ const languages = [
   { text: '日本語', value: 'ja' },
 ] as const
 
-function changeLanguage(lang: (typeof languages)[number]['value']) {
+const changeLanguage = (lang: (typeof languages)[number]['value']) => {
   locale.value = lang
 }
 

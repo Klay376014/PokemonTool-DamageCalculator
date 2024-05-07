@@ -13,7 +13,7 @@ const dialogSave = ref(false)
 const pm = usePokemonDataStore(props.role)
 const loadedPokemon: Ref<Pokemon[]> = ref([])
 
-function openSaveDialog() {
+const openSaveDialog = () => {
   if (!pm.pokemonRef.name)
     // eslint-disable-next-line no-alert
     window.alert('No Pokemon Selected!')
@@ -21,7 +21,7 @@ function openSaveDialog() {
     dialogSave.value = true
 }
 // 儲存當前寶可夢設定
-function savePokemonSetting() {
+const savePokemonSetting = () => {
   loadedPokemon.value.length = 0
   const getSavedPokemon = localStorage.getItem('savedPokemon')
   if (getSavedPokemon)
@@ -31,7 +31,7 @@ function savePokemonSetting() {
   dialogSave.value = false
 }
 // 開啟讀取畫面
-function openLoadDialog() {
+const openLoadDialog = () => {
   // 開啟時先清空，再從localStorage拿取已存取的內容
   loadedPokemon.value.length = 0
   const getSavedPokemon = localStorage.getItem('savedPokemon')
@@ -40,7 +40,7 @@ function openLoadDialog() {
   dialogLoad.value = true
 }
 // 讀取選中寶可夢
-function loadSelectedPoekmon(index: number) {
+const loadSelectedPoekmon = (index: number) => {
   console.log(loadedPokemon.value[index])
   if (loadedPokemon.value.length > 0) {
     const { name, baseStat, types, sprite, weight } = loadedPokemon.value[index]
@@ -50,7 +50,7 @@ function loadSelectedPoekmon(index: number) {
   dialogLoad.value = false
 }
 
-function deleteSelectedPoekmon(index: number) {
+const deleteSelectedPoekmon = (index: number) => {
   loadedPokemon.value.splice(index, 1)
   localStorage.setItem('savedPokemon', JSON.stringify(loadedPokemon.value))
   openLoadDialog()

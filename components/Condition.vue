@@ -13,7 +13,7 @@ const conditions = frequentlyUsedConditions.concat(lessUsedConditions)
 const cd = useConditionStore(props.role)
 const pm = usePokemonDataStore(props.role)
 
-function switchCondition(event: Event) {
+const switchCondition = (event: Event) => {
   if (event.target) {
     const condition = (event.target as HTMLInputElement).value
     cd.conditions[condition] = !cd.conditions[condition]

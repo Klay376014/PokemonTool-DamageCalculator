@@ -3,8 +3,8 @@ const nv = useNavigationStore()
 const pokemonSet = ref([
   ['attacker', 'defender']
 ])
-function addResult(atk: string) {
-  if (atk === 'attacker')
+const addResult = (attacker: string) => {
+  if (attacker === 'attacker')
     pokemonSet.value.push(['attacker', 'defender'])
   else
     pokemonSet.value.push(['defender', 'attacker'])

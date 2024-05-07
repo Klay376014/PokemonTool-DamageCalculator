@@ -1,6 +1,5 @@
 import type { Battle, Pokemon } from 'vgc_data_wrapper'
 
-// eslint-disable-next-line antfu/top-level-function
 export const useConditionStore = (attacker: string) => defineStore(`conditions-for-${attacker}`, () => {
   const conditions: Ref<{ [key: string]: boolean }> = ref({
     helpingHand: false,

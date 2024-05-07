@@ -26,7 +26,7 @@ const currentTeraType = ref(props.teraType)
 // 移除 none
 const typeList = Object.keys(json.type)
 
-function changeTeraType(reset?: boolean) {
+const changeTeraType = (reset?: boolean) => {
   dialog.value = false
   if (reset) {
     currentTeraType.value = 'None'

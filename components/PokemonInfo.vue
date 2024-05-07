@@ -7,7 +7,7 @@ const props = defineProps({
 })
 const pm = usePokemonDataStore(props.role)
 const teraType = ref('None')
-function changeTeraType(type: string) {
+const changeTeraType = (type: string) => {
   pm.pokemonRef.isTera = type !== 'None'
   pm.pokemonRef.teraType = type !== 'None' ? type as typeof pm.pokemonRef.teraType : pm.pokemonRef.teraType
   teraType.value = type

@@ -20,13 +20,13 @@ const pokemonList = Object.keys(json.pokemon) as unknown as AllPokemon[]
 const pm = usePokemonDataStore(props.role)
 const isLoading = ref(false)
 
-function itemProps(item: AllPokemon) {
+const itemProps = (item: AllPokemon) => {
   return {
     title: t(`pokemon.${item}`)
   }
 }
 
-function customFilter(itemText: string, queryText: string, item: any) {
+const customFilter = (itemText: string, queryText: string, item: any) => {
   const searchText = queryText.toLowerCase()
   const kanaText = hiraToKata(queryText)
   const romanToKanaText = romanToKana(queryText)
@@ -38,7 +38,7 @@ function customFilter(itemText: string, queryText: string, item: any) {
   return textOne || textTwo || textForKana || textForRomanToKana
 }
 
-async function pokemonSelect(name: string | null) {
+const pokemonSelect = async (name: string | null) => {
   if (!name)
     return
   isLoading.value = true
