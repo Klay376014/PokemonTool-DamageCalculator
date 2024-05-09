@@ -9,6 +9,8 @@ const props = defineProps({
 })
 const dialogLoad = ref(false)
 const dialogSave = ref(false)
+const dialogExport = ref(false)
+const pokePasteUrl = ref('')
 
 const pm = usePokemonDataStore(props.role)
 const loadedPokemon: Ref<Pokemon[]> = ref([])
@@ -54,6 +56,11 @@ const deleteSelectedPoekmon = (index: number) => {
   loadedPokemon.value.splice(index, 1)
   localStorage.setItem('savedPokemon', JSON.stringify(loadedPokemon.value))
   openLoadDialog()
+}
+
+const exportFromUrl = () => {
+  console.log(pokePasteUrl.value)
+  dialogExport.value = false
 }
 </script>
 
@@ -107,6 +114,12 @@ const deleteSelectedPoekmon = (index: number) => {
           text="Close"
           @click="dialogLoad = false"
         />
+        <v-btn
+          text="Export from paste"
+          color="primary"
+          class="ms-auto"
+          @click="dialogExport = true"
+        />
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -135,6 +148,33 @@ const deleteSelectedPoekmon = (index: number) => {
           @click="savePokemonSetting"
         />
       </v-card-actions>
+    </v-card>
+  </v-dialog>
+
+  <v-dialog
+    v-model="dialogExport"
+    width="350px"
+  >
+    <v-card
+      prepend-icon="mdi-arrow-down-bold-hexagon-outline"
+      text="Paste url here..."
+      title="Pokemon Export"
+    >
+      <form>
+        <v-text-field
+          label="url"
+          v-model="pokePasteUrl"
+          clearable
+        />
+
+        <v-btn
+          @click="exportFromUrl"
+          class="w-100"
+          color="primary"
+        >
+          submit
+        </v-btn>
+      </form>
     </v-card>
   </v-dialog>
 </template>
