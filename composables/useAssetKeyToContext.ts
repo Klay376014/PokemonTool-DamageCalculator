@@ -2,7 +2,13 @@ import type moves from '../assets/pokemonMove.json'
 import type abilities from '../assets/pokemonAbility.json'
 import type items from '../assets/pokemonItem.json'
 
-export type AssetType = 'Move' | 'Item' | 'Ability'
+export const assetType = {
+  Move: "moves",
+  Item: "item",
+  Ability: "ability"
+} as const 
+
+export type AssetType = keyof typeof assetType
 
 export type JSONKey<T extends Record<string, any>> = keyof T
 export type JSONValue<T extends Record<string, any>> = T[JSONKey<T>]

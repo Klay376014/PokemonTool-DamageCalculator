@@ -1,9 +1,8 @@
 <script setup lang="ts" generic="T extends string, U">
 import { useI18n } from 'vue-i18n'
 import type { Pokemon as WrapperPokemon } from 'vgc_data_wrapper'
-import { assetToPropsMapping } from '~/composables/useAssetKeyToContext'
+import { assetToPropsMapping, assetType } from '~/composables/useAssetKeyToContext'
 import { hiraToKata, romanToKana } from '~/utils/convertKana'
-
 const props = defineProps({
   listType: {
     type: String as PropType<AssetType>,
@@ -19,7 +18,6 @@ const { t } = useI18n()
 const defaultList = await getAsset<T, U>(props.listType)
 const list = Object.keys(defaultList) as Array<T>
 const pm = usePokemonDataStore(props.role)
-
 const itemProps = (item: T) => {
   const oriItem = (assetToPropsMapping[props.listType](item, defaultList[item]))
   const splitSubtitle = oriItem.subtitle.split('/')
@@ -88,6 +86,7 @@ const clearSelection = () => {
       clearable
       @update:model-value="setSelection"
       @click:clear="clearSelection"
+      :model-value="pm.pokemonRef[assetType[props.listType]] as T"
     />
   </div>
 </template>

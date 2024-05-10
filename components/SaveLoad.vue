@@ -45,9 +45,9 @@ const openLoadDialog = () => {
 const loadSelectedPoekmon = (index: number) => {
   console.log(loadedPokemon.value[index])
   if (loadedPokemon.value.length > 0) {
-    const { name, baseStat, types, sprite, weight } = loadedPokemon.value[index]
+    const { name, baseStat, types, sprite, weight, item } = loadedPokemon.value[index]
     pm.pokemonRef.baseStat = baseStat
-    pm.setPokemon(name!, baseStat, types, sprite!, weight)
+    pm.setPokemon(name!, baseStat, types, sprite!, weight,item)
   }
   dialogLoad.value = false
 }
