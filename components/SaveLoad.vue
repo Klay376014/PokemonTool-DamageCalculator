@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Pokemon } from 'vgc_data_wrapper'
+import { getPokemonsFromPasteUrl, type Pokemon } from 'vgc_data_wrapper'
 
 const props = defineProps({
   role: {
@@ -9,7 +9,7 @@ const props = defineProps({
 })
 const dialogLoad = ref(false)
 const dialogSave = ref(false)
-const dialogExport = ref(false)
+const dialogImportFromUrl = ref(false)
 const pokePasteUrl = ref('')
 
 const pm = usePokemonDataStore(props.role)
@@ -22,14 +22,20 @@ const openSaveDialog = () => {
   else
     dialogSave.value = true
 }
-// 儲存當前寶可夢設定
-const savePokemonSetting = () => {
+
+const savePokemon = (pokemons: Pokemon | Pokemon[]) => {
   loadedPokemon.value.length = 0
   const getSavedPokemon = localStorage.getItem('savedPokemon')
-  if (getSavedPokemon)
+  if (getSavedPokemon) {
     loadedPokemon.value = loadedPokemon.value.concat(JSON.parse(getSavedPokemon) as Pokemon[])
-  loadedPokemon.value.push(pm.pokemonRef as Pokemon)
+  }
+  loadedPokemon.value = loadedPokemon.value.concat(pokemons)
   localStorage.setItem('savedPokemon', JSON.stringify(loadedPokemon.value))
+}
+
+// 儲存當前寶可夢設定
+const saveCurrentPokemonSetting = () => {
+  savePokemon(pm.pokemonRef as Pokemon)
   dialogSave.value = false
 }
 // 開啟讀取畫面
@@ -45,9 +51,9 @@ const openLoadDialog = () => {
 const loadSelectedPoekmon = (index: number) => {
   console.log(loadedPokemon.value[index])
   if (loadedPokemon.value.length > 0) {
-    const { name, baseStat, types, sprite, weight } = loadedPokemon.value[index]
+    const { name, baseStat, types, sprite, weight, item } = loadedPokemon.value[index]
     pm.pokemonRef.baseStat = baseStat
-    pm.setPokemon(name!, baseStat, types, sprite!, weight)
+    pm.setPokemon(name!, baseStat, types, sprite!, weight,item)
   }
   dialogLoad.value = false
 }
@@ -58,9 +64,11 @@ const deleteSelectedPoekmon = (index: number) => {
   openLoadDialog()
 }
 
-const exportFromUrl = () => {
+const importFromUrl = async () => {
   console.log(pokePasteUrl.value)
-  dialogExport.value = false
+  const pokemons = await getPokemonsFromPasteUrl(pokePasteUrl.value)
+  savePokemon(pokemons)
+  dialogImportFromUrl.value = false
 }
 </script>
 
@@ -115,10 +123,10 @@ const exportFromUrl = () => {
           @click="dialogLoad = false"
         />
         <v-btn
-          text="Export from paste"
+          text="import from paste"
           color="primary"
           class="ms-auto"
-          @click="dialogExport = true"
+          @click="dialogImportFromUrl = true"
         />
       </v-card-actions>
     </v-card>
@@ -145,20 +153,20 @@ const exportFromUrl = () => {
           class="ms-auto"
           text="Save"
           variant="flat"
-          @click="savePokemonSetting"
+          @click="saveCurrentPokemonSetting"
         />
       </v-card-actions>
     </v-card>
   </v-dialog>
 
   <v-dialog
-    v-model="dialogExport"
+    v-model="dialogImportFromUrl"
     width="350px"
   >
     <v-card
       prepend-icon="mdi-arrow-down-bold-hexagon-outline"
       text="Paste url here..."
-      title="Pokemon Export"
+      title="Import Pokemon"
     >
       <form>
         <v-text-field
@@ -168,7 +176,7 @@ const exportFromUrl = () => {
         />
 
         <v-btn
-          @click="exportFromUrl"
+          @click="importFromUrl"
           class="w-100"
           color="primary"
         >
