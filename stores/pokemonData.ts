@@ -1,5 +1,5 @@
 import { Pokemon } from 'vgc_data_wrapper'
-import type { PokemonType, Sprite } from '~/utils/schema'
+import type { PokemonType } from '~/utils/schema'
 
 // eslint-disable-next-line antfu/top-level-function
 export const usePokemonDataStore = (role: string) => defineStore(role, () => {

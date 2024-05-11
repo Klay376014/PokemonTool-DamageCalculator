@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import { getPokemonsFromPasteUrl, type Pokemon } from 'vgc_data_wrapper'
+
+const { t } = useI18n()
 
 const props = defineProps({
   role: {
@@ -17,8 +20,7 @@ const loadedPokemon: Ref<Pokemon[]> = ref([])
 
 const openSaveDialog = () => {
   if (!pm.pokemonRef.name)
-    // eslint-disable-next-line no-alert
-    window.alert('No Pokemon Selected!')
+    window.alert(t('noPokemonSelected'))
   else
     dialogSave.value = true
 }
@@ -51,9 +53,9 @@ const openLoadDialog = () => {
 const loadSelectedPoekmon = (index: number) => {
   console.log(loadedPokemon.value[index])
   if (loadedPokemon.value.length > 0) {
-    const { name, baseStat, types, sprite, weight, item } = loadedPokemon.value[index]
-    pm.pokemonRef.baseStat = baseStat
-    pm.setPokemon(name!, baseStat, types, sprite!, weight,item)
+    const { name, baseStat, effortValues, types, sprite, weight, item} = loadedPokemon.value[index]
+    pm.pokemonRef.effortValues = effortValues
+    pm.setPokemon(name!.toLowerCase().replace(' ', '-'), baseStat, types, sprite!, weight, item)
   }
   dialogLoad.value = false
 }
@@ -65,7 +67,6 @@ const deleteSelectedPoekmon = (index: number) => {
 }
 
 const importFromUrl = async () => {
-  console.log(pokePasteUrl.value)
   const pokemons = await getPokemonsFromPasteUrl(pokePasteUrl.value)
   savePokemon(pokemons)
   dialogImportFromUrl.value = false
@@ -85,7 +86,7 @@ const importFromUrl = async () => {
   >
     <v-card
       prepend-icon="mdi-import"
-      title="Select Pokemon"
+      :title="$t('pokemonLoad')"
       style="height: 400px;"
       class="px-2"
     >
@@ -119,11 +120,11 @@ const importFromUrl = async () => {
 
       <v-card-actions>
         <v-btn
-          text="Close"
+          :text="$t('close')"
           @click="dialogLoad = false"
         />
         <v-btn
-          text="import from paste"
+          :text="$t('importFromPaste')"
           color="primary"
           class="ms-auto"
           @click="dialogImportFromUrl = true"
@@ -138,20 +139,20 @@ const importFromUrl = async () => {
   >
     <v-card
       prepend-icon="mdi-content-save"
-      text="Do you save this Pokemon's setting?"
-      title="Pokemon Save"
+      :text="$t('pokemonSaveConfirm')"
+      :title="$t('pokemonSave')"
     >
       <v-divider />
 
       <v-card-actions>
         <v-btn
-          text="Close"
+          :text="$t('close')"
           @click="dialogSave = false"
         />
         <v-btn
           color="surface-variant"
           class="ms-auto"
-          text="Save"
+          :text="$t('confirm')"
           variant="flat"
           @click="saveCurrentPokemonSetting"
         />
@@ -165,8 +166,8 @@ const importFromUrl = async () => {
   >
     <v-card
       prepend-icon="mdi-arrow-down-bold-hexagon-outline"
-      text="Paste url here..."
-      title="Import Pokemon"
+      :text="$t('pasteUrl')"
+      :title="$t('pokemonImport')"
     >
       <form>
         <v-text-field
@@ -180,7 +181,7 @@ const importFromUrl = async () => {
           class="w-100"
           color="primary"
         >
-          submit
+          {{ $t('submit')}}
         </v-btn>
       </form>
     </v-card>

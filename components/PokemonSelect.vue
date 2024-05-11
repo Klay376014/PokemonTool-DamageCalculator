@@ -70,6 +70,7 @@ const pokemonSelect = async (name: string | null) => {
     density="comfortable"
     hide-details
     clearable
+    :model-value="pm.pokemonRef['name'] as AllPokemon"
     @update:model-value="pokemonSelect"
   />
 </template>

@@ -14,8 +14,6 @@ const props = defineProps({
   }
 })
 
-// 既有寫法沒辦法讓parent知道這個event會帶什麼參數/參數type為何
-// 參考：https://vuejs.org/guide/typescript/composition-api#typing-component-emits
 const emit = defineEmits<{
   changeTeraType: [teraType: string]
 }>()
@@ -81,7 +79,7 @@ const changeTeraType = (reset?: boolean) => {
 
       <v-card-actions>
         <v-btn
-          text="Close"
+          :text="$t('close')"
           @click="dialog = !dialog"
         />
 
@@ -89,13 +87,13 @@ const changeTeraType = (reset?: boolean) => {
 
         <v-btn
           color="secondary"
-          text="Reset"
+          :text="$t('reset')"
           variant="flat"
           @click="changeTeraType(true)"
         />
         <v-btn
           color="primary"
-          text="Save"
+          :text="$t('confirm')"
           variant="flat"
           @click="changeTeraType()"
         />

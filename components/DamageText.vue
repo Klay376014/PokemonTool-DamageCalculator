@@ -13,13 +13,35 @@ battle.battleField.setPokemon('attacker', attacker.pokemonRef as Pokemon)
 battle.battleField.setPokemon('defender', defender.pokemonRef as Pokemon)
 const cd = useConditionStore(props.pokemon[0])
 
-const damageText = ref('wait for pokemon set')
-const damageDetail = ref(
-  'to be checked...'
-)
+const damageText = ref('')
+const damageDetail = ref('')
+type JSONMove = {
+  num: number
+  accuracy: number
+  basePower: number
+  category: string
+  pp: number
+  priority: number
+  flags: {
+    contact: number
+    protect: number
+    mirror: number
+    bite?: number
+    slicing?: number
+    punch?: number
+    sound?: number
+    pulse?: number
+  }
+  multihit?: true | number | number[]
+  recoil?: number[]
+  secondary?: null
+  target: string
+  type: string
+}
+
 const unwatch = watch ([attacker.pokemonRef, defender.pokemonRef, battle.battleField.attacker, battle.battleField.defender, battle.battleField.field, cd.conditions], () => {
   if (attacker.pokemonRef.name && defender.pokemonRef.name && attacker.pokemonRef.moves) {
-    const text = moves[attacker.pokemonRef.moves[0] as keyof typeof moves]
+    const text = moves[attacker.pokemonRef.moves[0] as keyof typeof moves] as JSONMove
     const move = createMove({
       base: typeof text.basePower === 'number' ? text.basePower : 0,
       category: text.category as any,
@@ -28,10 +50,18 @@ const unwatch = watch ([attacker.pokemonRef, defender.pokemonRef, battle.battleF
       target: text.target as any,
       flags: {
         isCriticalHit: cd.conditions.critical,
-        ...text.flags
+        isPriority: text.priority > 0,
+        hasRecoil: !!text.recoil,
+        hasSecondary: text.secondary !== null,
+        isBite: text.flags.bite === 1,
+        isContact: text.flags.contact === 1,
+        isPunch: text.flags.punch === 1,
+        isSlicing: text.flags.slicing === 1,
+        isSound: text.flags.slicing === 1,
+        isPulse: text.flags.pulse === 1,
+        isMultihit: !!text.multihit
       }
     })
-
     battle.battleField.move = move
     console.log(battle.battleField.move, battle.battleField.defender)
     const damageResult = battle.battleField.getDamage()
@@ -85,9 +115,9 @@ const copyText = () => {
         </v-icon>
       </div>
     </div>
-    <div class="d-flex align-center justify-space-between pt-2" style="font-size: 18px;">
-      <p>
-        {{ damageText }}
+    <div class="d-flex align-center justify-space-between pt-4" style="font-size: 18px;">
+      <p class="text-center text-subtitle-1 w-100">
+        {{ damageText ? damageText : $t('setPokemonAndMove') }}
       </p>
     </div>
   </div>

@@ -39,15 +39,26 @@
     "stage": "階段"
   },
   "open": "open",
-  "close": "close",
+  "close": "關閉",
   "input": {
     "clear": "clear"
   },
+  "confirm": "確認",
+  "submit": "送出",
+  "reset": "重置",
   "choosePokemon": "選擇寶可夢",
   "chooseMove": "選擇招式",
   "chooseAbility": "選擇特性",
   "chooseItem": "選擇道具",
   "chooseTera": "選擇太晶屬性",
+  "setPokemonAndMove": "等待設定寶可夢及招式",
+  "noPokemonSelected": "請先選擇寶可夢！",
+  "pokemonSave": "儲存寶可夢",
+  "pokemonLoad": "讀取寶可夢",
+  "pokemonImport": "匯入寶可夢",
+  "importFromPaste": "從Paste匯入",
+  "pokemonSaveConfirm": "要儲存這隻寶可夢嗎？",
+  "pasteUrl": "請貼上網址",
   "condition": {
     "title": "其他條件",
     "helpingHand": "幫助",
