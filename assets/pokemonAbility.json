@@ -147,10 +147,6 @@
     "name": "搬岩",
     "effect": "description.ability['Rocky Payload']"
   },
-  "Steely Spirit": {
-    "name": "鋼之意志",
-    "effect": "description.ability['Steely Spirit']"
-  },
   "Mega Launcher": {
     "name": "超級發射器",
     "effect": "description.ability['Mega Launcher']"

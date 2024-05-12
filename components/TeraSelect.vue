@@ -32,6 +32,33 @@ const changeTeraType = (reset?: boolean) => {
   }
   emit('changeTeraType', currentTeraType.value)
 }
+
+const isSpecificPokemon = (type: string) => {
+  const isDisabled = ref(false)
+  const isNone = type === 'None'
+  const name = pm.pokemonRef.name
+  if (!name || isNone) return false
+  switch (name) {
+    case 'ogerpon':
+      isDisabled.value = type !== 'Grass'
+      break;
+    case 'ogerpon-wellspring-mask':
+      isDisabled.value = type !== 'Water'
+      break;
+    case 'ogerpon-hearthflame-mask':
+      isDisabled.value = type !== 'Fire'
+      break;
+    case 'ogerpon-cornerstone-mask':
+      isDisabled.value = type !== 'Rock'
+      break;
+    case 'terapagos-stellar':
+      isDisabled.value = type !== 'Stellar'
+      break;
+    default:
+      break;
+    }
+    return isDisabled.value
+}
 </script>
 
 <template>
@@ -63,11 +90,12 @@ const changeTeraType = (reset?: boolean) => {
         >
           <v-container class="p-0">
             <v-row dense>
-              <v-col v-for="type in typeList" :key="type" cols="4" style="padding:0 0 10px 0;">
+              <v-col v-for="type in typeList" :key="type" cols="4" style="padding:0 0 10px 0;" >
                 <v-radio
                   :label="$t(`type.${type}`)"
                   :value="type"
                   density="compact"
+                  :disabled="isSpecificPokemon(type)"
                 />
               </v-col>
             </v-row>
