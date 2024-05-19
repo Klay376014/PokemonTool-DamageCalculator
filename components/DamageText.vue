@@ -2,6 +2,7 @@
 import type { Pokemon } from 'vgc_data_wrapper'
 import { createMove } from 'vgc_data_wrapper'
 import moves from '../assets/pokemonMove.json'
+import { watchPausable } from '@vueuse/core'
 
 const props = defineProps<{
   pokemon: string[]
@@ -38,46 +39,60 @@ type JSONMove = {
   target: string
   type: string
 }
-
-const unwatch = watch ([attacker.pokemonRef, defender.pokemonRef, battle.battleField.attacker, battle.battleField.defender, battle.battleField.field, cd.conditions], () => {
-  if (attacker.pokemonRef.name && defender.pokemonRef.name && attacker.pokemonRef.moves) {
-    const text = moves[attacker.pokemonRef.moves[0] as keyof typeof moves] as JSONMove
-    const move = createMove({
-      base: typeof text.basePower === 'number' ? text.basePower : 0,
-      category: text.category as any,
-      id: text.num,
-      type: text.type as any,
-      target: text.target as any,
-      flags: {
-        isCriticalHit: cd.conditions.critical,
-        isPriority: text.priority > 0,
-        hasRecoil: !!text.recoil,
-        hasSecondary: text.secondary !== null,
-        isBite: text.flags.bite === 1,
-        isContact: text.flags.contact === 1,
-        isPunch: text.flags.punch === 1,
-        isSlicing: text.flags.slicing === 1,
-        isSound: text.flags.slicing === 1,
-        isPulse: text.flags.pulse === 1,
-        isMultihit: !!text.multihit
-      }
-    })
-    battle.battleField.move = move
-    console.log(battle.battleField.move, battle.battleField.defender)
-    const damageResult = battle.battleField.getDamage()
-    damageText.value = `${damageResult.rolls[0].number} ~ ${damageResult.rolls[15].number} (${damageResult.rolls[0].percentage}% ~${damageResult.rolls[15].percentage}%)`
+const watcher = watchPausable(
+  [attacker.pokemonRef, defender.pokemonRef, battle.battleField.attacker, battle.battleField.defender, battle.battleField.field, cd.conditions],
+  () => {
+    if (attacker.pokemonRef.name && defender.pokemonRef.name && attacker.pokemonRef.moves) {
+      const text = moves[attacker.pokemonRef.moves[0] as keyof typeof moves] as JSONMove
+      const move = createMove({
+        base: typeof text.basePower === 'number' ? text.basePower : 0,
+        category: text.category as any,
+        id: text.num,
+        type: text.type as any,
+        target: text.target as any,
+        flags: {
+          isCriticalHit: cd.conditions.critical,
+          isPriority: text.priority > 0,
+          hasRecoil: !!text.recoil,
+          hasSecondary: text.secondary !== null,
+          isBite: text.flags.bite === 1,
+          isContact: text.flags.contact === 1,
+          isPunch: text.flags.punch === 1,
+          isSlicing: text.flags.slicing === 1,
+          isSound: text.flags.slicing === 1,
+          isPulse: text.flags.pulse === 1,
+          isMultihit: !!text.multihit
+        }
+      })
+      battle.battleField.move = move
+      console.log(battle.battleField.move, battle.battleField.defender)
+      const damageResult = battle.battleField.getDamage()
+      damageText.value = `${damageResult.rolls[0].number} ~ ${damageResult.rolls[15].number} (${damageResult.rolls[0].percentage}% ~${damageResult.rolls[15].percentage}%)`
+    }
   }
-}, { deep: true, immediate: true })
+)
+
+const isPause = ref(false)
 
 const stoppedResult: Ref<{ [key: string]: string | null }> = ref({
   attackerSprite: null,
   defenderSprite: null,
 })
 
-const stopWatch = () => {
-  unwatch()
+const pauseWatch = () => {
   stoppedResult.value.attackerSprite = attacker.pokemonRef.sprite ?? attacker.defaultImage
   stoppedResult.value.defenderSprite = defender.pokemonRef.sprite ?? defender.defaultImage
+  isPause.value = true
+  watcher.pause()
+}
+
+const resumeWatch = () => {
+  stoppedResult.value.attackerSprite = null
+  stoppedResult.value.defenderSprite = null
+  isPause.value = false
+  watcher.resume()
+  const damageResult = battle.battleField.getDamage()
+  damageText.value = `${damageResult.rolls[0].number} ~ ${damageResult.rolls[15].number} (${damageResult.rolls[0].percentage}% ~${damageResult.rolls[15].percentage}%)`
 }
 
 const copyText = () => {
@@ -110,8 +125,11 @@ const copyText = () => {
             </v-icon>
           </template>
         </v-tooltip>
-        <v-icon color="secondary" class="mx-3" style="cursor: pointer;" @click="stopWatch">
+        <v-icon color="secondary" class="mx-3" style="cursor: pointer;" @click="pauseWatch" v-if="!isPause">
           mdi-cancel
+        </v-icon>
+        <v-icon color="secondary" class="mx-3" style="cursor: pointer;" @click="resumeWatch" v-else>
+          mdi-play
         </v-icon>
       </div>
     </div>

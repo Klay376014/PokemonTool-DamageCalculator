@@ -21,14 +21,14 @@ const addResult = (attacker: string) => {
     <damage-text v-for="(pokemon, index) in pokemonSet" :key="index" :pokemon="pokemon" class="mb-8" />
     <div v-if="pokemonSet.length < 7" class="d-flex align-center justify-space-around">
       <v-btn color="primary" @click="addResult('attacker')">
-        <v-icon icon="mdi-sword-cross" class="mr-2" />
+        <v-icon icon="mdi-numeric-1-box" class="mr-2" />
         <v-icon icon="mdi-arrow-right-thin" />
-        <v-icon icon="mdi-shield-half-full" class="ml-2" />
+        <v-icon icon="mdi-numeric-2-box" class="ml-2" />
       </v-btn>
       <v-btn color="secondary" @click="addResult('defender')">
-        <v-icon icon="mdi-shield-half-full" class="mr-2" />
+        <v-icon icon="mdi-numeric-2-box" class="mr-2" />
         <v-icon icon="mdi-arrow-right-thin" />
-        <v-icon icon="mdi-sword-cross" class="ml-2" />
+        <v-icon icon="mdi-numeric-1-box" class="ml-2" />
       </v-btn>
     </div>
   </v-navigation-drawer>
