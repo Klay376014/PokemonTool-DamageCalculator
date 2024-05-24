@@ -1888,6 +1888,12 @@
       "Sword of Ruin": "（不受災禍之劍氣場影響）",
       "Vessel of Ruin": "（不受災禍之鼎氣場影響）",
       "Beads of Ruin": "（不受災禍之玉氣場影響）"
+    },
+    "damage": {
+      "OHKO": "guaranteed OHKO",
+      "chanceToOHKO": "{0}% Chance To OHKO",
+      "2HKO": "guaranteed 2HKO",
+      "chanceTo2HKO": "Have chance To 2HKO"
     }
   }
 }

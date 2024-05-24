@@ -66,11 +66,30 @@ const watcher = watchPausable(
       })
       battle.battleField.move = move
       console.log(battle.battleField.move, battle.battleField.defender)
-      const damageResult = battle.battleField.getDamage()
-      damageText.value = `${damageResult.rolls[0].number} ~ ${damageResult.rolls[15].number} (${damageResult.rolls[0].percentage}% ~${damageResult.rolls[15].percentage}%)`
+      damageText.value = damageTextI18n.value
     }
   }
 )
+
+const OHKOChance = ref('')
+const OHKOPercentage = ref(0)
+
+const damageTextI18n = computed(() => {
+  const { koChance, rolls } = battle.battleField.getDamage()
+  const { number: minNumber, percentage: minPercentage } = rolls[0]
+  const { number: maxNumber, percentage: maxPercentage } = rolls[15]
+  OHKOPercentage.value = koChance
+  if (koChance >= 100) {
+    OHKOChance.value = 'description.damage.OHKO'
+  } else if (koChance > 0) {
+    OHKOChance.value = 'description.damage.chanceToOHKO'
+  } else if (minPercentage > 50) {
+    OHKOChance.value = 'description.damage.2HKO'
+  } else if (maxPercentage > 50) {
+    OHKOChance.value = 'description.damage.chanceTo2HKO'
+  }
+  return `${minNumber} ~ ${maxNumber} (${minPercentage}% ~${maxPercentage}%)`
+})
 
 const isPause = ref(false)
 
@@ -92,7 +111,7 @@ const resumeWatch = () => {
   isPause.value = false
   watcher.resume()
   const damageResult = battle.battleField.getDamage()
-  damageText.value = `${damageResult.rolls[0].number} ~ ${damageResult.rolls[15].number} (${damageResult.rolls[0].percentage}% ~${damageResult.rolls[15].percentage}%)`
+  damageText.value = `${damageResult.rolls[0].number} ~ ${damageResult.rolls[15].number} (${damageResult.rolls[0].percentage}% ~${damageResult.rolls[15].percentage}%) ${damageResult.koChance}`
 }
 
 const copyText = () => {
@@ -133,9 +152,12 @@ const copyText = () => {
         </v-icon>
       </div>
     </div>
-    <div class="d-flex align-center justify-space-between pt-4" style="font-size: 18px;">
+    <div class="pt-4" style="font-size: 18px;">
       <p class="text-center text-subtitle-1 w-100">
         {{ damageText ? damageText : $t('setPokemonAndMove') }}
+      </p>
+      <p class="text-center text-subtitle-1 w-100">
+        {{ damageText ? $t(OHKOChance, [OHKOPercentage]) : '' }}
       </p>
     </div>
   </div>
