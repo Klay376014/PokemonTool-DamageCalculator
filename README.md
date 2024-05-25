@@ -1,48 +1,31 @@
-# Pokemon Damage Cauculator 2024 ver.
+# 寶可夢傷害計算機2024
+## 基本介面
+![基本介面](https://github.com/Klay376014/Calculator-2024ver/assets/62170635/f8d28deb-adb8-464b-a5c2-b3b900b89795)
+* 在中央畫面可以設定寶可夢的基本數值，可作為個體計算、實數檢測使用
+* 選擇寶可夢後會進行搜尋，如果沒有該寶可夢的時候圖片會維持顯示為蛋
+* 道具、特性及部分個人狀態請點擊「其他條件」展開選單
+* 點擊右上角![calculator-variant](https://github.com/Klay376014/Calculator-2024ver/assets/62170635/09613334-18f6-4fe0-bad8-20659be70981)圖示展開傷害計算面板
 
-寶可夢傷害計算機 2024版
-預計支援中、英（日）文
+## 傷害計算介面
+![傷害計算介面](https://github.com/Klay376014/Calculator-2024ver/assets/62170635/4dee7f96-94d2-4f73-9e64-4a1ac67cf9fb)
+* 基本預設為寶可夢1攻擊寶可夢2，在設定好雙方寶可夢及招式後即自動計算傷害
+
+![傷害計算介面2](https://github.com/Klay376014/Calculator-2024ver/assets/62170635/ceb28518-024f-48ca-a83a-043c93f99e61)
+* 傷害計算會隨調整數值而隨時變動，如果已計算到想要的內容，請點擊右側按鈕停止![cancel](https://github.com/Klay376014/Calculator-2024ver/assets/62170635/2da59034-d7d4-4654-9154-b90cb31941f6)監測，再次點擊可以恢復監測
+* 一次最多支援6組傷害計算結果，滑動到複製icon可以看見詳細傷害內容，點擊則可複製文字
+
+## 場地效果
+![場地效果](https://github.com/Klay376014/Calculator-2024ver/assets/62170635/2af00592-c055-4b72-a39a-fdb11d7d233c)
+* 天氣、場地等設定放在左側面板，點選相對應圖示即可啟用
+* 圖示可能不夠清楚，我們建議可以直接點點看！
+
+## 儲存與讀取
+![儲存與讀取](https://github.com/Klay376014/Calculator-2024ver/assets/62170635/9ee2683d-51e9-4127-909b-db78ca3663df)
+* 在寶可夢資訊的地方，點選右邊icon可以進行儲存與讀取，重複使用曾經設定過的數值
+* **讀取支援匯入pokepaste格式!!最多一次可以讀取6隻寶可夢!!**
+
+![匯入寶可夢](https://github.com/Klay376014/Calculator-2024ver/assets/62170635/b05a4166-d294-4ea0-9488-f19c3b036c25)
 
 ---
 
-## 開始開發
-
-```
-npm install // 首次clone專案、新套件時使用
-npm run dev
-```
-
-## 提交變更後佈署內容至gh-pages分支
-
-```
-npm run generate
-npm run deploy
-```
-
----
-
-## 資料夾結構
-
-### assets
-用來存放像是 CSS、Sass、字體、圖片等需要被 webpack 或是 Vite 編譯的靜態資源（壓縮、最佳化），如不需經過編譯，則存放於 public/
-
-### components
-用來定義 Vue 共用元件，Nuxt 會自動引入，名稱規則為：路徑前綴 + 元件名稱，例如巢狀目錄結構如下
-
-### composables
-組合式函式，利用 Composition API 來封裝和複用有狀態邏輯（Stateful Logic）的函式。定義在 composables/ 內的檔案 Nuxt 會自動引入
-
-### content
-讀取 content/ 目錄，並解析存放於此資料夾內的 .md、.yml、.csv 以及 .json 檔案，建立一套內容管理系統（CMS）
-
-### pages
-用來配置主要頁面的資料夾，定義後 Nuxt 會自動整合 Vue Router，依照資料夾以及檔案結構配置路由，例如：pages/work.vue 會被映射到 /work
-
-### plugins
-用來定義插件，plugins/ 內的檔案 Nuxt 會自動引入，如果要限制在 server 或是 client 端使用，檔名需加上 .server 或 .client 後綴
-
-### public
-靜態資源資料夾，用來存放不需要被編譯的檔案，像 CSS、 文字或圖片，透過根目錄 / 即可使用 public/ 檔案，檔案如需被編譯，則存放於 assets/
-
-### locales
-放置多語系的資料夾，記得更新內容時需將所有語言一併更新上去，目前預計支援中、英、日文
+如在使用上遇到任何問題，歡迎與作者聯繫。
