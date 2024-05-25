@@ -44,7 +44,19 @@ const pokemonSelect = async (name: string | null) => {
   isLoading.value = true
   const r = await useFetchPokemon(name) as Pokemon
   const { stats, types, sprite, weight } = r
-  pm.setPokemon(name, stats, types as PokemonType, sprite.front_default, weight)
+  if (name !== 'terapagos-stellar') {
+    pm.setPokemon(name, stats, types as PokemonType, sprite.front_default, weight)
+  } else {
+    const terapagosStallarStats = {
+      hp: 160,
+      attack:	105,
+      defense: 110,
+      specialAttack: 130,
+      specialDefense:	110,
+      speed: 85
+    }
+    pm.setPokemon(name, terapagosStallarStats, types as PokemonType, sprite.front_default, weight)
+  }
   pm.setDefaultSelection(name)
   isLoading.value = false
 }
