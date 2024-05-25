@@ -33,7 +33,11 @@ export default defineNuxtConfig({
       },
     ],
     '@nuxtjs/apollo',
+    'nuxt-gtag'
   ],
+  gtag: {
+    id:'G-YCYLGKZWQ0'
+  },
   vite: {
     vue: {
       template: {
