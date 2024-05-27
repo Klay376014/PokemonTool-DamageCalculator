@@ -23,7 +23,7 @@ const stats = {
   speed: 'Spe',
 } satisfies Record<StatKeys, string>
 
-function setPlusNature(key: StatKeysWithoutHP) {
+const setPlusNature = (key: StatKeysWithoutHP) => {
   if (pm.pokemonRef.nature.minus === key) {
     pm.pokemonRef.setNature({ minus: undefined })
     return
@@ -31,7 +31,7 @@ function setPlusNature(key: StatKeysWithoutHP) {
   pm.pokemonRef.setNature({ plus: key })
 }
 
-function setMinusNature(key: StatKeysWithoutHP) {
+const setMinusNature = (key: StatKeysWithoutHP) => {
   if (pm.pokemonRef.nature.plus === key) {
     pm.pokemonRef.setNature({ plus: undefined })
     return
@@ -40,7 +40,7 @@ function setMinusNature(key: StatKeysWithoutHP) {
   pm.pokemonRef.setNature({ minus: key })
 }
 
-function getNatureToggleColor(key: StatKeysWithoutHP): string {
+const getNatureToggleColor = (key: StatKeysWithoutHP): string => {
   if (pm.pokemonRef.nature.plus === key)
     return 'text-primary'
 
@@ -54,14 +54,14 @@ const getEvRemaining = computed((): number => {
   return 508 - Object.values(pm.pokemonRef.effortValues).reduce((sum, value) => sum + value, 0)
 })
 
-function checkIv(key: StatKeys): void {
+const checkIv = (key: StatKeys): void => {
   if (!pm.pokemonRef.individualValues[key] || pm.pokemonRef.individualValues[key] < 0)
     pm.pokemonRef.individualValues[key] = 0
   else if (pm.pokemonRef.individualValues[key] > 31)
     pm.pokemonRef.individualValues[key] = 31
 }
 
-function checkEv(key: StatKeys): void {
+const checkEv = (key: StatKeys): void => {
   if (!pm.pokemonRef.effortValues[key] || pm.pokemonRef.effortValues[key] < 0)
     pm.pokemonRef.effortValues[key] = 0
   else if (pm.pokemonRef.effortValues[key] > 252)
@@ -70,22 +70,34 @@ function checkEv(key: StatKeys): void {
     pm.pokemonRef.effortValues[key] = Math.round(pm.pokemonRef.effortValues[key] / 4) * 4
 }
 
-function setEvZero(key: StatKeys): void {
+const setEvZero = (key: StatKeys): void => {
   pm.pokemonRef.effortValues[key] = 0
 }
 
-function setEvMax(key: StatKeys): void {
+const setEvMax = (key: StatKeys): void => {
   pm.pokemonRef.effortValues[key] = 252
 }
 
-function setStatStages(key: StatKeysWithoutHP, value: typeof stages[number] | null) {
+const setStatStages = (key: StatKeysWithoutHP, value: typeof stages[number] | null) => {
   if (!value)
     return
   pm.pokemonRef.statStage[key] = +value
 }
 
-function getStageModelValue(val: number): typeof stages[number] {
+const getStageModelValue = (val: number): typeof stages[number] => {
   return (val > 0 ? `+${val}` : val === 0 ? '0' : `${val}`) as typeof stages[number]
+}
+
+const valueWithStage = ref((value: number, key: StatKeys) => {
+  if (key === 'hp') return value
+  const stage = pm.pokemonRef.statStage[key]
+  return stage >= 0 ? Math.trunc(value * (2 + stage) / 2) :  Math.trunc(value * 2 / (2 - stage))
+})
+
+const getStageEffectColor = (key: StatKeys) => {
+  if (key === 'hp') return ''
+  const stage = pm.pokemonRef.statStage[key]
+  return stage > 0 ? 'text-primary' : stage < 0 ? 'text-secondary' : ''
 }
 </script>
 
@@ -141,7 +153,10 @@ function getStageModelValue(val: number): typeof stages[number] {
       <tr>
         <td>{{ $t('stat.stat') }}</td>
         <td v-for="(value, key) in pm.pokemonRef.getStats()" :key="key">
-          <input :name="key" type="number" class="py-2 w-75" min="0" max="300" :value="value">
+          <div class="d-flex flex-column align-center pr-3">
+            <input :name="key" class="pt-1 w-75 text-center" :value="value" disabled>
+            <input :name="key" class="pb-1 w-75 text-center" :value="`(${valueWithStage(value, key)})`" :class="getStageEffectColor(key)" disabled>
+          </div>
         </td>
       </tr>
       <tr>

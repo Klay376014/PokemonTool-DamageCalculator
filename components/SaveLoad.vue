@@ -15,6 +15,7 @@ const dialogSave = ref(false)
 const dialogImportFromUrl = ref(false)
 const pokePasteUrl = ref('')
 const note = ref('')
+const importing = ref(false)
 
 const pm = usePokemonDataStore(props.role)
 const loadedPokemon = ref(<Pokemon[]>[])
@@ -48,7 +49,8 @@ const savePokemon = (pokemons: Pokemon | Pokemon[]) => {
   initLocalStorage()
   loadedPokemon.value = loadedPokemon.value.concat(pokemons)
   if ('length' in pokemons && pokemons.length > 0) {
-    //
+    const notesFromPaste: string[] = Array(pokemons.length).fill('notesFromPaste')
+    loadedPokemonNotes.value = loadedPokemonNotes.value.concat(notesFromPaste)
   } else {
     loadedPokemonNotes.value = loadedPokemonNotes.value.concat(note.value)
   }
@@ -85,9 +87,18 @@ const deleteSelectedPoekmon = (index: number) => {
 }
 
 const importFromUrl = async () => {
-  const pokemons = await getPokemonsFromPasteUrl(pokePasteUrl.value)
-  savePokemon(pokemons)
-  dialogImportFromUrl.value = false
+  importing.value = true
+  try {
+    const pokemons = await getPokemonsFromPasteUrl(pokePasteUrl.value)
+    savePokemon(pokemons)
+    dialogImportFromUrl.value = false
+  } catch (e) {
+    if (e instanceof Error) alert(e.message)
+  } finally {
+    importing.value = false
+  }
+  
+  
 }
 </script>
 
@@ -119,7 +130,7 @@ const importFromUrl = async () => {
           <v-tooltip
             activator="parent"
             location="top"
-            >{{ loadedPokemonNotes[index] }}
+            >{{ $te(loadedPokemonNotes[index]) ? $t(loadedPokemonNotes[index]) : loadedPokemonNotes[index] }}
           </v-tooltip>
         </v-img>
         <div>
@@ -203,6 +214,7 @@ const importFromUrl = async () => {
 
         <v-btn
           @click="importFromUrl"
+          :disabled="importing"
           class="w-100"
           color="primary"
         >

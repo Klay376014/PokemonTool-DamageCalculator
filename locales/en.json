@@ -53,6 +53,7 @@
   "pokemonLoad": "Pokemon load",
   "pokemonImport": "Pokemon import",
   "importFromPaste": "Import from paste",
+  "notesFromPaste": "Imported from paste",
   "pokemonSaveConfirm": "Save this Pokemon?",
   "pasteUrl": "Paste url here",
   "writeNote": "Write a note...",

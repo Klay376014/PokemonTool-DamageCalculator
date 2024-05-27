@@ -53,6 +53,7 @@
   "pokemonLoad": "ポケモンロード",
   "pokemonImport": "ポケモン読み取り",
   "importFromPaste": "Pasteから読み取り",
+  "notesFromPaste": "Pasteから読み取った",
   "pokemonSaveConfirm": "このポケモンをセーブする？",
   "pasteUrl": "リンクを貼ってください",
   "writeNote": "メモ用",
