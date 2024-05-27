@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     baseURL: process.env.NODE_ENV === 'production' ? '/Calculator-2024ver/' : '/',
     buildAssetsDir: '/static/',
     head: {
+      charset: 'utf-8',
       meta: [
         {
           name: 'viewport',

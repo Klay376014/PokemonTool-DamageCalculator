@@ -14,25 +14,46 @@ const dialogLoad = ref(false)
 const dialogSave = ref(false)
 const dialogImportFromUrl = ref(false)
 const pokePasteUrl = ref('')
+const note = ref('')
 
 const pm = usePokemonDataStore(props.role)
-const loadedPokemon: Ref<Pokemon[]> = ref([])
+const loadedPokemon = ref(<Pokemon[]>[])
+const loadedPokemonNotes = ref(<string[]>[])
 
 const openSaveDialog = () => {
-  if (!pm.pokemonRef.name)
+  if (!pm.pokemonRef.name) {
     window.alert(t('noPokemonSelected'))
-  else
+  } else {
+    note.value = ''
     dialogSave.value = true
+  }
+    
 }
 
-const savePokemon = (pokemons: Pokemon | Pokemon[]) => {
+const initLocalStorage = () => {
+  // 開啟時先清空，再從localStorage拿取已存取的內容
   loadedPokemon.value.length = 0
+  loadedPokemonNotes.value.length = 0
   const getSavedPokemon = localStorage.getItem('savedPokemon')
+  const getSavedPokemonNotes = localStorage.getItem('savedPokemonNotes')
   if (getSavedPokemon) {
     loadedPokemon.value = loadedPokemon.value.concat(JSON.parse(getSavedPokemon) as Pokemon[])
   }
+  if (getSavedPokemonNotes) {
+    loadedPokemonNotes.value = loadedPokemonNotes.value.concat(JSON.parse(getSavedPokemonNotes) as string[])
+  }
+}
+
+const savePokemon = (pokemons: Pokemon | Pokemon[]) => {
+  initLocalStorage()
   loadedPokemon.value = loadedPokemon.value.concat(pokemons)
+  if ('length' in pokemons && pokemons.length > 0) {
+    //
+  } else {
+    loadedPokemonNotes.value = loadedPokemonNotes.value.concat(note.value)
+  }
   localStorage.setItem('savedPokemon', JSON.stringify(loadedPokemon.value))
+  localStorage.setItem('savedPokemonNotes', JSON.stringify(loadedPokemonNotes.value))
 }
 
 // 儲存當前寶可夢設定
@@ -42,16 +63,11 @@ const saveCurrentPokemonSetting = () => {
 }
 // 開啟讀取畫面
 const openLoadDialog = () => {
-  // 開啟時先清空，再從localStorage拿取已存取的內容
-  loadedPokemon.value.length = 0
-  const getSavedPokemon = localStorage.getItem('savedPokemon')
-  if (getSavedPokemon)
-    loadedPokemon.value = loadedPokemon.value.concat(JSON.parse(getSavedPokemon) as Pokemon[])
+  initLocalStorage()
   dialogLoad.value = true
 }
 // 讀取選中寶可夢
 const loadSelectedPoekmon = (index: number) => {
-  console.log(loadedPokemon.value[index])
   if (loadedPokemon.value.length > 0) {
     const { name, baseStat, effortValues, types, sprite, weight, item} = loadedPokemon.value[index]
     pm.pokemonRef.effortValues = effortValues
@@ -62,7 +78,9 @@ const loadSelectedPoekmon = (index: number) => {
 
 const deleteSelectedPoekmon = (index: number) => {
   loadedPokemon.value.splice(index, 1)
+  loadedPokemonNotes.value.splice(index, 1)
   localStorage.setItem('savedPokemon', JSON.stringify(loadedPokemon.value))
+  localStorage.setItem('savedPokemonNotes', JSON.stringify(loadedPokemonNotes.value))
   openLoadDialog()
 }
 
@@ -97,7 +115,13 @@ const importFromUrl = async () => {
           max-width="50"
           aspect-ratio="1"
           :src="pokemon.sprite"
-        />
+        >
+          <v-tooltip
+            activator="parent"
+            location="top"
+            >{{ loadedPokemonNotes[index] }}
+          </v-tooltip>
+        </v-img>
         <div>
           <p>{{ `H${pokemon.effortValues.hp}` }}</p>
           <p>{{ `C${pokemon.effortValues.specialAttack}` }}</p>
@@ -142,6 +166,7 @@ const importFromUrl = async () => {
       :text="$t('pokemonSaveConfirm')"
       :title="$t('pokemonSave')"
     >
+    <v-text-field v-model="note" :label="$t('writeNote')"></v-text-field>
       <v-divider />
 
       <v-card-actions>

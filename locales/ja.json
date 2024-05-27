@@ -55,6 +55,7 @@
   "importFromPaste": "Pasteから読み取り",
   "pokemonSaveConfirm": "このポケモンをセーブする？",
   "pasteUrl": "リンクを貼ってください",
+  "writeNote": "メモ用",
   "condition": {
     "title": "他条件",
     "helpingHand": "てだすけ",
