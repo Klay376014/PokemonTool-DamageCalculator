@@ -43,9 +43,10 @@ const pokemonSelect = async (name: string | null) => {
     return
   isLoading.value = true
   const r = await useFetchPokemon(name) as Pokemon
-  const { stats, types, sprite, weight } = r
+  const { stats, types, sprite, weight, moves } = r
   if (name !== 'terapagos-stellar') {
     pm.setPokemon(name, stats, types as PokemonType, sprite.front_default, weight)
+    pm.moveList = moves.map(move => move.pokemon_v2_move.name)
   } else {
     const terapagosStallarStats = {
       hp: 160,

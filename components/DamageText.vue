@@ -65,7 +65,6 @@ const watcher = watchPausable(
         }
       })
       battle.battleField.move = move
-      console.log(battle.battleField.move, battle.battleField.defender)
       damageText.value = damageTextI18n.value
     }
   }
@@ -111,7 +110,9 @@ const resumeWatch = () => {
   isPause.value = false
   watcher.resume()
   const damageResult = battle.battleField.getDamage()
-  damageText.value = `${damageResult.rolls[0].number} ~ ${damageResult.rolls[15].number} (${damageResult.rolls[0].percentage}% ~${damageResult.rolls[15].percentage}%) ${damageResult.koChance}`
+  // 此數值暫時無作用，借用來幫忙觸發resumeWatch時更動OHKO數值
+  attacker.pokemonRef.id = attacker.pokemonRef.id ? attacker.pokemonRef.id-- : 1
+  damageText.value = `${damageResult.rolls[0].number} ~ ${damageResult.rolls[15].number} (${damageResult.rolls[0].percentage}% ~${damageResult.rolls[15].percentage}%)`
 }
 
 const copyText = () => {

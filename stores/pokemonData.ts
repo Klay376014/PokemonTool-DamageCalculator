@@ -20,6 +20,7 @@ export const usePokemonDataStore = (role: string) => defineStore(role, () => {
   }
 
   const pokemonRef = ref(createNewPokemon())
+  const moveList: Ref<string[]> = ref([])
 
   // 多個參數還是單一Object參數？
   const setPokemon = (name: string, stats: Stats, types: PokemonType, sprite: string, weight: number, item?: Pokemon['item']) => {
@@ -68,6 +69,7 @@ export const usePokemonDataStore = (role: string) => defineStore(role, () => {
     pokemonRef,
     setPokemon,
     setDefaultSelection,
+    moveList,
     defaultImage
   }
 })()

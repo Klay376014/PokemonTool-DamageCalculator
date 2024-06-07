@@ -14,16 +14,17 @@ const cd = useConditionStore(props.role)
 const pm = usePokemonDataStore(props.role)
 
 const switchCondition = (event: Event) => {
-  if (event.target) {
-    const condition = (event.target as HTMLInputElement).value
-    cd.conditions[condition] = !cd.conditions[condition]
-    if (condition === 'burned') {
-      pm.pokemonRef.status = cd.conditions[condition] ? 'Burned' : "Healthy"
-    } else if (condition !== 'critical') {
-      pm.pokemonRef.setFlags({ [condition]: cd.conditions[condition] })
-    }
+  if (!event.target) return
+  
+  const condition = (event.target as HTMLInputElement).value
+  cd.conditions[condition] = !cd.conditions[condition]
+  if (condition === 'burned') {
+    pm.pokemonRef.status = cd.conditions[condition] ? 'Burned' : "Healthy"
+  } else if (condition !== 'critical') {
+    pm.pokemonRef.setFlags({ [condition]: cd.conditions[condition] })
   }
 }
+
 </script>
 
 <template>

@@ -15,9 +15,17 @@ const props = defineProps({
   }
 })
 const { t } = useI18n()
-const defaultList = await getAsset<T, U>(props.listType)
-const list = Object.keys(defaultList) as Array<T>
+const includesPartial = (array: string[], subStr: string): boolean => {
+  return array.some(item => item.includes(subStr));
+}
 const pm = usePokemonDataStore(props.role)
+const defaultList = await getAsset<T, U>(props.listType)
+const list = computed(() => {
+  if (props.listType !== 'Move' || pm.moveList.length === 0) return Object.keys(defaultList) as Array<T>
+  
+  // TODO 如果selection是招式欄位，並開啟朱紫學習限定，且確實有抓到招式清單才做過濾
+  return Object.keys(defaultList).filter(key => includesPartial(pm.moveList, key.toLowerCase().replaceAll(' ', '-'))) as Array<T>
+})
 const itemProps = (item: T) => {
   const oriItem = (assetToPropsMapping[props.listType](item, defaultList[item]))
   const splitSubtitle = oriItem.subtitle.split('/')
@@ -43,8 +51,7 @@ const customFilter = (itemText: string, queryText: string, item?: {
 }
 
 const setSelection = (value: string | null) => {
-  if (!value)
-    return
+  if (!value) return
   switch (props.listType) {
   case 'Move':
     pm.pokemonRef.moves = [value]

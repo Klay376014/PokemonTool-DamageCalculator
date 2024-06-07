@@ -47,7 +47,6 @@ export default async function (pokemon: string): Promise<Pokemon | void> {
     return targetPokemon
   }
   catch (e) {
-    if (e instanceof Error)
-      console.log(e.message)
+    if (e instanceof Error) console.log(e.message)
   }
 }
