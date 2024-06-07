@@ -19,9 +19,10 @@ const includesPartial = (array: string[], subStr: string): boolean => {
   return array.some(item => item.includes(subStr));
 }
 const pm = usePokemonDataStore(props.role)
+const cd = useConditionStore(props.role)
 const defaultList = await getAsset<T, U>(props.listType)
 const list = computed(() => {
-  if (props.listType !== 'Move' || pm.moveList.length === 0) return Object.keys(defaultList) as Array<T>
+  if (props.listType !== 'Move' || pm.moveList.length === 0 || !cd.switchFilter) return Object.keys(defaultList) as Array<T>
   
   // TODO 如果selection是招式欄位，並開啟朱紫學習限定，且確實有抓到招式清單才做過濾
   return Object.keys(defaultList).filter(key => includesPartial(pm.moveList, key.toLowerCase().replaceAll(' ', '-'))) as Array<T>

@@ -17,7 +17,16 @@ const show = ref(false)
       <pokemon-info :role="props.role" />
       <pokemon-select :role="props.role" />
       <pokemon-stat :role="props.role" />
-      <selection list-type="Move" :role="props.role" />
+      <v-container class="px-0 py-2">
+        <v-row>
+          <v-col cols="10" class="pb-0">
+            <selection list-type="Move" :role="props.role" />
+          </v-col>
+          <v-col cols="2" class="pb-0 pl-0">
+            <move-list-filter :role="props.role" />
+          </v-col>
+        </v-row>
+      </v-container>
       <v-card-actions class="py-0">
         <v-btn
           color="purple-lighten-2"

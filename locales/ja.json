@@ -57,6 +57,7 @@
   "pokemonSaveConfirm": "このポケモンをセーブする？",
   "pasteUrl": "リンクを貼ってください",
   "writeNote": "メモ用",
+  "filter": "SV限定",
   "condition": {
     "title": "他条件",
     "helpingHand": "てだすけ",

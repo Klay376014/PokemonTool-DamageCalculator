@@ -13,7 +13,10 @@ export const useConditionStore = (attacker: string) => defineStore(`conditions-f
     hasFriendGuard: false,
   })
 
+  const switchFilter = ref(false)
+
   return {
-    conditions
+    conditions,
+    switchFilter
   }
 })()

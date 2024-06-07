@@ -61,6 +61,7 @@
   "pokemonSaveConfirm": "要儲存這隻寶可夢嗎？",
   "pasteUrl": "請貼上網址",
   "writeNote": "留個備註",
+  "filter": "過濾",
   "condition": {
     "title": "其他條件",
     "helpingHand": "幫助",
