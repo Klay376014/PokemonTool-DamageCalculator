@@ -1,7 +1,7 @@
 import { graphql } from '../gql'
 import { Cache } from '~/utils/cache'
 
-const pokemonCache = new Cache<string, Pokemon>()
+const pokemonCache = new Cache<string, PokemonSchema>()
 const fetchPokemonInfo = graphql(`
 query fetchPokemonInfo($pokemon: String!) {
   pokemon_v2_pokemon(distinct_on: name, where: {name: {_eq: $pokemon}}) {
@@ -27,7 +27,7 @@ query fetchPokemonInfo($pokemon: String!) {
   }
 }`)
 
-export default async function (pokemon: string): Promise<Pokemon | void> {
+export default async function (pokemon: string): Promise<PokemonSchema | void> {
   try {
     const cachedPokemonInfo = pokemonCache.get(pokemon)
     if (cachedPokemonInfo.success)

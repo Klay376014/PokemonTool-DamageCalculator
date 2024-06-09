@@ -42,7 +42,7 @@ const pokemonSelect = async (name: string | null) => {
   if (!name)
     return
   isLoading.value = true
-  const r = await useFetchPokemon(name) as Pokemon
+  const r = await useFetchPokemon(name) as PokemonSchema
   const { stats, types, sprite, weight, moves } = r
   if (name !== 'terapagos-stellar') {
     pm.setPokemon(name, stats, types as PokemonType, sprite.front_default, weight)

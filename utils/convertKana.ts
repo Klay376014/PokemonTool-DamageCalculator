@@ -200,7 +200,7 @@ const tree: ITree = {
 }
 
 export function romanToKana(original: string) {
-  const str = original.replace(/[Ａ-Ｚａ-ｚ]/, s => String.fromCharCode(s.charCodeAt(0) - 65248)).toLowerCase() // 全角→半角→小文字
+  const str = original.replace(/[Ａ-Ｚａ-ｚ]/, s => String.fromCharCode(s.charCodeAt(0) - 65248)).toLowerCase()
   let result = ''
   let tmp = ''
   let index = 0
@@ -213,7 +213,7 @@ export function romanToKana(original: string) {
   }
   while (index < len) {
     const char = str.charAt(index)
-    if (char.match(/[a-z]/)) { // 英数字以外は考慮しない
+    if (char.match(/[a-z]/)) {
       if (char in node) {
         const next = node[char]
         if (typeof next === 'string') {
@@ -227,10 +227,10 @@ export function romanToKana(original: string) {
         continue
       }
       const prev = str.charAt(index - 1)
-      if (prev && (prev === 'n' || prev === char)) { // 促音やnへの対応
+      if (prev && (prev === 'n' || prev === char)) {
         push(prev === 'n' ? 'ン' : 'ッ', false)
       }
-      if (node !== tree && char in tree) { // 今のノードがルート以外だった場合、仕切り直してチェックする
+      if (node !== tree && char in tree) {
         push(tmp)
         continue
       }
@@ -238,7 +238,7 @@ export function romanToKana(original: string) {
     push(tmp + char)
     index++
   }
-  tmp = tmp.replace(/n$/, 'ン') // 末尾のnは変換する
+  tmp = tmp.replace(/n$/, 'ン')
   push(tmp)
   return result
 }

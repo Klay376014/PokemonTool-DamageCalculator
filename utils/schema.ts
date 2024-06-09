@@ -1,8 +1,20 @@
 import { z } from 'zod'
+import type { Pokemon } from 'vgc_data_wrapper'
 
-export const statKeys = ['hp', 'attack', 'defense', 'specialAttack', 'specialDefense', 'speed'] as const
+export type StatKeys = keyof (Pokemon['stats'] & object) // use & object to filter out undefined
 
-type StatProperty = typeof statKeys[number]
+export const statKeysArray = ['hp', 'attack', 'defense', 'specialAttack', 'specialDefense', 'speed'] as const
+
+export const stats = {
+  hp: 'Hp',
+  attack: 'Atk',
+  defense: 'Def',
+  specialAttack: 'Spa',
+  specialDefense: 'Spd',
+  speed: 'Spe',
+} satisfies Record<StatKeys, string>
+
+type StatProperty = typeof statKeysArray[number]
 
 export type Stats = Record<StatProperty, number>
 
@@ -36,7 +48,7 @@ const pokemonSchema = z.object({
   })),
   pokemon_v2_pokemonstats: z.array(z.object({ base_stat: z.number() })).transform((arg) => {
     return arg.reduce((pre, cur, i) => {
-      const statKey = statKeys[i]
+      const statKey = statKeysArray[i]
       pre[statKey] = cur.base_stat
       return pre
     }, {} as Stats) // tranform from stats array to stat object
@@ -55,7 +67,7 @@ const pokemonSchema = z.object({
   types: pokemon_v2_pokemontypes
 })) // transform into more readable property names
 
-export type Pokemon = z.infer<typeof pokemonSchema>
+export type PokemonSchema = z.infer<typeof pokemonSchema>
 
 export const pokemonsResponseSchema = z.object({
   pokemon_v2_pokemon: z.array(pokemonSchema)

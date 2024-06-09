@@ -72,11 +72,14 @@
     "lightScreen": "光牆",
     "reflect": "反射壁",
     "steelySpirit": "鋼之意志",
-    "hasFriendGuard": "友情防守"
+    "hasFriendGuard": "友情防守",
+    "isDouble": "分傷"
   },
   "Physical": "物理",
   "Special": "特殊",
   "terastal": "太晶化",
+  "tera": "太晶",
+  "stellar": "星晶",
   "pokemon": {
     "bulbasaur": "妙蛙種子",
     "ivysaur": "妙蛙草",

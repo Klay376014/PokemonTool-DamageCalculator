@@ -19,7 +19,7 @@ const addResult = (attacker: string) => {
     class="pt-4"
   >
     <damage-text v-for="(pokemon, index) in pokemonSet" :key="index" :pokemon="pokemon" class="mb-8" />
-    <div v-if="pokemonSet.length < 7" class="d-flex align-center justify-space-around">
+    <div v-if="pokemonSet.length < 5" class="d-flex align-center justify-space-around">
       <v-btn color="primary" @click="addResult('attacker')">
         <v-icon icon="mdi-numeric-1-box" class="mr-2" />
         <v-icon icon="mdi-arrow-right-thin" />

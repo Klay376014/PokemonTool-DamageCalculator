@@ -68,11 +68,14 @@
     "lightScreen": "Light Screen",
     "reflect": "Reflect",
     "steelySpirit": "Steely Spirit",
-    "hasFriendGuard": "Friend Guard"
+    "hasFriendGuard": "Friend Guard",
+    "isDouble": "Spread"
   },
   "terastal": "Terastal",
   "Physical": "Physical",
   "Special": "Special",
+  "tera": "Tera",
+  "stellar": "Stellar",
   "pokemon": {
     "bulbasaur": "Bulbasaur",
     "ivysaur": "Ivysaur",

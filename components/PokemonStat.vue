@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Pokemon } from 'vgc_data_wrapper'
+import { stats, type StatKeys } from '~/utils/schema'
 
 const props = defineProps({
   role: {
@@ -12,16 +12,9 @@ const stages = ['+6', '+5', '+4', '+3', '+2', '+1', '0', '-1', '-2', '-3', '-4',
 // TODO get information from props
 const pm = usePokemonDataStore(props.role)
 
-type StatKeys = keyof (Pokemon['stats'] & object) // use & object to filter out undefined
+
 type StatKeysWithoutHP = Exclude<StatKeys, 'hp'>
-const stats = {
-  hp: 'Hp',
-  attack: 'Atk',
-  defense: 'Def',
-  specialAttack: 'Spa',
-  specialDefense: 'Spd',
-  speed: 'Spe',
-} satisfies Record<StatKeys, string>
+
 
 const setPlusNature = (key: StatKeysWithoutHP) => {
   if (pm.pokemonRef.nature.minus === key) {

@@ -68,11 +68,14 @@
     "lightScreen": "ひかりのかべ",
     "reflect": "レフレクター",
     "steelySpirit": "はがねのせいしん",
-    "hasFriendGuard": "フレンドガード"
+    "hasFriendGuard": "フレンドガード",
+    "isDouble": "ダブル"
   },
   "Physical": "物理",
   "Special": "特殊",
   "terastal": "テラスタル",
+  "tera": "テラ",
+  "stellar": "ステラ",
   "pokemon": {
     "bulbasaur": "フシギダネ",
     "ivysaur": "フシギソウ",
