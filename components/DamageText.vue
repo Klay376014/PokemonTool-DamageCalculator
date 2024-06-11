@@ -6,8 +6,17 @@ import { watchPausable } from '@vueuse/core'
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps<{
-  pokemon: string[]
+  pokemon: string[],
+  index: number
 }>()
+
+const emit = defineEmits<{
+  remove: [index: number]
+}>()
+const handleRemove = () => {
+  emit('remove', props.index)
+}
+console.log(props.index)
 const attackerPokemon = usePokemonDataStore(props.pokemon[0])
 const defenderPokemon = usePokemonDataStore(props.pokemon[1])
 const battle = usePokemonBattleStore(props.pokemon[0])
@@ -90,6 +99,8 @@ const damageTextI18n = computed(() => {
     OHKOChance.value = 'description.damage.2HKO'
   } else if (maxPercentage > 50) {
     OHKOChance.value = 'description.damage.chanceTo2HKO'
+  } else {
+    OHKOChance.value = ''
   }
   return `${minNumber} ~ ${maxNumber} (${minPercentage}% ~${maxPercentage}%)`
 })
@@ -324,6 +335,9 @@ const composeDetailText = (): string => {
         </v-icon>
         <v-icon color="secondary" class="mx-3" style="cursor: pointer;" @click="resumeWatch" v-else>
           mdi-play
+        </v-icon>
+        <v-icon color="info" style="cursor: pointer;" @click="handleRemove">
+          mdi-trash-can-outline
         </v-icon>
       </div>
     </div>
