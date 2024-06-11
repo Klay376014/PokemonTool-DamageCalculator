@@ -9,7 +9,7 @@ const pm = usePokemonDataStore(props.role)
 const teraType = ref('None')
 const isTerapagosStellar = computed(() => {
   if (pm.pokemonRef.name === 'terapagos-stellar') {
-    teraType.value = 'Stellar'
+    changeTeraType('Stellar')
   }
   return pm.pokemonRef.name
 })

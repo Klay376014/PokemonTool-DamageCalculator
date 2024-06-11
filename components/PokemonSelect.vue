@@ -56,6 +56,7 @@ const pokemonSelect = async (name: string | null) => {
       speed: 85
     }
     pm.setPokemon(name, terapagosStellarStats, types as PokemonType, sprite.front_default, weight)
+    pm.pokemonRef.teraType = 'Stellar'
   }
   pm.moveList = moves.map(move => move.pokemon_v2_move.name)
   pm.setDefaultSelection(name)

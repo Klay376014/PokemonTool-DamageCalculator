@@ -16,7 +16,6 @@ const emit = defineEmits<{
 const handleRemove = () => {
   emit('remove', props.index)
 }
-console.log(props.index)
 const attackerPokemon = usePokemonDataStore(props.pokemon[0])
 const defenderPokemon = usePokemonDataStore(props.pokemon[1])
 const battle = usePokemonBattleStore(props.pokemon[0])
@@ -231,6 +230,11 @@ const composeDetailText = (): string => {
     detailArray.push(t(`condition.steelySpirit`))
   }
 
+  // atk ruin
+  if (attacker.ruin) {
+    detailArray.push(t(`ability.${attacker.ruin} of Ruin`))
+  }
+
   // aura
   if (field.aura) {
     detailArray.push(`${battle.battleField.move?.type === 'Fairy' ? t('field.aura.Fairy') : t('field.aura.Dark')}${t('field.aura.title')}`)
@@ -299,6 +303,11 @@ const composeDetailText = (): string => {
   // def hasFriendGuard
   if (defender.hasFriendGuard) {
     detailArray.push(t('condition.hasFriendGuard'))
+  }
+
+  // def ruin
+  if (defender.ruin) {
+    detailArray.push(t(`ability.${defender.ruin} of Ruin`))
   }
 
   return detailArray.join(' ')
