@@ -7,6 +7,12 @@ const props = defineProps({
 })
 const pm = usePokemonDataStore(props.role)
 const teraType = ref('None')
+const isTerapagosStellar = computed(() => {
+  if (pm.pokemonRef.name === 'terapagos-stellar') {
+    teraType.value = 'Stellar'
+  }
+  return pm.pokemonRef.name
+})
 const changeTeraType = (type: string) => {
   pm.pokemonRef.isTera = type !== 'None'
   pm.pokemonRef.teraType = type !== 'None' ? type as typeof pm.pokemonRef.teraType : pm.pokemonRef.teraType
@@ -41,7 +47,7 @@ const changeTeraType = (type: string) => {
                 <p>
                   {{ `${$t('terastal')}\ufe30${$t(`type.${teraType}`)}` }}
                 </p>
-                <tera-select :tera-type="teraType" :role="props.role" @change-tera-type="changeTeraType" />
+                <tera-select :tera-type="teraType" :role="props.role" @change-tera-type="changeTeraType" :key="isTerapagosStellar"/>
               </div>
 
               <p class="text-grey text-subtitle-2 pt-2">

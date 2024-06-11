@@ -1,4 +1,5 @@
 import { Pokemon } from 'vgc_data_wrapper'
+import defaultMove from '~/utils/defaultMove'
 import type { PokemonType } from '~/utils/schema'
 
 export const usePokemonDataStore = (role: string) => defineStore(role, () => {
@@ -64,6 +65,12 @@ export const usePokemonDataStore = (role: string) => defineStore(role, () => {
       pokemonRef.value.ability = undefined
       break;
     }
+
+    const map = defaultMove()
+    if (!map.has(name)) return
+
+    const defaultMoveByName = map.get(name)
+    if (defaultMoveByName) pokemonRef.value.moves = [defaultMoveByName]
   }
   return {
     pokemonRef,

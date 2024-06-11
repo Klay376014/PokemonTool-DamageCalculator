@@ -1,0 +1,40 @@
+export default function () {
+  const defaultMoveMap = new Map<string, string>([
+    ['flutter-mane', 'Moonblast'],
+    ['kyogre', 'Water Spout'],
+    ['incineroar', 'Flare Blitz'],
+    ['urshifu-rapid-strike', 'Surging Strikes'],
+    ['rillaboom', 'Wood Hammer'],
+    ['raging-bolt', 'Thunderclap'],
+    ['tornadus-incarnate', 'Bleakwind Storm'],
+    ['calyrex-shadow', 'Astral Barrage'],
+    ['chien-pao', 'Sucker Punch'],
+    ['terapagos-stellar', 'Tera Starstorm'],
+    ['pelipper', 'Hurricane'],
+    ['calyrex-ice', 'Glacial Lance'],
+    ['chi-yu', 'Heat Wave'],
+    ['whimsicott', 'Moonblast'],
+    ['zamazenta-crowned', 'Body Press'],
+    ['urshifu-single-strike', 'Wicked Blow'],
+    ['iron-hands', 'Wild Charge'],
+    ['ogerpon-wellspring-mask', 'Ivy Cudgel'],
+    ['ogerpon-hearthflame-mask', 'Ivy Cudgel'],
+    ['ogerpon-cornerstone-mask', 'Ivy Cudgel'],
+    ['ursaluna-bloodmoon', 'Blood Moon'],
+    ['miraidon', 'Electro Drift'],
+    ['mienshao', 'Close Combat'],
+    ['grimmsnarl', 'Spirit Break'],
+    ['landorus-incarnate', 'Earth Power'],
+    ['koraidon', 'Collision Course'],
+    ['gholdengo', 'Make It Rain'],
+    ['archaludon', 'Electro Shot'],
+    ['dragonite', 'Extreme Speed'],
+    ['walking-wake', 'Hydro Steam'],
+    ['lunala', 'Moongeist Beam'],
+    ['groudon', 'Precipice Blades'],
+    ['ursaluna', 'Facade'],
+    ['zacian-crowned', 'Behemoth Blade']
+  ])
+
+  return defaultMoveMap
+}

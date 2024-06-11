@@ -46,9 +46,8 @@ const pokemonSelect = async (name: string | null) => {
   const { stats, types, sprite, weight, moves } = r
   if (name !== 'terapagos-stellar') {
     pm.setPokemon(name, stats, types as PokemonType, sprite.front_default, weight)
-    pm.moveList = moves.map(move => move.pokemon_v2_move.name)
   } else {
-    const terapagosStallarStats = {
+    const terapagosStellarStats = {
       hp: 160,
       attack:	105,
       defense: 110,
@@ -56,8 +55,9 @@ const pokemonSelect = async (name: string | null) => {
       specialDefense:	110,
       speed: 85
     }
-    pm.setPokemon(name, terapagosStallarStats, types as PokemonType, sprite.front_default, weight)
+    pm.setPokemon(name, terapagosStellarStats, types as PokemonType, sprite.front_default, weight)
   }
+  pm.moveList = moves.map(move => move.pokemon_v2_move.name)
   pm.setDefaultSelection(name)
   isLoading.value = false
 }

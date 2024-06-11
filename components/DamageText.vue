@@ -141,7 +141,6 @@ const composeDetailText = (): string => {
 
   const teraI18n = (role: string) => {
     const tera = role === 'attack' ? attackerPokemon.pokemonRef.teraType : defenderPokemon.pokemonRef.teraType
-    console.log(locale.value)
     switch (locale.value) {
       case 'zhHant':
         return tera === 'Stellar' ? t('stellar') : `${t('tera')}${t(`type.${tera}`)}`
@@ -187,7 +186,7 @@ const composeDetailText = (): string => {
   }
 
   // atk werther
-  if (field.weather) {
+  if (attacker.weather) {
     detailArray.push(t(`field.weather.${fi.weather}`))
   }
 
@@ -269,6 +268,11 @@ const composeDetailText = (): string => {
   // def item
   if (defender.item) {
     detailArray.push(t(`item.${defenderPokemon.pokemonRef.item}` ?? ''))
+  }
+
+  // def werther
+  if (defender.weather) {
+    detailArray.push(t(`field.weather.${fi.weather}`))
   }
 
   // def lightScreen

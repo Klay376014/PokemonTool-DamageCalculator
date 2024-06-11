@@ -21,6 +21,13 @@ const emit = defineEmits<{
 const pm = usePokemonDataStore(props.role)
 const dialog = ref(false)
 const currentTeraType = ref(props.teraType)
+const isTerapagosStellar = computed(() => {
+  if (pm.pokemonRef.name === 'terapagos-stellar') {
+    currentTeraType.value = 'Stellar'
+  }
+  return pm.pokemonRef.name
+})
+const { name } = pm.pokemonRef
 // 移除 none
 const typeList = Object.keys(json.type)
 
@@ -36,20 +43,19 @@ const changeTeraType = (reset?: boolean) => {
 const isSpecificPokemon = (type: string) => {
   const isDisabled = ref(false)
   const isNone = type === 'None'
-  const name = pm.pokemonRef.name
-  if (!name || isNone) return false
+  if (!name) return false
   switch (name) {
     case 'ogerpon':
-      isDisabled.value = type !== 'Grass'
+      isDisabled.value = (type !== 'Grass' || isNone)
       break;
     case 'ogerpon-wellspring-mask':
-      isDisabled.value = type !== 'Water'
+      isDisabled.value = (type !== 'Water' || isNone)
       break;
     case 'ogerpon-hearthflame-mask':
-      isDisabled.value = type !== 'Fire'
+      isDisabled.value = (type !== 'Fire' || isNone)
       break;
     case 'ogerpon-cornerstone-mask':
-      isDisabled.value = type !== 'Rock'
+      isDisabled.value = (type !== 'Rock' || isNone)
       break;
     case 'terapagos-stellar':
       isDisabled.value = type !== 'Stellar'
@@ -84,6 +90,7 @@ const isSpecificPokemon = (type: string) => {
       <v-card-text class="px-0 py-0" style="height: 360px;">
         <v-radio-group
           v-model="currentTeraType"
+          :key="isTerapagosStellar"
           inline
           hide-details
           class="p-0"
