@@ -1,13 +1,16 @@
 <script lang="ts" setup>
+
 const nv = useNavigationStore()
-const pokemonSet = ref([
-  ['attacker', 'defender']
-])
+const pokemonSet = ref(<{id: number, pokemon: string[]}[]>[])
+pokemonSet.value.push({id: 1, pokemon: ['attacker', 'defender']})
 const addResult = (attacker: string) => {
   if (attacker === 'attacker')
-    pokemonSet.value.push(['attacker', 'defender'])
+    pokemonSet.value.push({ id: Math.random(), pokemon:['attacker', 'defender'] })
   else
-    pokemonSet.value.push(['defender', 'attacker'])
+    pokemonSet.value.push({ id: Math.random(), pokemon:['defender', 'attacker'] })
+}
+const removeResult = (index: number) => {
+  pokemonSet.value.splice(index, 1)
 }
 </script>
 
@@ -18,7 +21,14 @@ const addResult = (attacker: string) => {
     width="350"
     class="pt-4"
   >
-    <damage-text v-for="(pokemon, index) in pokemonSet" :key="index" :pokemon="pokemon" class="mb-8" />
+    <damage-text
+      v-for="(pokemon, index) in pokemonSet"
+      :key="pokemon.id"
+      :pokemon="pokemon.pokemon"
+      :index="index"
+      @remove="removeResult"
+      class="mb-8" 
+    />
     <div v-if="pokemonSet.length < 5" class="d-flex align-center justify-space-around">
       <v-btn color="primary" @click="addResult('attacker')">
         <v-icon icon="mdi-numeric-1-box" class="mr-2" />
