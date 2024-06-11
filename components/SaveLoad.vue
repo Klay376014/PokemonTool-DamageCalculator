@@ -4,6 +4,9 @@ import { getPokemonsFromPasteUrl, type Pokemon } from 'vgc_data_wrapper'
 
 const { t } = useI18n()
 
+type Stats = Omit<typeof stats, 'hp'>
+type NatureStats = keyof Stats
+
 const props = defineProps({
   role: {
     type: String,
@@ -28,7 +31,6 @@ const openSaveDialog = () => {
     note.value = ''
     dialogSave.value = true
   }
-    
 }
 
 const initLocalStorage = () => {
@@ -73,6 +75,7 @@ const loadSelectedPoekmon = (index: number) => {
   if (loadedPokemon.value.length > 0) {
     const { name, baseStat, effortValues, types, sprite, weight, item} = loadedPokemon.value[index]
     pm.pokemonRef.effortValues = effortValues
+    pm.pokemonRef.nature = loadedPokemon.value[index].nature
     pm.setPokemon(name!.toLowerCase().replace(' ', '-'), baseStat, types, sprite!, weight, item)
   }
   dialogLoad.value = false
@@ -97,8 +100,12 @@ const importFromUrl = async () => {
   } finally {
     importing.value = false
   }
-  
-  
+}
+
+const natureOperator = (nature: {plus?: NatureStats, minus?: NatureStats}, stat: string) => {
+  if (nature.plus === stat) return '+'
+  if (nature.minus === stat) return '-'
+  return ''
 }
 </script>
 
@@ -135,15 +142,15 @@ const importFromUrl = async () => {
         </v-img>
         <div>
           <p>{{ `H${pokemon.effortValues.hp}` }}</p>
-          <p>{{ `C${pokemon.effortValues.specialAttack}` }}</p>
+          <p>{{ `C${pokemon.effortValues.specialAttack}${natureOperator(pokemon.nature, 'specialAttack')}` }}</p>
         </div>
         <div>
-          <p>{{ `A${pokemon.effortValues.attack}` }}</p>
-          <p>{{ `D${pokemon.effortValues.specialDefense}` }}</p>
+          <p>{{ `A${pokemon.effortValues.attack}${natureOperator(pokemon.nature, 'attack')}` }}</p>
+          <p>{{ `D${pokemon.effortValues.specialDefense}${natureOperator(pokemon.nature, 'specialDefense')}` }}</p>
         </div>
         <div class="mr-4">
-          <p>{{ `B${pokemon.effortValues.defense}` }}</p>
-          <p>{{ `S${pokemon.effortValues.speed}` }}</p>
+          <p>{{ `B${pokemon.effortValues.defense}${natureOperator(pokemon.nature, 'defense')}` }}</p>
+          <p>{{ `S${pokemon.effortValues.speed}${natureOperator(pokemon.nature, 'speed')}` }}</p>
         </div>
         <div class="d-flex align-center pb-3">
           <v-btn icon="mdi-import" color="red-lighten-1" variant="plain" class="text-h6 mr-2" size="20" @click="loadSelectedPoekmon(index)" />

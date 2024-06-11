@@ -90,6 +90,8 @@ const damageTextI18n = computed(() => {
     OHKOChance.value = 'description.damage.2HKO'
   } else if (maxPercentage > 50) {
     OHKOChance.value = 'description.damage.chanceTo2HKO'
+  } else {
+    OHKOChance.value = ''
   }
   return `${minNumber} ~ ${maxNumber} (${minPercentage}% ~${maxPercentage}%)`
 })
@@ -187,7 +189,7 @@ const composeDetailText = (): string => {
   }
 
   // atk werther
-  if (field.weather) {
+  if (attacker.weather) {
     detailArray.push(t(`field.weather.${fi.weather}`))
   }
 
