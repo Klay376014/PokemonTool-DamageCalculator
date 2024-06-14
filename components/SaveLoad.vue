@@ -44,8 +44,11 @@ const initLocalStorage = () => {
   }
 }
 
-const savePokemon = (pokemons: PokemonWithNote | PokemonWithNote[]) => {
+onMounted(() => {
   initLocalStorage()
+})
+
+const savePokemon = (pokemons: PokemonWithNote | PokemonWithNote[]) => {
   loadedPokemon.value = loadedPokemon.value.concat(pokemons)
   localStorage.setItem('savedPokemon', JSON.stringify(loadedPokemon.value))
 }
@@ -61,9 +64,7 @@ const saveCurrentPokemonSetting = () => {
 }
 // 開啟讀取畫面
 const openLoadDialog = () => {
-  initLocalStorage()
   dialogLoad.value = true
-  console.log(loadedPokemon.value)
 }
 // 讀取選中寶可夢
 const loadSelectedPoekmon = (index: number) => {
@@ -120,7 +121,6 @@ const dragOptions = computed(() => {
 const reorder = (ev: any) => {
   const newOrder = ev.relatedContext.list
   if (newOrder) return
-  console.log(newOrder)
   loadedPokemon.value = newOrder as PokemonWithNote[]
   localStorage.setItem('savedPokemon', JSON.stringify(loadedPokemon.value))
 }
