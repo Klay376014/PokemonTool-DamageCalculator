@@ -76,6 +76,7 @@ const watcher = watchPausable(
         }
       })
       battle.battleField.move = move
+      console.log(battle.battleField.defender?.flags)
       damageText.value = damageTextI18n.value
       detailDamageText.value = `${composeDetailText()}\n${damageText.value} ${t(OHKOChance.value, [OHKOPercentage.value])}`
     }

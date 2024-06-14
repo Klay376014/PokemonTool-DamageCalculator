@@ -2,10 +2,10 @@
 import { useI18n } from 'vue-i18n'
 import { getPokemonsFromPasteUrl, type Pokemon } from 'vgc_data_wrapper'
 import draggable from 'vuedraggable'
+import { effectByEviolite } from '~/utils/evioliteMap';
 draggable.compatConfig = { MODE: 3 }
 
 const { t } = useI18n()
-
 type Stats = Omit<typeof stats, 'hp'>
 type NatureStats = keyof Stats
 type PokemonWithNote = Pokemon & { note: string }
@@ -87,6 +87,7 @@ const importFromUrl = async () => {
   importing.value = true
   try {
     const pokemons = (await getPokemonsFromPasteUrl(pokePasteUrl.value)).map(pokemon => {
+      if (pokemon.name) pm.pokemonRef.setFlags({ hasEvolution: effectByEviolite(pokemon.name) })
       return {
         ...pokemon,
         note: 'notesFromPaste'

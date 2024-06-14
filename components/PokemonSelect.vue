@@ -4,6 +4,7 @@ import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/css/index.css'
 import json from '../locales/en.json'
 import type { PokemonType } from '~/utils/schema'
+import { effectByEviolite } from '~/utils/evioliteMap'
 
 const props = defineProps({
   role: {
@@ -46,6 +47,7 @@ const pokemonSelect = async (name: string | null) => {
   const { stats, types, sprite, weight, moves } = r
   if (name !== 'terapagos-stellar') {
     pm.setPokemon(name, stats, types as PokemonType, sprite.front_default, weight)
+    pm.pokemonRef.setFlags({ hasEvolution: effectByEviolite(name) })
   } else {
     const terapagosStellarStats = {
       hp: 160,
