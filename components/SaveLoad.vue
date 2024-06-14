@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { getPokemonsFromPasteUrl, type Pokemon } from 'vgc_data_wrapper'
+import draggable from 'vuedraggable'
+draggable.compatConfig = { MODE: 3 }
 
 const { t } = useI18n()
 
 type Stats = Omit<typeof stats, 'hp'>
 type NatureStats = keyof Stats
+type PokemonWithNote = Pokemon & { note: string }
 
 const props = defineProps({
   role: {
@@ -21,8 +24,7 @@ const note = ref('')
 const importing = ref(false)
 
 const pm = usePokemonDataStore(props.role)
-const loadedPokemon = ref(<Pokemon[]>[])
-const loadedPokemonNotes = ref(<string[]>[])
+const loadedPokemon = ref(<PokemonWithNote[]>[])
 
 const openSaveDialog = () => {
   if (!pm.pokemonRef.name) {
@@ -36,39 +38,32 @@ const openSaveDialog = () => {
 const initLocalStorage = () => {
   // 開啟時先清空，再從localStorage拿取已存取的內容
   loadedPokemon.value.length = 0
-  loadedPokemonNotes.value.length = 0
   const getSavedPokemon = localStorage.getItem('savedPokemon')
-  const getSavedPokemonNotes = localStorage.getItem('savedPokemonNotes')
   if (getSavedPokemon) {
-    loadedPokemon.value = loadedPokemon.value.concat(JSON.parse(getSavedPokemon) as Pokemon[])
-  }
-  if (getSavedPokemonNotes) {
-    loadedPokemonNotes.value = loadedPokemonNotes.value.concat(JSON.parse(getSavedPokemonNotes) as string[])
+    loadedPokemon.value = loadedPokemon.value.concat(JSON.parse(getSavedPokemon) as PokemonWithNote[])
   }
 }
 
-const savePokemon = (pokemons: Pokemon | Pokemon[]) => {
+const savePokemon = (pokemons: PokemonWithNote | PokemonWithNote[]) => {
   initLocalStorage()
   loadedPokemon.value = loadedPokemon.value.concat(pokemons)
-  if ('length' in pokemons && pokemons.length > 0) {
-    const notesFromPaste: string[] = Array(pokemons.length).fill('notesFromPaste')
-    loadedPokemonNotes.value = loadedPokemonNotes.value.concat(notesFromPaste)
-  } else {
-    loadedPokemonNotes.value = loadedPokemonNotes.value.concat(note.value)
-  }
   localStorage.setItem('savedPokemon', JSON.stringify(loadedPokemon.value))
-  localStorage.setItem('savedPokemonNotes', JSON.stringify(loadedPokemonNotes.value))
 }
 
 // 儲存當前寶可夢設定
 const saveCurrentPokemonSetting = () => {
-  savePokemon(pm.pokemonRef as Pokemon)
+  const pokemon = {
+    ...pm.pokemonRef,
+    note: note.value
+  }
+  savePokemon(pokemon as PokemonWithNote)
   dialogSave.value = false
 }
 // 開啟讀取畫面
 const openLoadDialog = () => {
   initLocalStorage()
   dialogLoad.value = true
+  console.log(loadedPokemon.value)
 }
 // 讀取選中寶可夢
 const loadSelectedPoekmon = (index: number) => {
@@ -83,17 +78,20 @@ const loadSelectedPoekmon = (index: number) => {
 
 const deleteSelectedPoekmon = (index: number) => {
   loadedPokemon.value.splice(index, 1)
-  loadedPokemonNotes.value.splice(index, 1)
   localStorage.setItem('savedPokemon', JSON.stringify(loadedPokemon.value))
-  localStorage.setItem('savedPokemonNotes', JSON.stringify(loadedPokemonNotes.value))
   openLoadDialog()
 }
 
 const importFromUrl = async () => {
   importing.value = true
   try {
-    const pokemons = await getPokemonsFromPasteUrl(pokePasteUrl.value)
-    savePokemon(pokemons)
+    const pokemons = (await getPokemonsFromPasteUrl(pokePasteUrl.value)).map(pokemon => {
+      return {
+        ...pokemon,
+        note: 'notesFromPaste'
+      }
+    })
+    savePokemon(pokemons as PokemonWithNote[])
     dialogImportFromUrl.value = false
   } catch (e) {
     if (e instanceof Error) alert(e.message)
@@ -106,6 +104,25 @@ const natureOperator = (nature: {plus?: NatureStats, minus?: NatureStats}, stat:
   if (nature.plus === stat) return '+'
   if (nature.minus === stat) return '-'
   return ''
+}
+
+const drag = ref(false)
+
+const dragOptions = computed(() => {
+  return {
+    animation: 400,
+    group: 'load',
+    disabled: false,
+    ghostClass: 'ghost'
+  }
+})
+
+const reorder = (ev: any) => {
+  const newOrder = ev.relatedContext.list
+  if (newOrder) return
+  console.log(newOrder)
+  loadedPokemon.value = newOrder as PokemonWithNote[]
+  localStorage.setItem('savedPokemon', JSON.stringify(loadedPokemon.value))
 }
 </script>
 
@@ -127,36 +144,47 @@ const natureOperator = (nature: {plus?: NatureStats, minus?: NatureStats}, stat:
       class="px-2"
     >
       <v-divider class="mt-3" />
-
-      <v-card-text v-for="(pokemon, index) in loadedPokemon" :key="index" class="px-2 d-flex justify-space-between">
-        <v-img
-          max-width="50"
-          aspect-ratio="1"
-          :src="pokemon.sprite"
-        >
-          <v-tooltip
-            activator="parent"
-            location="top"
-            >{{ $te(loadedPokemonNotes[index]) ? $t(loadedPokemonNotes[index]) : loadedPokemonNotes[index] }}
-          </v-tooltip>
-        </v-img>
-        <div>
-          <p>{{ `H${pokemon.effortValues.hp}` }}</p>
-          <p>{{ `C${pokemon.effortValues.specialAttack}${natureOperator(pokemon.nature, 'specialAttack')}` }}</p>
-        </div>
-        <div>
-          <p>{{ `A${pokemon.effortValues.attack}${natureOperator(pokemon.nature, 'attack')}` }}</p>
-          <p>{{ `D${pokemon.effortValues.specialDefense}${natureOperator(pokemon.nature, 'specialDefense')}` }}</p>
-        </div>
-        <div class="mr-4">
-          <p>{{ `B${pokemon.effortValues.defense}${natureOperator(pokemon.nature, 'defense')}` }}</p>
-          <p>{{ `S${pokemon.effortValues.speed}${natureOperator(pokemon.nature, 'speed')}` }}</p>
-        </div>
-        <div class="d-flex align-center pb-3">
-          <v-btn icon="mdi-import" color="red-lighten-1" variant="plain" class="text-h6 mr-2" size="20" @click="loadSelectedPoekmon(index)" />
-          <v-btn icon="mdi-trash-can-outline" variant="plain" class="text-h6" size="20" @click="deleteSelectedPoekmon(index)" />
-        </div>
-      </v-card-text>
+      <draggable
+        :list="loadedPokemon"
+        tag="transition-group"
+        v-bind="dragOptions"
+        @start="drag = true"
+        @end="drag = false"
+        :move="reorder"
+        item-key="order"
+      >
+        <template #item="{ element: pokemon, index }">
+          <v-card-text class="px-2 d-flex justify-space-between" :key="index">
+            <v-img
+              max-width="50"
+              aspect-ratio="1"
+              :src="pokemon.sprite"
+            >
+              <v-tooltip
+                activator="parent"
+                location="top"
+                >{{ $te(pokemon.note) ? $t(pokemon.note) : pokemon.note }}
+              </v-tooltip>
+            </v-img>
+            <div>
+              <p>{{ `H${pokemon.effortValues.hp}` }}</p>
+              <p>{{ `C${pokemon.effortValues.specialAttack}${natureOperator(pokemon.nature, 'specialAttack')}` }}</p>
+            </div>
+            <div>
+              <p>{{ `A${pokemon.effortValues.attack}${natureOperator(pokemon.nature, 'attack')}` }}</p>
+              <p>{{ `D${pokemon.effortValues.specialDefense}${natureOperator(pokemon.nature, 'specialDefense')}` }}</p>
+            </div>
+            <div class="mr-4">
+              <p>{{ `B${pokemon.effortValues.defense}${natureOperator(pokemon.nature, 'defense')}` }}</p>
+              <p>{{ `S${pokemon.effortValues.speed}${natureOperator(pokemon.nature, 'speed')}` }}</p>
+            </div>
+            <div class="d-flex align-center pb-3">
+              <v-btn icon="mdi-import" color="red-lighten-1" variant="plain" class="text-h6 mr-2" size="20" @click="loadSelectedPoekmon(index)" />
+              <v-btn icon="mdi-trash-can-outline" variant="plain" class="text-h6" size="20" @click="deleteSelectedPoekmon(index)" />
+            </div>
+          </v-card-text>
+        </template>
+      </draggable>
 
       <v-divider />
 
