@@ -141,53 +141,54 @@ const reorder = (ev: any) => {
     <v-card
       prepend-icon="mdi-import"
       :title="$t('pokemonLoad')"
-      style="height: 400px;"
-      class="px-2"
+      class="px-2 overflow-y-auto"
     >
       <v-divider class="mt-3" />
-      <draggable
-        :list="loadedPokemon"
-        tag="transition-group"
-        v-bind="dragOptions"
-        @start="drag = true"
-        @end="drag = false"
-        :move="reorder"
-        item-key="order"
-      >
-        <template #item="{ element: pokemon, index }">
-          <v-card-text class="px-2 d-flex justify-space-between" :key="index">
-            <v-img
-              max-width="50"
-              aspect-ratio="1"
-              :src="pokemon.sprite"
-            >
-              <v-tooltip
-                activator="parent"
-                location="top"
-                >{{ $te(pokemon.note) ? $t(pokemon.note) : pokemon.note }}
-              </v-tooltip>
-            </v-img>
-            <div>
-              <p>{{ `H${pokemon.effortValues.hp}` }}</p>
-              <p>{{ `C${pokemon.effortValues.specialAttack}${natureOperator(pokemon.nature, 'specialAttack')}` }}</p>
+      <v-card-text class="px-2">
+        <draggable
+          :list="loadedPokemon"
+          tag="transition-group"
+          v-bind="dragOptions"
+          @start="drag = true"
+          @end="drag = false"
+          :move="reorder"
+          item-key="order"
+        >
+          <template #item="{ element: pokemon, index }">
+              <div class="d-flex justify-space-between py-2">
+              <v-img
+                max-width="50"
+                aspect-ratio="1"
+                :src="pokemon.sprite"
+              >
+                <v-tooltip
+                  activator="parent"
+                  location="top"
+                  >{{ $te(pokemon.note) ? $t(pokemon.note) : pokemon.note }}
+                </v-tooltip>
+              </v-img>
+              <div>
+                <p>{{ `H${pokemon.effortValues.hp}` }}</p>
+                <p>{{ `C${pokemon.effortValues.specialAttack}${natureOperator(pokemon.nature, 'specialAttack')}` }}</p>
+              </div>
+              <div>
+                <p>{{ `A${pokemon.effortValues.attack}${natureOperator(pokemon.nature, 'attack')}` }}</p>
+                <p>{{ `D${pokemon.effortValues.specialDefense}${natureOperator(pokemon.nature, 'specialDefense')}` }}</p>
+              </div>
+              <div class="mr-4">
+                <p>{{ `B${pokemon.effortValues.defense}${natureOperator(pokemon.nature, 'defense')}` }}</p>
+                <p>{{ `S${pokemon.effortValues.speed}${natureOperator(pokemon.nature, 'speed')}` }}</p>
+              </div>
+              <div class="d-flex align-center pb-3">
+                <v-btn icon="mdi-import" color="red-lighten-1" variant="plain" class="text-h6 mr-2" size="20" @click="loadSelectedPoekmon(index)" />
+                <v-btn icon="mdi-trash-can-outline" variant="plain" class="text-h6" size="20" @click="deleteSelectedPoekmon(index)" />
+              </div>
             </div>
-            <div>
-              <p>{{ `A${pokemon.effortValues.attack}${natureOperator(pokemon.nature, 'attack')}` }}</p>
-              <p>{{ `D${pokemon.effortValues.specialDefense}${natureOperator(pokemon.nature, 'specialDefense')}` }}</p>
-            </div>
-            <div class="mr-4">
-              <p>{{ `B${pokemon.effortValues.defense}${natureOperator(pokemon.nature, 'defense')}` }}</p>
-              <p>{{ `S${pokemon.effortValues.speed}${natureOperator(pokemon.nature, 'speed')}` }}</p>
-            </div>
-            <div class="d-flex align-center pb-3">
-              <v-btn icon="mdi-import" color="red-lighten-1" variant="plain" class="text-h6 mr-2" size="20" @click="loadSelectedPoekmon(index)" />
-              <v-btn icon="mdi-trash-can-outline" variant="plain" class="text-h6" size="20" @click="deleteSelectedPoekmon(index)" />
-            </div>
-          </v-card-text>
-        </template>
-      </draggable>
-
-      <v-divider />
+            </template>
+          </draggable>
+        </v-card-text>
+        
+        <v-divider />
 
       <v-card-actions>
         <v-btn
@@ -262,5 +263,4 @@ const reorder = (ev: any) => {
 </template>
 
 <style>
-
 </style>

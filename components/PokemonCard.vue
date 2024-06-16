@@ -19,10 +19,10 @@ const show = ref(false)
       <pokemon-stat :role="props.role" />
       <v-container class="px-0 py-2">
         <v-row>
-          <v-col cols="10" class="pb-0">
-            <selection list-type="Move" :role="props.role" />
+          <v-col cols="9" md="10" class="pb-0">
+            <selection list-type="Move" :role="props.role"/>
           </v-col>
-          <v-col cols="2" class="pb-0 pl-0">
+          <v-col cols="3" md="2" class="pb-0 pl-0">
             <move-list-filter :role="props.role" />
           </v-col>
         </v-row>
@@ -32,6 +32,7 @@ const show = ref(false)
           color="purple-lighten-2"
           class="font-weight-bold"
           disabled
+          
         >
           {{ $t("condition.title") }}
         </v-btn>

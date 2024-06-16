@@ -15,10 +15,8 @@ const switchFilter = () => {
 
 <template>
   <div class="d-flex justify-space-between">
-    <p class="pt-4">{{ $t('filter') }}</p>
-    <div class="w-50">
-      <v-checkbox @change="switchFilter" :color="props.role === 'attacker' ? 'primary' : 'secondary'"></v-checkbox>
-    </div>
+    <p class="pt-4 w-auto">{{ $t('filter') }}</p>
+    <v-checkbox @change="switchFilter" :color="props.role === 'attacker' ? 'primary' : 'secondary'" class="pr-1"></v-checkbox>
   </div>
   
 </template>
