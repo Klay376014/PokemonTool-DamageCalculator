@@ -126,13 +126,13 @@ const getStageEffectColor = (key: StatKeys) => {
           {{ $t('stat.iv') }}
         </td>
         <td v-for="(_, key) in stats" :key="key">
-          <input v-model="pm.pokemonRef.individualValues[key]" :name="key" type="number" class="py-2 w-75" min="0" max="31" @change="checkIv(key)">
+          <input v-model="pm.pokemonRef.individualValues[key]" :name="key" type="number" class="py-2 w-75" min="0" max="31" @change="checkIv(key)" :placeholder="key">
         </td>
       </tr>
       <tr>
         <td>{{ $t('stat.ev') }}<br><span class="font-weight-bold" :class="{ 'text-secondary': getEvRemaining < 0 }">{{ getEvRemaining }}</span></td>
         <td v-for="(_, key) in stats" :key="key">
-          <input v-model="pm.pokemonRef.effortValues[key]" :name="key" type="number" class="py-2 w-75" min="0" max="252" step="4" @change="checkEv(key)">
+          <input v-model="pm.pokemonRef.effortValues[key]" :name="key" type="number" class="py-2 w-75" min="0" max="252" step="4" @change="checkEv(key)" :placeholder="key">
           <div class="d-flex justify-center pb-2">
             <span class="px-2 evButton evButton-1" @click="setEvZero(key)">
               0
