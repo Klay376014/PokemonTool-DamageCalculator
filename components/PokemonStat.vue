@@ -81,12 +81,6 @@ const getStageModelValue = (val: number): typeof stages[number] => {
   return (val > 0 ? `+${val}` : val === 0 ? '0' : `${val}`) as typeof stages[number]
 }
 
-const valueWithStage = ref((value: number, key: StatKeys) => {
-  if (key === 'hp') return value
-  const stage = pm.pokemonRef.statStage[key]
-  return stage >= 0 ? Math.trunc(value * (2 + stage) / 2) :  Math.trunc(value * 2 / (2 - stage))
-})
-
 const getStageEffectColor = (key: StatKeys) => {
   if (key === 'hp') return ''
   const stage = pm.pokemonRef.statStage[key]
@@ -145,10 +139,10 @@ const getStageEffectColor = (key: StatKeys) => {
       </tr>
       <tr>
         <td>{{ $t('stat.stat') }}</td>
-        <td v-for="(value, key) in pm.pokemonRef.getStats()" :key="key">
+        <td v-for="(_, key) in pm.pokemonRef.baseStat" :key="key">
           <div class="d-flex flex-column align-center pr-3">
-            <input :name="key" class="pt-1 w-75 text-center" :value="value" disabled>
-            <input :name="key" class="pb-1 w-75 text-center" :value="`(${valueWithStage(value, key)})`" :class="getStageEffectColor(key)" disabled>
+            <input :name="key" class="pt-1 w-75 text-center" :value="`${pm.pokemonRef.getStat(key, false)}`" disabled>
+            <input v-if="key !== 'hp'" :name="key" class="pb-1 w-75 text-center" :value="`(${pm.pokemonRef.getStat(key, true)})`" :class="getStageEffectColor(key)" disabled>
           </div>
         </td>
       </tr>
