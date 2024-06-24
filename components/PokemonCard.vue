@@ -32,10 +32,8 @@ const show = ref(false)
           color="purple-lighten-2"
           class="font-weight-bold"
           disabled
-          
-        >
-          {{ $t("condition.title") }}
-        </v-btn>
+          :text="$t('condition.title')"
+        />
 
         <v-spacer />
 

@@ -130,7 +130,7 @@ const dragOptions = computed(() => {
           v-bind="dragOptions"
           @start="drag = true"
           @end="drag = false"
-          item-key="id"
+          item-key="note"
         >
           <template #item="{ element: pokemon, index }">
               <div class="d-flex justify-space-between py-2">
