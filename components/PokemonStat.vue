@@ -81,12 +81,6 @@ const getStageModelValue = (val: number): typeof stages[number] => {
   return (val > 0 ? `+${val}` : val === 0 ? '0' : `${val}`) as typeof stages[number]
 }
 
-const valueWithStage = ref((value: number, key: StatKeys) => {
-  if (key === 'hp') return value
-  const stage = pm.pokemonRef.statStage[key]
-  return stage >= 0 ? Math.trunc(value * (2 + stage) / 2) :  Math.trunc(value * 2 / (2 - stage))
-})
-
 const getStageEffectColor = (key: StatKeys) => {
   if (key === 'hp') return ''
   const stage = pm.pokemonRef.statStage[key]
@@ -126,13 +120,13 @@ const getStageEffectColor = (key: StatKeys) => {
           {{ $t('stat.iv') }}
         </td>
         <td v-for="(_, key) in stats" :key="key">
-          <input v-model="pm.pokemonRef.individualValues[key]" :name="key" type="number" class="py-2 w-75" min="0" max="31" @change="checkIv(key)">
+          <input v-model="pm.pokemonRef.individualValues[key]" :name="key" type="number" class="py-2 w-75" min="0" max="31" @change="checkIv(key)" :placeholder="key">
         </td>
       </tr>
       <tr>
         <td>{{ $t('stat.ev') }}<br><span class="font-weight-bold" :class="{ 'text-secondary': getEvRemaining < 0 }">{{ getEvRemaining }}</span></td>
         <td v-for="(_, key) in stats" :key="key">
-          <input v-model="pm.pokemonRef.effortValues[key]" :name="key" type="number" class="py-2 w-75" min="0" max="252" step="4" @change="checkEv(key)">
+          <input v-model="pm.pokemonRef.effortValues[key]" :name="key" type="number" class="py-2 w-75" min="0" max="252" step="4" @change="checkEv(key)" :placeholder="key">
           <div class="d-flex justify-center pb-2">
             <span class="px-2 evButton evButton-1" @click="setEvZero(key)">
               0
@@ -145,10 +139,10 @@ const getStageEffectColor = (key: StatKeys) => {
       </tr>
       <tr>
         <td>{{ $t('stat.stat') }}</td>
-        <td v-for="(value, key) in pm.pokemonRef.getStats()" :key="key">
+        <td v-for="(_, key) in pm.pokemonRef.baseStat" :key="key">
           <div class="d-flex flex-column align-center pr-3">
-            <input :name="key" class="pt-1 w-75 text-center" :value="value" disabled>
-            <input :name="key" class="pb-1 w-75 text-center" :value="`(${valueWithStage(value, key)})`" :class="getStageEffectColor(key)" disabled>
+            <input :name="key" class="pt-1 w-75 text-center" :value="`${pm.pokemonRef.getStat(key, false)}`" disabled>
+            <input v-if="key !== 'hp'" :name="key" class="pb-1 w-75 text-center" :value="`(${pm.pokemonRef.getStat(key, true)})`" :class="getStageEffectColor(key)" disabled>
           </div>
         </td>
       </tr>

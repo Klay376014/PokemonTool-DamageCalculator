@@ -3,6 +3,7 @@ import { useI18n } from 'vue-i18n'
 import { getPokemonsFromPasteUrl, type Pokemon } from 'vgc_data_wrapper'
 import draggable from 'vuedraggable'
 import { effectByEviolite } from '~/utils/evioliteMap';
+import { useLocalStorage } from '@vueuse/core';
 draggable.compatConfig = { MODE: 3 }
 
 const { t } = useI18n()
@@ -24,7 +25,7 @@ const note = ref('')
 const importing = ref(false)
 
 const pm = usePokemonDataStore(props.role)
-const loadedPokemon = ref(<PokemonWithNote[]>[])
+const loadedPokemon = useLocalStorage("savedPokemon", [] as PokemonWithNote[])
 
 const openSaveDialog = () => {
   if (!pm.pokemonRef.name) {
@@ -35,22 +36,8 @@ const openSaveDialog = () => {
   }
 }
 
-const initLocalStorage = () => {
-  // 開啟時先清空，再從localStorage拿取已存取的內容
-  loadedPokemon.value.length = 0
-  const getSavedPokemon = localStorage.getItem('savedPokemon')
-  if (getSavedPokemon) {
-    loadedPokemon.value = loadedPokemon.value.concat(JSON.parse(getSavedPokemon) as PokemonWithNote[])
-  }
-}
-
-onMounted(() => {
-  initLocalStorage()
-})
-
 const savePokemon = (pokemons: PokemonWithNote | PokemonWithNote[]) => {
   loadedPokemon.value = loadedPokemon.value.concat(pokemons)
-  localStorage.setItem('savedPokemon', JSON.stringify(loadedPokemon.value))
 }
 
 // 儲存當前寶可夢設定
@@ -79,7 +66,6 @@ const loadSelectedPoekmon = (index: number) => {
 
 const deleteSelectedPoekmon = (index: number) => {
   loadedPokemon.value.splice(index, 1)
-  localStorage.setItem('savedPokemon', JSON.stringify(loadedPokemon.value))
   openLoadDialog()
 }
 
@@ -119,12 +105,6 @@ const dragOptions = computed(() => {
   }
 })
 
-const reorder = (ev: any) => {
-  const newOrder = ev.relatedContext.list
-  if (newOrder) return
-  loadedPokemon.value = newOrder as PokemonWithNote[]
-  localStorage.setItem('savedPokemon', JSON.stringify(loadedPokemon.value))
-}
 </script>
 
 <template>
@@ -147,12 +127,10 @@ const reorder = (ev: any) => {
       <v-card-text class="px-2">
         <draggable
           :list="loadedPokemon"
-          tag="transition-group"
           v-bind="dragOptions"
           @start="drag = true"
           @end="drag = false"
-          :move="reorder"
-          item-key="order"
+          item-key="id"
         >
           <template #item="{ element: pokemon, index }">
               <div class="d-flex justify-space-between py-2">
