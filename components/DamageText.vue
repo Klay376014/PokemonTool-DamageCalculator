@@ -50,38 +50,6 @@ type JSONMove = {
   target: string
   type: string
 }
-const watcher = watchPausable(
-  [attackerPokemon.pokemonRef, defenderPokemon.pokemonRef, battle.battleField.attacker, battle.battleField.defender, battle.battleField.field, cd.conditions, locale],
-  () => {
-    if (attackerPokemon.pokemonRef.name && defenderPokemon.pokemonRef.name && attackerPokemon.pokemonRef.moves.length > 0) {
-      const text = moves[attackerPokemon.pokemonRef.moves[0] as keyof typeof moves] as JSONMove
-      const move = createMove({
-        base: typeof text.basePower === 'number' ? text.basePower : 0,
-        category: text.category as any,
-        id: text.num,
-        type: text.type as any,
-        target: text.target as any,
-        flags: {
-          isCriticalHit: cd.conditions.critical,
-          isPriority: text.priority > 0,
-          hasRecoil: !!text.recoil,
-          hasSecondary: text.secondary !== null,
-          isBite: text.flags.bite === 1,
-          isContact: text.flags.contact === 1,
-          isPunch: text.flags.punch === 1,
-          isSlicing: text.flags.slicing === 1,
-          isSound: text.flags.slicing === 1,
-          isPulse: text.flags.pulse === 1,
-          isMultihit: !!text.multihit
-        }
-      })
-      battle.battleField.move = move
-      console.log(battle.battleField.defender?.flags)
-      damageText.value = damageTextI18n.value
-      detailDamageText.value = `${composeDetailText()}\n${damageText.value} ${t(OHKOChance.value, [OHKOPercentage.value])}`
-    }
-  }
-)
 
 const OHKOChance = ref('')
 const OHKOPercentage = ref(0)
@@ -104,35 +72,6 @@ const damageTextI18n = computed(() => {
   }
   return `${minNumber} ~ ${maxNumber} (${minPercentage}% ~${maxPercentage}%)`
 })
-
-const isPause = ref(false)
-
-const stoppedResult: Ref<{ [key: string]: string | null }> = ref({
-  attackerSprite: null,
-  defenderSprite: null,
-})
-
-const pauseWatch = () => {
-  stoppedResult.value.attackerSprite = attackerPokemon.pokemonRef.sprite ?? attackerPokemon.defaultImage
-  stoppedResult.value.defenderSprite = defenderPokemon.pokemonRef.sprite ?? defenderPokemon.defaultImage
-  isPause.value = true
-  watcher.pause()
-}
-
-const resumeWatch = () => {
-  stoppedResult.value.attackerSprite = null
-  stoppedResult.value.defenderSprite = null
-  isPause.value = false
-  watcher.resume()
-  const damageResult = battle.battleField.getDamage()
-  // 此數值暫時無作用，借用來幫忙觸發resumeWatch時更動OHKO數值
-  attackerPokemon.pokemonRef.id = attackerPokemon.pokemonRef.id ? attackerPokemon.pokemonRef.id-- : 1
-  damageText.value = `${damageResult.rolls[0].number} ~ ${damageResult.rolls[15].number} (${damageResult.rolls[0].percentage}% ~${damageResult.rolls[15].percentage}%)`
-}
-
-const copyText = () => {
-  navigator.clipboard.writeText(detailDamageText.value)
-}
 
 // 組詳細傷害文字，目前useI18n放進ts會有問題，先擺進這支檔案裡
 const composeDetailText = (): string => {
@@ -312,6 +251,69 @@ const composeDetailText = (): string => {
   }
 
   return detailArray.join(' ')
+}
+
+const watcher = watchPausable(
+  [attackerPokemon.pokemonRef, defenderPokemon.pokemonRef, battle.battleField.attacker, battle.battleField.defender, battle.battleField.field, cd.conditions, locale],
+  () => {
+    if (attackerPokemon.pokemonRef.name && defenderPokemon.pokemonRef.name && attackerPokemon.pokemonRef.moves.length > 0) {
+      const text = moves[attackerPokemon.pokemonRef.moves[0] as keyof typeof moves] as JSONMove
+      const move = createMove({
+        base: typeof text.basePower === 'number' ? text.basePower : 0,
+        category: text.category as any,
+        id: text.num,
+        type: text.type as any,
+        target: text.target as any,
+        flags: {
+          isCriticalHit: cd.conditions.critical,
+          isPriority: text.priority > 0,
+          hasRecoil: !!text.recoil,
+          hasSecondary: text.secondary !== null,
+          isBite: text.flags.bite === 1,
+          isContact: text.flags.contact === 1,
+          isPunch: text.flags.punch === 1,
+          isSlicing: text.flags.slicing === 1,
+          isSound: text.flags.slicing === 1,
+          isPulse: text.flags.pulse === 1,
+          isMultihit: !!text.multihit
+        }
+      })
+      battle.battleField.move = move
+      damageText.value = damageTextI18n.value
+      detailDamageText.value = `${composeDetailText()}\n${damageText.value} ${t(OHKOChance.value, [OHKOPercentage.value])}`
+    }
+  }, { immediate: true }
+)
+
+
+
+const isPause = ref(false)
+
+const stoppedResult: Ref<{ [key: string]: string | null }> = ref({
+  attackerSprite: null,
+  defenderSprite: null,
+})
+
+const pauseWatch = () => {
+  stoppedResult.value.attackerSprite = attackerPokemon.pokemonRef.sprite ?? attackerPokemon.defaultImage
+  stoppedResult.value.defenderSprite = defenderPokemon.pokemonRef.sprite ?? defenderPokemon.defaultImage
+  isPause.value = true
+  watcher.pause()
+}
+
+const resumeWatch = () => {
+  stoppedResult.value.attackerSprite = null
+  stoppedResult.value.defenderSprite = null
+  isPause.value = false
+  watcher.resume()
+  const damageResult = battle.battleField.getDamage()
+  // 此數值暫時無作用，借用來幫忙觸發resumeWatch時更動OHKO數值
+  attackerPokemon.pokemonRef.id = attackerPokemon.pokemonRef.id ? attackerPokemon.pokemonRef.id-- : 1
+  damageText.value = `${damageResult.rolls[0].number} ~ ${damageResult.rolls[15].number} (${damageResult.rolls[0].percentage}% ~${damageResult.rolls[15].percentage}%)`
+}
+
+const copyText = () => {
+  navigator.clipboard.writeText(detailDamageText.value)
 }
 </script>
 
