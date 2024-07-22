@@ -60,6 +60,7 @@ const loadSelectedPoekmon = (index: number) => {
     pm.pokemonRef.effortValues = effortValues
     pm.pokemonRef.nature = loadedPokemon.value[index].nature
     pm.setPokemon(name!.toLowerCase().replace(' ', '-'), baseStat, types, sprite!, weight, item)
+    if (name) pm.pokemonRef.setFlags({ hasEvolution: effectByEviolite(name) })
   }
   dialogLoad.value = false
 }
