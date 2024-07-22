@@ -34,7 +34,8 @@ export default defineNuxtConfig({
       },
     ],
     '@nuxtjs/apollo',
-    'nuxt-gtag'
+    'nuxt-gtag',
+    '@nuxtjs/supabase'
   ],
   gtag: {
     id:'G-YCYLGKZWQ0'
@@ -66,5 +67,8 @@ export default defineNuxtConfig({
   experimental: {
     renderJsonPayloads: false
   },
-  ssr: false
+  ssr: false,
+  supabase: {
+    redirect: false
+  }
 })

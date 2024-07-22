@@ -3,24 +3,28 @@ import { useI18n } from 'vue-i18n'
 import { useTheme } from 'vuetify'
 
 const { locale } = useI18n()
-
 const theme = useTheme()
-
 const toggleTheme = () => {
   theme.global.name.value = theme.global.name.value === 'darkMode' ? 'lightMode' : 'darkMode'
 }
-
 const languages = [
   { text: '中文', value: 'zhHant' },
   { text: 'English', value: 'en' },
   { text: '日本語', value: 'ja' },
 ] as const
-
 const changeLanguage = (lang: (typeof languages)[number]['value']) => {
   locale.value = lang
 }
-
 const nv = useNavigationStore()
+const user = useUserStore()
+
+const dialogLogin = ref(false)
+const visible = ref(false)
+
+const doUserLogin = () => {
+  user.login()
+  dialogLogin.value = false
+}
 </script>
 
 <template>
@@ -47,7 +51,57 @@ const nv = useNavigationStore()
     <v-btn icon @click.stop="nv.damage = !nv.damage">
       <v-icon>mdi-calculator-variant</v-icon>
     </v-btn>
+
+    <v-btn icon @click.stop="dialogLogin = !dialogLogin">
+      <v-icon>mdi-account</v-icon>
+    </v-btn>
+    
   </v-app-bar>
+  <v-dialog
+    v-model="dialogLogin"
+    width="380px"
+  >
+  <v-card
+      prepend-icon="mdi-account"
+      :title="$t('signIn')"
+    >
+      <form v-if="!user.getUuid()">
+        <v-text-field
+          density="compact"
+          placeholder="Email"
+          prepend-inner-icon="mdi-email-outline"
+          variant="outlined"
+          class="px-2 mt-3"
+          v-model="user.account"
+        />
+        <v-text-field
+          :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+          :type="visible ? 'text' : 'password'"
+          density="compact"
+          placeholder="Password"
+          prepend-inner-icon="mdi-lock-outline"
+          variant="outlined"
+          class="px-2"
+          @click:append-inner="visible = !visible"
+          v-model="user.password"
+        />
+
+        <div class="d-flex flex-row-reverse">
+          <v-btn
+            @click="doUserLogin"
+            :disabled="user.isLoading"
+            class="mb-2 mr-2"
+            color="primary"
+          >
+            {{ $t('submit')}}
+          </v-btn>
+        </div>
+      </form>
+      <div v-else>
+        logged in
+      </div>
+    </v-card>
+  </v-dialog>
   <navigation />
   <damage-result />
 </template>

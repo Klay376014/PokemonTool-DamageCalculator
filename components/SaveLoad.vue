@@ -3,7 +3,6 @@ import { useI18n } from 'vue-i18n'
 import { getPokemonsFromPasteUrl, type Pokemon } from 'vgc_data_wrapper'
 import draggable from 'vuedraggable'
 import { effectByEviolite } from '~/utils/evioliteMap';
-import { useLocalStorage } from '@vueuse/core';
 draggable.compatConfig = { MODE: 3 }
 
 const { t } = useI18n()
@@ -17,15 +16,16 @@ const props = defineProps({
     required: true
   }
 })
+
+const pm = usePokemonDataStore(props.role)
+const user = useUserStore()
+
 const dialogLoad = ref(false)
 const dialogSave = ref(false)
 const dialogImportFromUrl = ref(false)
 const pokePasteUrl = ref('')
 const note = ref('')
 const importing = ref(false)
-
-const pm = usePokemonDataStore(props.role)
-const loadedPokemon = useLocalStorage("savedPokemon", [] as PokemonWithNote[])
 
 const openSaveDialog = () => {
   if (!pm.pokemonRef.name) {
@@ -37,7 +37,8 @@ const openSaveDialog = () => {
 }
 
 const savePokemon = (pokemons: PokemonWithNote | PokemonWithNote[]) => {
-  loadedPokemon.value = loadedPokemon.value.concat(pokemons)
+  user.loadedPokemon = user.loadedPokemon.concat(pokemons)
+  user.saveData(JSON.stringify(user.loadedPokemon))
 }
 
 // 儲存當前寶可夢設定
@@ -55,18 +56,23 @@ const openLoadDialog = () => {
 }
 // 讀取選中寶可夢
 const loadSelectedPoekmon = (index: number) => {
-  if (loadedPokemon.value.length > 0) {
-    const { name, baseStat, effortValues, types, sprite, weight, item} = loadedPokemon.value[index]
+  if (user.loadedPokemon.length > 0) {
+    const { name, baseStat, effortValues, types, sprite, weight, item} = user.loadedPokemon[index]
     pm.pokemonRef.effortValues = effortValues
-    pm.pokemonRef.nature = loadedPokemon.value[index].nature
+    pm.pokemonRef.nature = user.loadedPokemon[index].nature
     pm.setPokemon(name!.toLowerCase().replace(' ', '-'), baseStat, types, sprite!, weight, item)
   }
   dialogLoad.value = false
 }
 
 const deleteSelectedPoekmon = (index: number) => {
-  loadedPokemon.value.splice(index, 1)
+  user.loadedPokemon.splice(index, 1)
   openLoadDialog()
+}
+
+const leaveLoadAndUpdate = () => {
+  user.saveData(JSON.stringify(user.loadedPokemon))
+  dialogLoad.value = false
 }
 
 const importFromUrl = async () => {
@@ -105,6 +111,11 @@ const dragOptions = computed(() => {
   }
 })
 
+const endDragEvent = () => {
+  user.saveData(JSON.stringify(user.loadedPokemon))
+  drag.value = false
+}
+
 </script>
 
 <template>
@@ -126,10 +137,10 @@ const dragOptions = computed(() => {
       <v-divider class="mt-3" />
       <v-card-text class="px-2">
         <draggable
-          :list="loadedPokemon"
+          :list="user.loadedPokemon"
           v-bind="dragOptions"
           @start="drag = true"
-          @end="drag = false"
+          @end="endDragEvent"
           item-key="note"
         >
           <template #item="{ element: pokemon, index }">
@@ -171,7 +182,7 @@ const dragOptions = computed(() => {
       <v-card-actions>
         <v-btn
           :text="$t('close')"
-          @click="dialogLoad = false"
+          @click="leaveLoadAndUpdate"
         />
         <v-btn
           :text="$t('importFromPaste')"
@@ -223,18 +234,23 @@ const dragOptions = computed(() => {
       <form>
         <v-text-field
           label="url"
+          density="compact"
+          variant="outlined"
+          class="px-2"
           v-model="pokePasteUrl"
           clearable
         />
 
-        <v-btn
-          @click="importFromUrl"
-          :disabled="importing"
-          class="w-100"
-          color="primary"
-        >
-          {{ $t('submit')}}
-        </v-btn>
+        <div class="d-flex flex-row-reverse">
+          <v-btn
+            @click="importFromUrl"
+            :disabled="importing"
+            class="mb-2 mr-2"
+            color="primary"
+          >
+            {{ $t('submit')}}
+          </v-btn>
+        </div>
       </form>
     </v-card>
   </v-dialog>

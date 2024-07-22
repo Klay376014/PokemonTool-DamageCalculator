@@ -57,6 +57,9 @@
   "pokemonSaveConfirm": "Save this Pokemon?",
   "pasteUrl": "Paste url here",
   "writeNote": "Write a note...",
+  "signIn": "Sign in",
+  "signUp": "Sign up",
+  "logout": "Logout",
   "filter": "Filter",
   "condition": {
     "title": "Condition",

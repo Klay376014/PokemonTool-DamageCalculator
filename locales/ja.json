@@ -57,6 +57,9 @@
   "pokemonSaveConfirm": "このポケモンをセーブする？",
   "pasteUrl": "リンクを貼ってください",
   "writeNote": "メモ用",
+  "signIn": "ログイン",
+  "signUp": "新規登録",
+  "logout": "ログアウト",
   "filter": "SV限定",
   "condition": {
     "title": "他条件",
