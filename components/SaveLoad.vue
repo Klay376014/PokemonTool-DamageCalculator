@@ -141,7 +141,7 @@ const endDragEvent = () => {
           v-bind="dragOptions"
           @start="drag = true"
           @end="endDragEvent"
-          item-key="note"
+          :item-key="Math.random().toString()"
         >
           <template #item="{ element: pokemon, index }">
               <div class="d-flex justify-space-between py-2">
