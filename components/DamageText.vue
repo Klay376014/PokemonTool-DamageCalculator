@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import type { Pokemon } from 'vgc_data_wrapper'
-import { createMove } from 'vgc_data_wrapper'
-import moves from '../assets/pokemonMove.json'
-import { watchPausable } from '@vueuse/core'
+import { watchPausable } from '@vueuse/core';
+import type { Pokemon } from 'vgc_data_wrapper';
+import { createMove } from 'vgc_data_wrapper';
 import { useI18n } from 'vue-i18n';
+import moves from '../assets/pokemonMove.json';
 
 const props = defineProps<{
   pokemon: string[],
@@ -104,7 +104,7 @@ const composeDetailText = (): string => {
   }
 
   // attacker name
-  detailArray.push(t(`pokemon.${attackerPokemon.pokemonRef.name}` ?? ''))
+  detailArray.push(t(`pokemon.${attackerPokemon.pokemonRef.name}`))
 
   // atk stage
   if (attackerPokemon.pokemonRef.statStage[attacker.atk] !== 0) {
@@ -127,12 +127,12 @@ const composeDetailText = (): string => {
   
   // atk ability
   if (attacker.ability) {
-    detailArray.push(t(`ability.${attackerPokemon.pokemonRef.ability}` ?? ''))
+    detailArray.push(t(`ability.${attackerPokemon.pokemonRef.ability}`))
   }
 
   // atk item
   if (attacker.item) {
-    detailArray.push(t(`item.${attackerPokemon.pokemonRef.item}` ?? ''))
+    detailArray.push(t(`item.${attackerPokemon.pokemonRef.item}`))
   }
 
   // atk werther
@@ -197,7 +197,7 @@ const composeDetailText = (): string => {
   detailArray.push('vs')
 
   // defender name
-  detailArray.push(t(`pokemon.${defenderPokemon .pokemonRef.name}` ?? ''))
+  detailArray.push(t(`pokemon.${defenderPokemon .pokemonRef.name}`))
 
   // def stage
   if (defenderPokemon.pokemonRef.statStage[defender.def] !== 0) {
@@ -217,12 +217,12 @@ const composeDetailText = (): string => {
 
   // def ability
   if (defender.ability) {
-    detailArray.push(t(`ability.${defenderPokemon.pokemonRef.ability}` ?? ''))
+    detailArray.push(t(`ability.${defenderPokemon.pokemonRef.ability}`))
   }
 
   // def item
   if (defender.item) {
-    detailArray.push(t(`item.${defenderPokemon.pokemonRef.item}` ?? ''))
+    detailArray.push(t(`item.${defenderPokemon.pokemonRef.item}`))
   }
 
   // def werther
