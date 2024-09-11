@@ -17,6 +17,7 @@ export default function () {
     ['zamazenta-crowned', 'Body Press'],
     ['urshifu-single-strike', 'Wicked Blow'],
     ['iron-hands', 'Wild Charge'],
+    ['ogerpon', 'Ivy Cudgel'],
     ['ogerpon-wellspring-mask', 'Ivy Cudgel'],
     ['ogerpon-hearthflame-mask', 'Ivy Cudgel'],
     ['ogerpon-cornerstone-mask', 'Ivy Cudgel'],
