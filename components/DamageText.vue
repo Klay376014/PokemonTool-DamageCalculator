@@ -273,7 +273,7 @@ const watcher = watchPausable(
           isContact: text.flags.contact === 1,
           isPunch: text.flags.punch === 1,
           isSlicing: text.flags.slicing === 1,
-          isSound: text.flags.slicing === 1,
+          isSound: text.flags.sound === 1,
           isPulse: text.flags.pulse === 1,
           isMultihit: !!text.multihit
         }
