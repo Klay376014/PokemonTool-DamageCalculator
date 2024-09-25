@@ -1,6 +1,6 @@
 import { Pokemon } from 'vgc_data_wrapper'
 import defaultMove from '~/utils/defaultMove'
-import type { PokemonType } from '~/utils/schema'
+import type { PokemonType, Stats } from '~/utils/schema'
 
 export const usePokemonDataStore = (role: string) => defineStore(role, () => {
   const defaultImage = new URL('../assets/src/default.png', import.meta.url).href

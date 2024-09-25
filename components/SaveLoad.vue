@@ -4,11 +4,11 @@ import { getPokemonsFromPasteUrl, type Pokemon } from 'vgc_data_wrapper'
 import draggable from 'vuedraggable'
 import { effectByEviolite } from '~/utils/evioliteMap';
 import { useLocalStorage } from '@vueuse/core';
+import type { Stats } from '~/utils/schema'
 draggable.compatConfig = { MODE: 3 }
 
 const { t } = useI18n()
-type Stats = Omit<typeof stats, 'hp'>
-type NatureStats = keyof Stats
+type NatureType = Pokemon['nature']
 type PokemonWithNote = Pokemon & { note: string }
 
 const props = defineProps({
@@ -26,6 +26,8 @@ const importing = ref(false)
 
 const pm = usePokemonDataStore(props.role)
 const loadedPokemon = useLocalStorage("savedPokemon", [] as PokemonWithNote[])
+const selectedPokemonEV = ref({})
+const selectedPokemonNature = ref({})
 
 const openSaveDialog = () => {
   if (!pm.pokemonRef.name) {
@@ -56,16 +58,18 @@ const openLoadDialog = () => {
 // 讀取選中寶可夢
 const loadSelectedPoekmon = (index: number) => {
   if (loadedPokemon.value.length > 0) {
-    const { name, baseStat, effortValues, types, sprite, weight, item} = loadedPokemon.value[index]
-    pm.pokemonRef.effortValues = effortValues
-    pm.pokemonRef.nature = loadedPokemon.value[index].nature
+    const { name, baseStat, effortValues, types, sprite, weight, item, nature } = loadedPokemon.value[index]
+    selectedPokemonEV.value = { ...effortValues }
+    selectedPokemonNature.value = { ...nature }
+    pm.pokemonRef.effortValues = selectedPokemonEV.value as unknown as Stats
+    pm.pokemonRef.nature = selectedPokemonNature.value as unknown as NatureType
     pm.setPokemon(name!.toLowerCase().replace(' ', '-'), baseStat, types, sprite!, weight, item)
     if (name) pm.pokemonRef.setFlags({ hasEvolution: effectByEviolite(name) })
   }
   dialogLoad.value = false
 }
 
-const deleteSelectedPoekmon = (index: number) => {
+const deleteSelectedPokemon = (index: number) => {
   loadedPokemon.value.splice(index, 1)
   openLoadDialog()
 }
@@ -89,7 +93,7 @@ const importFromUrl = async () => {
   }
 }
 
-const natureOperator = (nature: {plus?: NatureStats, minus?: NatureStats}, stat: string) => {
+const natureOperator = (nature: NatureType, stat: string) => {
   if (nature.plus === stat) return '+'
   if (nature.minus === stat) return '-'
   return ''
@@ -160,7 +164,7 @@ const dragOptions = computed(() => {
               </div>
               <div class="d-flex align-center pb-3">
                 <v-btn icon="mdi-import" color="red-lighten-1" variant="plain" class="text-h6 mr-2" size="20" @click="loadSelectedPoekmon(index)" />
-                <v-btn icon="mdi-trash-can-outline" variant="plain" class="text-h6" size="20" @click="deleteSelectedPoekmon(index)" />
+                <v-btn icon="mdi-trash-can-outline" variant="plain" class="text-h6" size="20" @click="deleteSelectedPokemon(index)" />
               </div>
             </div>
             </template>
