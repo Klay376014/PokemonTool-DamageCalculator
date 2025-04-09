@@ -16,9 +16,14 @@ const languages = [
   { text: '日本語', value: 'ja' },
 ] as const
 
+const defaultLanguage = localStorage.getItem('langueage') as (typeof languages)[number]['value']
+
 const changeLanguage = (lang: (typeof languages)[number]['value']) => {
   locale.value = lang
+  localStorage.setItem('langueage', lang)
 }
+
+changeLanguage(defaultLanguage ?? 'zhHant')
 
 const nv = useNavigationStore()
 </script>

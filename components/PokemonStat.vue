@@ -150,7 +150,7 @@ const getStageEffectColor = (key: StatKeys) => {
         <td>{{ $t('stat.stage') }}</td>
         <td v-for="(_, key) in stats" :key="key">
           <template v-if="key === 'hp'" />
-          <v-select v-else :items="stages" variant="solo" density="compact" :model-value="getStageModelValue(pm.pokemonRef.statStage[key])" flat hide-details @update:model-value="(val) => setStatStages(key, val)">
+          <v-select v-else :items="stages" variant="solo" density="compact" :model-value="getStageModelValue(pm.pokemonRef.statStage[key])" flat hide-details @update:model-value="(val: typeof stages[number] | null) => setStatStages(key, val)">
             <template #selection="{ item }">
               <span class="text-subtitle-2">{{ item.title }}</span>
             </template>
