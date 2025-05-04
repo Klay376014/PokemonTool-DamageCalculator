@@ -178,10 +178,10 @@ input:disabled {
 }
 .v-select {
   padding: 0 8px;
+	text-align: center;
   @media (max-width: 576px) {
     padding: 0;
   }
-  text-align: center;
 }
 .v-icon {
   cursor: pointer;
