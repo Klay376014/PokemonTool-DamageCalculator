@@ -3,7 +3,7 @@ import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 export default defineNuxtConfig({
   app: {
     baseURL: process.env.NODE_ENV === 'production' ? '/PokemonTool-DamageCalculator/' : '/',
-    buildAssetsDir: '/static/',
+    buildAssetsDir: 'static/',
     head: {
       charset: 'utf-8',
       meta: [
