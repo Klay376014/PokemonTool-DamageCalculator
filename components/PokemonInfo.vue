@@ -14,8 +14,11 @@ const isTerapagosStellar = computed(() => {
   return pm.pokemonRef.name
 })
 const changeTeraType = (type: string) => {
-  pm.pokemonRef.isTera = type !== 'None'
-  pm.pokemonRef.teraType = type !== 'None' ? type as typeof pm.pokemonRef.teraType : pm.pokemonRef.teraType
+  if (type !== 'None') {
+    pm.pokemonRef.toggleTera({ isTera: true, type: type as typeof pm.pokemonRef.teraType })
+  } else {
+    pm.pokemonRef.toggleTera({ isTera: false })
+  }
   teraType.value = type
 }
 </script>

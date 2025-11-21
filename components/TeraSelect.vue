@@ -35,7 +35,7 @@ const changeTeraType = (reset?: boolean) => {
   dialog.value = false
   if (reset) {
     currentTeraType.value = 'None'
-    pm.pokemonRef.isTera = false
+    pm.pokemonRef.toggleTera({ isTera: false })
   }
   emit('changeTeraType', currentTeraType.value)
 }
