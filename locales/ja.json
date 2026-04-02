@@ -38,10 +38,14 @@
     "stat": "実数",
     "stage": "ランク"
   },
+  "open": "開く",
+  "close": "閉じる",
+  "input": {
+    "clear": "クリア"
+  },
   "confirm": "確認",
   "submit": "提出",
   "reset": "リセット",
-  "close": "閉じる",
   "choosePokemon": "ポケモン",
   "chooseMove": "わざ",
   "chooseAbility": "とくせい",

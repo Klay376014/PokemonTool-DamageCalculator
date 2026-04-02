@@ -38,10 +38,10 @@
     "stat": "實數",
     "stage": "階段"
   },
-  "open": "open",
+  "open": "開啟",
   "close": "關閉",
   "input": {
-    "clear": "clear"
+    "clear": "清除"
   },
   "confirm": "確認",
   "submit": "送出",
@@ -84,6 +84,7 @@
     "bulbasaur": "妙蛙種子",
     "ivysaur": "妙蛙草",
     "venusaur": "妙蛙花",
+    "venusaur-mega": "超級妙蛙花",
     "charmander": "小火龍",
     "charmeleon": "火恐龍",
     "charizard": "噴火龍",
@@ -487,6 +488,8 @@
     "tropius": "熱帶龍",
     "chimecho": "風鈴鈴",
     "absol": "阿勃梭魯",
+    "absol-mega": "超級阿勃梭魯",
+    "absol-mega-z": "超級阿勃梭魯 Z",
     "wynaut": "小果然",
     "snorunt": "雪童子",
     "glalie": "冰鬼護",

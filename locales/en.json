@@ -38,10 +38,14 @@
     "stat": "Stats",
     "stage": "Stages"
   },
+  "open": "Open",
+  "close": "Close",
+  "input": {
+    "clear": "Clear"
+  },
   "confirm": "Confirm",
   "submit": "Submit",
   "reset": "Reset",
-  "close": "Close",
   "choosePokemon": "Choose Pokemon",
   "chooseMove": "Choose Move",
   "chooseAbility": "Choose Ability",
@@ -80,6 +84,7 @@
     "bulbasaur": "Bulbasaur",
     "ivysaur": "Ivysaur",
     "venusaur": "Venusaur",
+    "venusaur-mega": "Mega Venusaur",
     "charmander": "Charmander",
     "charmeleon": "Charmeleon",
     "charizard": "Charizard",
@@ -483,6 +488,8 @@
     "tropius": "Tropius",
     "chimecho": "Chimecho",
     "absol": "Absol",
+    "absol-mega": "Mega Absol",
+    "absol-mega-z": "Mega Absol Z",
     "wynaut": "Wynaut",
     "snorunt": "Snorunt",
     "glalie": "Glalie",
