@@ -34,7 +34,6 @@ export default defineNuxtConfig({
         ],
       },
     ],
-    '@nuxtjs/apollo',
     'nuxt-gtag'
   ],
   gtag: {
@@ -56,13 +55,6 @@ export default defineNuxtConfig({
         noUnusedParameters: false
       }
     },
-  },
-  apollo: {
-    clients: {
-      default: {
-        httpEndpoint: 'https://beta.pokeapi.co/graphql/v1beta',
-      }
-    }
   },
   experimental: {
     renderJsonPayloads: false
