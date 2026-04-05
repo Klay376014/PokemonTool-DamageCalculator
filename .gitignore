@@ -25,3 +25,6 @@ logs
 
 # gql codegen
 gql
+.spectra/
+openspec/.vector-search.db*
+.claude

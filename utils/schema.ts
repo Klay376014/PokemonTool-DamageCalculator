@@ -26,49 +26,33 @@ export type PokemonType = [Type] | [Type, Type]
 
 export interface Sprite {
   front_default: string
-  front_shiny?: string
+  artwork: string
 }
 
-const spriteSchema = z.object({
-  front_default: z.string().catch(''), // put placeholder image
-  front_shiny: z.string().catch(''),
-})
+export const rotomDexFormSchema = z.object({
+  success: z.boolean(),
+  data: z.object({
+    form_name: z.string(),
+    weight: z.number(),
+    hp: z.number(),
+    attack: z.number(),
+    defense: z.number(),
+    sp_attack: z.number(),
+    sp_defense: z.number(),
+    speed: z.number(),
+    sprite_url: z.string().nullable().catch(''),
+    artwork_url: z.string().nullable().catch(''),
+    primary_type: z.string(),
+    secondary_type: z.string().nullable().optional(),
+  }).transform(({ form_name, weight, hp, attack, defense, sp_attack, sp_defense, speed, sprite_url, artwork_url, primary_type, secondary_type }) => ({
+    name: form_name,
+    weight,
+    stats: { hp, attack, defense, specialAttack: sp_attack, specialDefense: sp_defense, speed },
+    sprite: { front_default: sprite_url ?? '', artwork: artwork_url ?? '' },
+    types: [primary_type, secondary_type]
+      .filter((t): t is string => t != null)
+      .map(t => t.charAt(0).toUpperCase() + t.slice(1)),
+  }))
+}).transform(r => r.data)
 
-const pokemonSchema = z.object({
-  name: z.string(),
-  weight: z.number(),
-  pokemon_v2_pokemonmoves: z.array(z.object({
-    pokemon_v2_move: z.object({
-      name: z.string(),
-      move_damage_class_id: z.number(),
-    })
-  })).transform(arg => arg.filter(move => move.pokemon_v2_move.move_damage_class_id !== 1)), // 過濾變化招
-  pokemon_v2_pokemonsprites: z.array(z.object({
-    sprites: spriteSchema,
-  })),
-  pokemon_v2_pokemonstats: z.array(z.object({ base_stat: z.number() })).transform((arg) => {
-    return arg.reduce((pre, cur, i) => {
-      const statKey = statKeysArray[i]
-      pre[statKey] = cur.base_stat
-      return pre
-    }, {} as Stats) // tranform from stats array to stat object
-  }),
-  pokemon_v2_pokemontypes: z.array(z.object({
-    pokemon_v2_type: z.object({
-      name: z.string()
-    })
-  })).transform(arg => arg.map(type => type.pokemon_v2_type.name.replace(/^./, type.pokemon_v2_type.name[0].toUpperCase())))
-}).transform(({ name, weight, pokemon_v2_pokemonmoves, pokemon_v2_pokemonsprites, pokemon_v2_pokemonstats, pokemon_v2_pokemontypes }) => ({
-  name,
-  weight: weight / 10,
-  stats: pokemon_v2_pokemonstats,
-  sprite: pokemon_v2_pokemonsprites[0].sprites,
-  moves: pokemon_v2_pokemonmoves,
-  types: pokemon_v2_pokemontypes
-})) // transform into more readable property names
-
-export type PokemonSchema = z.infer<typeof pokemonSchema>
-
-export const pokemonsResponseSchema = z.object({
-  pokemon_v2_pokemon: z.array(pokemonSchema)
-}).transform(arg => arg.pokemon_v2_pokemon)
+export type PokemonSchema = z.infer<typeof rotomDexFormSchema>

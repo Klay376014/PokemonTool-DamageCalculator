@@ -1,6 +1,7 @@
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 
 export default defineNuxtConfig({
+  compatibilityDate: '2026-04-05',
   app: {
     baseURL: process.env.NODE_ENV === 'production' ? '/PokemonTool-DamageCalculator/' : '/',
     buildAssetsDir: 'static/',
@@ -65,6 +66,9 @@ export default defineNuxtConfig({
   },
   experimental: {
     renderJsonPayloads: false
+  },
+  runtimeConfig: {
+    rotomDexBaseUrl: process.env.ROTOM_DEX_BASE_URL || 'http://localhost:8080',
   },
   ssr: false
 })
