@@ -1406,7 +1406,9 @@
     "Tablets of Ruin": "災禍之簡",
     "Sword of Ruin": "災禍之劍",
     "Vessel of Ruin": "災禍之鼎",
-    "Beads of Ruin": "災禍之玉"
+    "Beads of Ruin": "災禍之玉",
+    "Dragonize": "龍皮膚",
+    "Mega Sol": "超級日光"
   },
   "move": {
     "Flail-20": "抓狂-20",
@@ -1977,7 +1979,9 @@
       "Tablets of Ruin": "（不受災禍之簡氣場影響）",
       "Sword of Ruin": "（不受災禍之劍氣場影響）",
       "Vessel of Ruin": "（不受災禍之鼎氣場影響）",
-      "Beads of Ruin": "（不受災禍之玉氣場影響）"
+      "Beads of Ruin": "（不受災禍之玉氣場影響）",
+      "Dragonize": "（一般系招式變成龍屬性，且威力x1.2）",
+      "Mega Sol": "（使用招式時視為在晴天下使出）"
     },
     "damage": {
       "OHKO": "確一",

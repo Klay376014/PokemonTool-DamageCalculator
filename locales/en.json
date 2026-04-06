@@ -1406,7 +1406,9 @@
     "Tablets of Ruin": "Tablets of Ruin",
     "Sword of Ruin": "Sword of Ruin",
     "Vessel of Ruin": "Vessel of Ruin",
-    "Beads of Ruin": "Beads of Ruin"
+    "Beads of Ruin": "Beads of Ruin",
+    "Dragonize": "Dragonize",
+    "Mega Sol": "Mega Sol"
   },
   "move": {
     "Flail-20": "Flail-20",
@@ -1975,7 +1977,9 @@
       "Tablets of Ruin": "(Not affected by Tablets of Ruin's field effect)",
       "Sword of Ruin": "(Not affected by Sword of Ruin's field effect)",
       "Vessel of Ruin": "(Not affected by Vessel of Ruin's field effect)",
-      "Beads of Ruin": "(Not affected by Beads of Ruin's field effect)"
+      "Beads of Ruin": "(Not affected by Beads of Ruin's field effect)",
+      "Dragonize": "(Turns Normal-type moves into Dragon-type and increases their power by 1.2x)",
+      "Mega Sol": "(All moves used by the Pokémon to behave as if the weather were harsh sunlight)"
     },
     "damage": {
       "OHKO": "guaranteed OHKO",

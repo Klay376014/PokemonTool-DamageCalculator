@@ -1406,7 +1406,9 @@
     "Tablets of Ruin": "わざわいのおふだ",
     "Sword of Ruin": "わざわいのつるぎ",
     "Vessel of Ruin": "わざわいのうつわ",
-    "Beads of Ruin": "わざわいのたま"
+    "Beads of Ruin": "わざわいのたま",
+    "Dragonize": "ドラゴンスキン",
+    "Mega Sol": "メガソーラー"
   },
   "move": {
     "Flail-20": "じたばた-20",
@@ -1977,7 +1979,9 @@
       "Tablets of Ruin": "（わざわいのおぶたの効果を受けない）",
       "Sword of Ruin": "（わざわいのつるぎ場の効果を受けない）",
       "Vessel of Ruin": "（わざわいのうつわ場の効果を受けない）",
-      "Beads of Ruin": "（わざわいのたま場の効果を受けない）"
+      "Beads of Ruin": "（わざわいのたま場の効果を受けない）",
+      "Dragonize": "（ノーマル技がドラゴンタイプになり、威力が1.2倍になる）",
+      "Mega Sol": "（技を使うとき、天気がにほんばれ状態のときと同じ効果を受ける）"
     },
     "damage": {
       "OHKO": "確定一発",
