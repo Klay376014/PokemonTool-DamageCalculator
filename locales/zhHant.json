@@ -1407,6 +1407,8 @@
     "Sword of Ruin": "災禍之劍",
     "Vessel of Ruin": "災禍之鼎",
     "Beads of Ruin": "災禍之玉",
+    "Refrigerate": "冰凍皮膚",
+    "Aerilate": "飛行皮膚",
     "Dragonize": "龍皮膚",
     "Mega Sol": "超級日光"
   },
@@ -1980,6 +1982,8 @@
       "Sword of Ruin": "（不受災禍之劍氣場影響）",
       "Vessel of Ruin": "（不受災禍之鼎氣場影響）",
       "Beads of Ruin": "（不受災禍之玉氣場影響）",
+      "Refrigerate": "（一般系招式變成冰屬性，且威力x1.2）",
+      "Aerilate": "（一般系招式變成飛行屬性，且威力x1.2）",
       "Dragonize": "（一般系招式變成龍屬性，且威力x1.2）",
       "Mega Sol": "（使用招式時視為在晴天下使出）"
     },

@@ -1407,6 +1407,8 @@
     "Sword of Ruin": "Sword of Ruin",
     "Vessel of Ruin": "Vessel of Ruin",
     "Beads of Ruin": "Beads of Ruin",
+    "Refrigerate": "Refrigerate",
+    "Aerilate": "Aerilate",
     "Dragonize": "Dragonize",
     "Mega Sol": "Mega Sol"
   },
@@ -1978,6 +1980,8 @@
       "Sword of Ruin": "(Not affected by Sword of Ruin's field effect)",
       "Vessel of Ruin": "(Not affected by Vessel of Ruin's field effect)",
       "Beads of Ruin": "(Not affected by Beads of Ruin's field effect)",
+      "Refrigerate": "（Turns Normal-type moves into Ice-type and increases their power by 1.2x）",
+      "Aerilate": "（Turns Normal-type moves into Flying-type and increases their power by 1.2x）",
       "Dragonize": "(Turns Normal-type moves into Dragon-type and increases their power by 1.2x)",
       "Mega Sol": "(All moves used by the Pokémon to behave as if the weather were harsh sunlight)"
     },
