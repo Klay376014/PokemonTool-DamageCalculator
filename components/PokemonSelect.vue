@@ -50,7 +50,7 @@ const pokemonSelect = async (name: string | null) => {
   }
   const { stats, types, sprite, weight } = r
   if (name !== 'terapagos-stellar') {
-    pm.setPokemon(name, stats, types as PokemonType, sprite.front_default, weight)
+    pm.setPokemon(name, stats, types as PokemonType, sprite.front_default || sprite.artwork, weight)
     pm.pokemonRef.setFlags({ hasEvolution: effectByEviolite(name) })
   } else {
     const terapagosStellarStats = {
@@ -61,7 +61,7 @@ const pokemonSelect = async (name: string | null) => {
       specialDefense:	110,
       speed: 85
     }
-    pm.setPokemon(name, terapagosStellarStats, types as PokemonType, sprite.front_default, weight)
+    pm.setPokemon(name, terapagosStellarStats, types as PokemonType, sprite.front_default || sprite.artwork, weight)
     pm.pokemonRef.teraType = 'Stellar'
   }
   pm.setDefaultSelection(name)
