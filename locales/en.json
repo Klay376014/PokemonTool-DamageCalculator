@@ -33,6 +33,7 @@
     }
   },
   "stat": {
+    "base": "Base",
     "iv": "IV",
     "ev": "EV",
     "stat": "Stats",
@@ -1915,7 +1916,8 @@
     "Attack Order": "Attack Order",
     "First Impression": "First Impression",
     "Pollen Puff": "Pollen Puff",
-    "Megahorn": "Megahorn"
+    "Megahorn": "Megahorn",
+    "Light of Ruin": "Light of Ruin"
   },
   "description": {
     "item": {

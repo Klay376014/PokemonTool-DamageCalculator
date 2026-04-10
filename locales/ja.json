@@ -33,6 +33,7 @@
     }
   },
   "stat": {
+    "base": "種族",
     "iv": "個体",
     "ev": "努力",
     "stat": "実数",
@@ -1915,7 +1916,8 @@
     "Attack Order": "こうげきしれい",
     "First Impression": "であいがしら",
     "Pollen Puff": "かふんだんご",
-    "Megahorn": "メガホーン"
+    "Megahorn": "メガホーン",
+    "Light of Ruin": "はめつのひかり"
   },
   "description": {
     "item": {

@@ -8454,5 +8454,21 @@
     "secondary": null,
     "target": "normal",
     "type": "Bug"
+  },
+  "Light of Ruin": {
+    "num": 617,
+    "accuracy": 90,
+    "basePower": 140,
+    "category": "Special",
+    "pp": 5,
+    "priority": 0,
+    "flags": {
+      "protect": 1,
+      "mirror": 1
+    },
+    "secondary": null,
+    "recoil": [1, 2],
+    "target": "normal",
+    "type": "Fairy"
   }
 }
