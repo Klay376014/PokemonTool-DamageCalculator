@@ -92,14 +92,7 @@ const getStageEffectColor = (key: StatKeys) => {
   <v-table density="comfortable">
     <thead>
       <tr>
-        <th class="px-0">
-          <div class="d-flex align-center justify-center">
-            <p class="d-none d-sm-block mr-1">
-              lv
-            </p>
-            <input v-model="pm.pokemonRef.level" type="number" class="py-2" min="1" max="100">
-          </div>
-        </th>
+        <th class="px-0" />
         <th v-for="(label, key) in stats" :key="key" class="text-center px-0 pr-md-3">
           <span v-if="key === 'hp'" class="font-weight-bold">Hp</span>
           <template v-else>
@@ -116,11 +109,9 @@ const getStageEffectColor = (key: StatKeys) => {
     </thead>
     <tbody>
       <tr>
-        <td>
-          {{ $t('stat.iv') }}
-        </td>
-        <td v-for="(_, key) in stats" :key="key">
-          <input v-model="pm.pokemonRef.individualValues[key]" :name="key" type="number" class="py-2 w-75" min="0" max="31" @change="checkIv(key)" :placeholder="key">
+        <td>{{ $t('stat.base') }}</td>
+        <td v-for="(_, key) in pm.pokemonRef.baseStat" :key="key">
+          <input :name="key" type="number" class="py-2 w-75" :value="pm.pokemonRef.baseStat[key]" disabled>
         </td>
       </tr>
       <tr>

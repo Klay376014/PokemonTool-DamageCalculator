@@ -35,7 +35,7 @@ const setIsDouble = () => {
   <v-navigation-drawer
     v-model="nv.condition"
     location="left"
-    width="350"
+    width="300"
   >
     <v-container>
       <v-row>
@@ -50,7 +50,7 @@ const setIsDouble = () => {
             v-model="field.weather"
             rounded="8"
             color="secondary-darken-1"
-            density="comfortable"
+            density="compact"
             variant="elevated"
             mandatory
             @click="setWeather"
@@ -88,7 +88,7 @@ const setIsDouble = () => {
             v-model="field.terrain"
             rounded="8"
             color="primary-darken-1"
-            density="comfortable"
+            density="compact"
             variant="elevated"
             mandatory
             @click="setTerrain"
@@ -128,7 +128,7 @@ const setIsDouble = () => {
             v-model="field.ruin"
             rounded="8"
             color="green-darken-4"
-            density="comfortable"
+            density="compact"
             variant="elevated"
             multiple
             @click="setRuin"
@@ -165,7 +165,7 @@ const setIsDouble = () => {
             v-model="field.aura"
             rounded="8"
             color="yellow-darken-3"
-            density="comfortable"
+            density="compact"
             variant="elevated"
             multiple
             @click="setAura"
@@ -188,7 +188,7 @@ const setIsDouble = () => {
             model-value="Double"
             rounded="8"
             color="indigo-darken-4"
-            density="comfortable"
+            density="compact"
             variant="elevated"
             mandatory
             @click="setIsDouble"
@@ -207,4 +207,8 @@ const setIsDouble = () => {
 </template>
 
 <style scoped>
+.v-btn-toggle .v-btn {
+  min-width: 50px !important;
+  padding: 0 8px !important;
+}
 </style>

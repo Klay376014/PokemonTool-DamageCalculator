@@ -46,16 +46,13 @@ const changeTeraType = (type: string) => {
                   ? `${$t(`type.${pm.pokemonRef.types[0]}`)} / ${$t(`type.${pm.pokemonRef.types[1]}`)}`
                   : `${$t(`type.${pm.pokemonRef.types[0]}`)}` }}
               </p>
-              <div class="d-flex">
+              <!-- Champions 規則目前無太晶化 -->
+              <!-- <div class="d-flex">
                 <p>
                   {{ `${$t('terastal')}\ufe30${$t(`type.${teraType}`)}` }}
                 </p>
                 <tera-select :tera-type="teraType" :role="props.role" @change-tera-type="changeTeraType" :key="isTerapagosStellar"/>
-              </div>
-
-              <p class="text-grey text-subtitle-2 pt-2">
-                {{ `H${pm.pokemonRef.baseStat.hp} A${pm.pokemonRef.baseStat.attack} B${pm.pokemonRef.baseStat.defense} C${pm.pokemonRef.baseStat.specialAttack} D${pm.pokemonRef.baseStat.specialDefense} S${pm.pokemonRef.baseStat.speed}` }}
-              </p>
+              </div> -->
             </div>
           </div>
         </v-col>
