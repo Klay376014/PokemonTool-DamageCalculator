@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { stats, type StatKeys } from '~/utils/schema'
+import { displayToInternal, internalToDisplay } from '~/utils/evConversion'
 
 const props = defineProps({
   role: {
@@ -44,7 +45,7 @@ const getNatureToggleColor = (key: StatKeysWithoutHP): string => {
 }
 
 const getEvRemaining = computed((): number => {
-  return 508 - Object.values(pm.pokemonRef.effortValues).reduce((sum, value) => sum + value, 0)
+  return 66 - Object.values(pm.pokemonRef.effortValues).reduce((sum, value) => sum + internalToDisplay(value), 0)
 })
 
 const checkIv = (key: StatKeys): void => {
@@ -54,13 +55,10 @@ const checkIv = (key: StatKeys): void => {
     pm.pokemonRef.individualValues[key] = 31
 }
 
-const checkEv = (key: StatKeys): void => {
-  if (!pm.pokemonRef.effortValues[key] || pm.pokemonRef.effortValues[key] < 0)
-    pm.pokemonRef.effortValues[key] = 0
-  else if (pm.pokemonRef.effortValues[key] > 252)
-    pm.pokemonRef.effortValues[key] = 252
-  else if (pm.pokemonRef.effortValues[key] % 4 !== 0)
-    pm.pokemonRef.effortValues[key] = Math.round(pm.pokemonRef.effortValues[key] / 4) * 4
+const setEvFromDisplay = (key: StatKeys, event: Event): void => {
+  let val = Number((event.target as HTMLInputElement).value)
+  val = Math.max(0, Math.min(32, Math.round(val)))
+  pm.pokemonRef.effortValues[key] = displayToInternal(val)
 }
 
 const setEvZero = (key: StatKeys): void => {
@@ -117,7 +115,7 @@ const getStageEffectColor = (key: StatKeys) => {
       <tr>
         <td>{{ $t('stat.ev') }}<br><span class="font-weight-bold" :class="{ 'text-secondary': getEvRemaining < 0 }">{{ getEvRemaining }}</span></td>
         <td v-for="(_, key) in stats" :key="key">
-          <input v-model="pm.pokemonRef.effortValues[key]" :name="key" type="number" class="py-2 w-75" min="0" max="252" step="4" @change="checkEv(key)" :placeholder="key">
+          <input :value="internalToDisplay(pm.pokemonRef.effortValues[key])" :name="key" type="number" class="py-2 w-75" min="0" max="32" step="1" @change="setEvFromDisplay(key, $event)" :placeholder="key">
           <div class="d-flex justify-center pb-2">
             <span class="px-2 evButton evButton-1" @click="setEvZero(key)">
               0

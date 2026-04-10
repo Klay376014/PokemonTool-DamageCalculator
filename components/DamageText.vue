@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { watchPausable } from '@vueuse/core';
+import { internalToDisplay } from '~/utils/evConversion'
 import type { Pokemon } from 'vgc_data_wrapper';
 import { createMove } from 'vgc_data_wrapper';
 import { useI18n } from 'vue-i18n';
@@ -114,9 +115,9 @@ const composeDetailText = (): string => {
   // atk nature
   const atkStatFrom = attacker.statFrom
   if (atkStatFrom === 'Attacker') {
-    detailArray.push(`${attackerPokemon.pokemonRef.effortValues[attacker.atk]}${stats[attacker.atk]}${natureCheck('attack', attacker.atk)}`)
+    detailArray.push(`${internalToDisplay(attackerPokemon.pokemonRef.effortValues[attacker.atk])}${stats[attacker.atk]}${natureCheck('attack', attacker.atk)}`)
   } else {
-    detailArray.push(`${defenderPokemon.pokemonRef.effortValues[attacker.atk]}${stats[attacker.atk]}${natureCheck('defense', attacker.atk)}`)
+    detailArray.push(`${internalToDisplay(defenderPokemon.pokemonRef.effortValues[attacker.atk])}${stats[attacker.atk]}${natureCheck('defense', attacker.atk)}`)
   }
   
 
@@ -205,10 +206,10 @@ const composeDetailText = (): string => {
   }
 
   // def hp
-  detailArray.push(`${defenderPokemon.pokemonRef.effortValues['hp']}Hp`)
+  detailArray.push(`${internalToDisplay(defenderPokemon.pokemonRef.effortValues['hp'])}Hp`)
 
   // def nature
-  detailArray.push(`${defenderPokemon.pokemonRef.effortValues[defender.def]}${stats[defender.def]}${natureCheck('defense', defender.def)}`)
+  detailArray.push(`${internalToDisplay(defenderPokemon.pokemonRef.effortValues[defender.def])}${stats[defender.def]}${natureCheck('defense', defender.def)}`)
 
   // def tera
   if (defender.isTera) {

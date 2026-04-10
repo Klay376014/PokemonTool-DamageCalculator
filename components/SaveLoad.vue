@@ -2,7 +2,8 @@
 import { useI18n } from 'vue-i18n'
 import { getPokemonsFromPasteUrl, type Pokemon } from 'vgc_data_wrapper'
 import draggable from 'vuedraggable'
-import { effectByEviolite } from '~/utils/evioliteMap';
+import { effectByEviolite } from '~/utils/evioliteMap'
+import { internalToDisplay } from '~/utils/evConversion'
 import { useLocalStorage } from '@vueuse/core';
 import type { Stats } from '~/utils/schema'
 draggable.compatConfig = { MODE: 3 }
@@ -145,22 +146,23 @@ const dragOptions = computed(() => {
                 :src="pokemon.sprite"
               >
                 <v-tooltip
+                  v-if="pokemon.note"
                   activator="parent"
                   location="top"
                   >{{ $te(pokemon.note) ? $t(pokemon.note) : pokemon.note }}
                 </v-tooltip>
               </v-img>
               <div>
-                <p>{{ `H${pokemon.effortValues.hp}` }}</p>
-                <p>{{ `C${pokemon.effortValues.specialAttack}${natureOperator(pokemon.nature, 'specialAttack')}` }}</p>
+                <p>{{ `H${internalToDisplay(pokemon.effortValues.hp)}` }}</p>
+                <p>{{ `C${internalToDisplay(pokemon.effortValues.specialAttack)}${natureOperator(pokemon.nature, 'specialAttack')}` }}</p>
               </div>
               <div>
-                <p>{{ `A${pokemon.effortValues.attack}${natureOperator(pokemon.nature, 'attack')}` }}</p>
-                <p>{{ `D${pokemon.effortValues.specialDefense}${natureOperator(pokemon.nature, 'specialDefense')}` }}</p>
+                <p>{{ `A${internalToDisplay(pokemon.effortValues.attack)}${natureOperator(pokemon.nature, 'attack')}` }}</p>
+                <p>{{ `D${internalToDisplay(pokemon.effortValues.specialDefense)}${natureOperator(pokemon.nature, 'specialDefense')}` }}</p>
               </div>
               <div class="mr-4">
-                <p>{{ `B${pokemon.effortValues.defense}${natureOperator(pokemon.nature, 'defense')}` }}</p>
-                <p>{{ `S${pokemon.effortValues.speed}${natureOperator(pokemon.nature, 'speed')}` }}</p>
+                <p>{{ `B${internalToDisplay(pokemon.effortValues.defense)}${natureOperator(pokemon.nature, 'defense')}` }}</p>
+                <p>{{ `S${internalToDisplay(pokemon.effortValues.speed)}${natureOperator(pokemon.nature, 'speed')}` }}</p>
               </div>
               <div class="d-flex align-center pb-3">
                 <v-btn icon="mdi-import" color="red-lighten-1" variant="plain" class="text-h6 mr-2" size="20" @click="loadSelectedPoekmon(index)" />
