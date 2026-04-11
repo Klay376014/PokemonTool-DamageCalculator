@@ -5830,7 +5830,7 @@
   "Grav Apple-2": {
     "num": 788,
     "accuracy": 100,
-    "basePower": 120,
+    "basePower": 135,
     "category": "Physical",
     "pp": 10,
     "priority": 0,
