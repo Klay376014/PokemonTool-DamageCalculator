@@ -1609,7 +1609,7 @@
   },
   "Crab Hammer": {
     "num": 152,
-    "accuracy": 90,
+    "accuracy": 95,
     "basePower": 100,
     "category": "Physical",
     "pp": 10,
@@ -1989,7 +1989,7 @@
   "Fire Lash": {
     "num": 680,
     "accuracy": 100,
-    "basePower": 80,
+    "basePower": 90,
     "category": "Physical",
     "pp": 15,
     "priority": 0,
@@ -2667,7 +2667,7 @@
   "Mountain Gale": {
     "num": 836,
     "accuracy": 85,
-    "basePower": 100,
+    "basePower": 120,
     "category": "Physical",
     "isNonstandard": "Unobtainable",
     "pp": 10,
@@ -2776,7 +2776,7 @@
   "Bone Rush": {
     "num": 198,
     "accuracy": 90,
-    "basePower": 25,
+    "basePower": 30,
     "category": "Physical",
     "pp": 10,
     "priority": 0,
@@ -3183,7 +3183,7 @@
       "mirror": 1
     },
     "secondary": {
-      "chance": 30,
+      "chance": 10,
       "boosts": {
         "spa": -1
       }
@@ -3851,7 +3851,7 @@
   "Infernal Parade": {
     "num": 844,
     "accuracy": 100,
-    "basePower": 60,
+    "basePower": 65,
     "category": "Special",
     "isNonstandard": "Unobtainable",
     "pp": 15,
@@ -3926,7 +3926,8 @@
     "flags": {
       "contact": 1,
       "protect": 1,
-      "mirror": 1
+      "mirror": 1,
+      "slicing": 1
     },
     "critRatio": 2,
     "secondary": null,
@@ -3978,7 +3979,7 @@
   "Spirit Shackle": {
     "num": 662,
     "accuracy": 100,
-    "basePower": 80,
+    "basePower": 90,
     "category": "Physical",
     "pp": 10,
     "priority": 0,
@@ -4367,10 +4368,11 @@
     "flags": {
       "contact": 1,
       "protect": 1,
-      "mirror": 1
+      "mirror": 1,
+      "slicing": 1
     },
     "secondary": {
-      "chance": 50
+      "chance": 30
     },
     "target": "normal",
     "type": "Poison"
@@ -4738,7 +4740,7 @@
   "Beak Blast": {
     "num": 690,
     "accuracy": 100,
-    "basePower": 100,
+    "basePower": 120,
     "category": "Physical",
     "pp": 15,
     "priority": -3,
@@ -5645,7 +5647,7 @@
   },
   "Syrup Bomb": {
     "num": 903,
-    "accuracy": 85,
+    "accuracy": 90,
     "basePower": 60,
     "category": "Special",
     "pp": 10,
@@ -5659,7 +5661,7 @@
   "Trop Kick": {
     "num": 688,
     "accuracy": 100,
-    "basePower": 70,
+    "basePower": 85,
     "category": "Physical",
     "pp": 15,
     "priority": 0,
@@ -5788,7 +5790,7 @@
   "Apple Acid": {
     "num": 787,
     "accuracy": 100,
-    "basePower": 80,
+    "basePower": 90,
     "category": "Special",
     "pp": 10,
     "priority": 0,
@@ -5808,7 +5810,7 @@
   "Grav Apple": {
     "num": 788,
     "accuracy": 100,
-    "basePower": 80,
+    "basePower": 90,
     "category": "Physical",
     "pp": 10,
     "priority": 0,
@@ -6435,7 +6437,7 @@
   "Night Daze": {
     "num": 539,
     "accuracy": 95,
-    "basePower": 85,
+    "basePower": 90,
     "category": "Special",
     "pp": 10,
     "priority": 0,
@@ -6591,7 +6593,7 @@
   "Psyshield Bash": {
     "num": 828,
     "accuracy": 90,
-    "basePower": 70,
+    "basePower": 90,
     "category": "Physical",
     "isNonstandard": "Unobtainable",
     "pp": 10,
@@ -7908,7 +7910,8 @@
     "flags": {
       "contact": 1,
       "protect": 1,
-      "mirror": 1
+      "mirror": 1,
+      "slicing": 1
     },
     "secondary": null,
     "target": "normal",
@@ -8409,7 +8412,7 @@
   "First Impression": {
     "num": 660,
     "accuracy": 100,
-    "basePower": 90,
+    "basePower": 100,
     "category": "Physical",
     "pp": 10,
     "priority": 2,
