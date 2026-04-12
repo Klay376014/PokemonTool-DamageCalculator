@@ -9,7 +9,7 @@
         "@vueuse/core": "^10.11.1",
         "gh-pages": "^6.3.0",
         "pinia": "^2.3.1",
-        "vgc_data_wrapper": "^0.3.15",
+        "vgc_data_wrapper": "^0.3.17",
         "vue-i18n": "^9.14.5",
         "vue-loading-overlay": "^6.0.6",
         "vue-tsc": "^3.2.6",
@@ -1891,7 +1891,7 @@
 
     "validate-npm-package-license": ["validate-npm-package-license@3.0.4", "", { "dependencies": { "spdx-correct": "^3.0.0", "spdx-expression-parse": "^3.0.0" } }, "sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew=="],
 
-    "vgc_data_wrapper": ["vgc_data_wrapper@0.3.15", "", { "dependencies": { "zod": "^3.22.4" }, "peerDependencies": { "typescript": "^5.0.0" } }, "sha512-Dd/IG3z+KMBaaWtcZXr5bdJe+wQH3RmWG3+F1xLSSexmau7xmLgxETiu8fLYqWp2ThLK7nOIeK3kaT+qpQnjjA=="],
+    "vgc_data_wrapper": ["vgc_data_wrapper@0.3.17", "", { "dependencies": { "zod": "^3.22.4" }, "peerDependencies": { "typescript": "^5.0.0" } }, "sha512-AJ4S0WnfgRgCMn//okZYlKeBKo3Hn75bxBSRNEqH9kOIsEiMVUBAnIPx+LgfeVBWjIALEuDgVuH6ZeM2fuvSlA=="],
 
     "vite": ["vite@6.3.4", "", { "dependencies": { "esbuild": "^0.25.0", "fdir": "^6.4.4", "picomatch": "^4.0.2", "postcss": "^8.5.3", "rollup": "^4.34.9", "tinyglobby": "^0.2.13" }, "optionalDependencies": { "fsevents": "~2.3.3" }, "peerDependencies": { "@types/node": "^18.0.0 || ^20.0.0 || >=22.0.0", "jiti": ">=1.21.0", "less": "*", "lightningcss": "^1.21.0", "sass": "*", "sass-embedded": "*", "stylus": "*", "sugarss": "*", "terser": "^5.16.0", "tsx": "^4.8.1", "yaml": "^2.4.2" }, "optionalPeers": ["less", "lightningcss", "sass-embedded", "stylus", "sugarss", "tsx"], "bin": "bin/vite.js" }, "sha512-BiReIiMS2fyFqbqNT/Qqt4CVITDU9M9vE+DKcVAsB+ZV0wvTKd+3hMbkpxz1b+NmEDMegpVbisKiAZOnvO92Sw=="],
 
@@ -2554,8 +2554,6 @@
     "unwasm/pkg-types": ["pkg-types@2.3.0", "", { "dependencies": { "confbox": "^0.2.2", "exsolve": "^1.0.7", "pathe": "^2.0.3" } }, "sha512-SIqCzDRg0s9npO5XQ3tNZioRY1uK06lA41ynBC1YmFTmnY6FjUjVt6s4LoADmwoig1qqD0oK8h1p/8mlMx8Oig=="],
 
     "validate-npm-package-license/spdx-expression-parse": ["spdx-expression-parse@3.0.1", "", { "dependencies": { "spdx-exceptions": "^2.1.0", "spdx-license-ids": "^3.0.0" } }, "sha512-cbqHunsQWnJNE6KhVSMsMeH5H/L9EpymbzqTQ3uLwNCLZ1Q481oWaofqH7nO6V07xlXwY6PhQdQ2IedWx/ZK4Q=="],
-
-    "vgc_data_wrapper/zod": ["zod@3.24.1", "", {}, "sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A=="],
 
     "vite-node/pathe": ["pathe@1.1.2", "", {}, "sha512-whLdWMYL2TwI08hn8/ZqAbrVemu0LNaNNJZX73O6qaIdCTfXutsLhMkjdENX0qhsQ9uIimo4/aQOmXkoon2nDQ=="],
 
