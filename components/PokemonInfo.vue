@@ -7,12 +7,12 @@ const props = defineProps({
 })
 const pm = usePokemonDataStore(props.role)
 const teraType = ref('None')
-const isTerapagosStellar = computed(() => {
-  if (pm.pokemonRef.name === 'terapagos-stellar') {
-    changeTeraType('Stellar')
-  }
-  return pm.pokemonRef.name
-})
+// const isTerapagosStellar = computed(() => {
+//   if (pm.pokemonRef.name === 'terapagos-stellar') {
+//     changeTeraType('Stellar')
+//   }
+//   return pm.pokemonRef.name
+// })
 const changeTeraType = (type: string) => {
   if (type !== 'None') {
     pm.pokemonRef.toggleTera({ isTera: true, type: type as typeof pm.pokemonRef.teraType })
@@ -31,14 +31,14 @@ const changeTeraType = (type: string) => {
         no-gutters
         style="height:100px"
       >
-        <v-col cols="2">
+        <v-col cols="2" class="d-flex justify-center">
           <v-img
             max-width="75"
             aspect-ratio="1"
             :src="pm.pokemonRef.sprite"
           />
         </v-col>
-        <v-col cols="8">
+        <v-col cols="7" class="pl-4">
           <div class="d-flex justify-space-between">
             <div>
               <p class="pt-2 font-weight-bold">
@@ -56,7 +56,7 @@ const changeTeraType = (type: string) => {
             </div>
           </div>
         </v-col>
-        <v-col cols="2">
+        <v-col cols="3">
           <save-load :role="props.role" />
         </v-col>
       </v-row>

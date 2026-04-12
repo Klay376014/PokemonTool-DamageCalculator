@@ -87,100 +87,122 @@ const getStageEffectColor = (key: StatKeys) => {
 </script>
 
 <template>
-  <v-table density="comfortable">
-    <thead>
-      <tr>
-        <th class="px-0" />
-        <th v-for="(label, key) in stats" :key="key" class="text-center px-0 pr-md-3">
-          <span v-if="key === 'hp'" class="font-weight-bold">Hp</span>
-          <template v-else>
-            <v-icon class="minus" @click="setMinusNature(key)">
-              mdi-minus-thick
-            </v-icon>
-            <span class="font-weight-bold" :class="getNatureToggleColor(key)">{{ label }}</span>
-            <v-icon class="plus" @click="setPlusNature(key)">
-              mdi-plus-thick
-            </v-icon>
-          </template>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{{ $t('stat.base') }}</td>
-        <td v-for="(_, key) in pm.pokemonRef.baseStat" :key="key">
-          <input :name="key" type="number" class="py-2 w-75" :value="pm.pokemonRef.baseStat[key]" disabled>
-        </td>
-      </tr>
-      <tr>
-        <td>{{ $t('stat.ev') }}<br><span class="font-weight-bold" :class="{ 'text-secondary': getEvRemaining < 0 }">{{ getEvRemaining }}</span></td>
-        <td v-for="(_, key) in stats" :key="key">
-          <input :value="internalToDisplay(pm.pokemonRef.effortValues[key])" :name="key" type="number" class="py-2 w-75" min="0" max="32" step="1" @change="setEvFromDisplay(key, $event)" :placeholder="key">
-          <div class="d-flex justify-center pb-2">
-            <span class="px-2 evButton evButton-1" @click="setEvZero(key)">
-              0
-            </span>
-            <span class="px-2 ml-sm-1 mr-sm-2 evButton evButton-2" @click="setEvMax(key)">
-              M
-            </span>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>{{ $t('stat.stat') }}</td>
-        <td v-for="(_, key) in pm.pokemonRef.baseStat" :key="key">
-          <div class="d-flex flex-column align-center pr-3">
-            <input :name="key" class="pt-1 w-75 text-center" :value="`${pm.pokemonRef.getStat(key, false)}`" disabled>
-            <input v-if="key !== 'hp'" :name="key" class="pb-1 w-75 text-center" :value="`(${pm.pokemonRef.getStat(key, true)})`" :class="getStageEffectColor(key)" disabled>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>{{ $t('stat.stage') }}</td>
-        <td v-for="(_, key) in stats" :key="key">
-          <template v-if="key === 'hp'" />
-          <v-select v-else :items="stages" variant="solo" density="compact" :model-value="getStageModelValue(pm.pokemonRef.statStage[key])" flat hide-details @update:model-value="(val: typeof stages[number] | null) => setStatStages(key, val)">
-            <template #selection="{ item }">
-              <span class="text-subtitle-2">{{ item.title }}</span>
+  <div class="stat-table-scroll">
+    <v-table density="comfortable">
+      <thead>
+        <tr>
+          <th class="px-0" />
+          <th v-for="(label, key) in stats" :key="key" class="text-center px-0 pr-md-3">
+            <span v-if="key === 'hp'" class="font-weight-bold">Hp</span>
+            <template v-else>
+              <v-icon class="minus" @click="setMinusNature(key)">
+                mdi-minus-thick
+              </v-icon>
+              <span class="font-weight-bold" :class="getNatureToggleColor(key)">{{ label }}</span>
+              <v-icon class="plus" @click="setPlusNature(key)">
+                mdi-plus-thick
+              </v-icon>
             </template>
-          </v-select>
-        </td>
-      </tr>
-    </tbody>
-  </v-table>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="text-center">{{ $t('stat.base') }}</td>
+          <td v-for="(_, key) in pm.pokemonRef.baseStat" :key="key">
+            <input :name="key" type="number" class="py-2 w-75" :value="pm.pokemonRef.baseStat[key]" disabled>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-center">{{ $t('stat.ev') }}<br><span class="font-weight-bold" :class="{ 'text-secondary': getEvRemaining < 0 }">{{ getEvRemaining }}</span></td>
+          <td v-for="(_, key) in stats" :key="key">
+            <input :value="internalToDisplay(pm.pokemonRef.effortValues[key])" :name="key" type="number" class="py-2 w-75" min="0" max="32" step="1" @change="setEvFromDisplay(key, $event)" :placeholder="key">
+            <div class="d-flex justify-center pb-2">
+              <span class="px-2 evButton evButton-1" @click="setEvZero(key)">
+                0
+              </span>
+              <span class="px-2 ml-sm-1 mr-sm-2 evButton evButton-2" @click="setEvMax(key)">
+                M
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-center">{{ $t('stat.stat') }}</td>
+          <td v-for="(_, key) in pm.pokemonRef.baseStat" :key="key">
+            <div class="d-flex flex-column align-center pr-3">
+              <input :name="key" class="pt-1 w-75 text-center" :value="`${pm.pokemonRef.getStat(key, false)}`" disabled>
+              <input v-if="key !== 'hp'" :name="key" class="pb-1 w-75 text-center" :value="`(${pm.pokemonRef.getStat(key, true)})`" :class="getStageEffectColor(key)" disabled>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-center">{{ $t('stat.stage') }}</td>
+          <td v-for="(_, key) in stats" :key="key">
+            <template v-if="key === 'hp'" />
+            <v-select v-else :items="stages" variant="solo" density="compact" :model-value="getStageModelValue(pm.pokemonRef.statStage[key])" flat hide-details @update:model-value="(val: typeof stages[number] | null) => setStatStages(key, val)">
+              <template #selection="{ item }">
+                <span class="text-subtitle-2">{{ item.title }}</span>
+              </template>
+            </v-select>
+          </td>
+        </tr>
+      </tbody>
+    </v-table>
+  </div>
 </template>
 
 <style lang="scss" scoped>
 th {
   padding: 0;
+  &:first-child {
+    width: 68px;
+    min-width: 68px;
+  }
 }
+
 td {
   padding: 0 !important;
   text-align: center;
+  white-space: nowrap !important;
+
+  &:first-child {
+    padding-left: 8px !important;
+    padding-right: 4px !important;
+    text-align: left;
+    white-space: normal !important;
+    width: 68px;
+    min-width: 68px;
+  }
 }
+
 input[type=number] {
   text-align: center;
   color: inherit;
 }
+
 input:disabled {
   color: inherit;
 }
+
+.stat-table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .v-select {
   padding: 0 8px;
-	text-align: center;
+  text-align: center;
   @media (max-width: 576px) {
     padding: 0;
   }
 }
+
 .v-icon {
   cursor: pointer;
   font-weight: bold;
-  &.minus {
-    font-size: 9px;
-  }
-  &.plus {
-    font-size: 10px;
-  }
+  &.minus { font-size: 9px; }
+  &.plus  { font-size: 10px; }
 }
 
 .evButton {
@@ -197,31 +219,20 @@ input:disabled {
   list-style: none;
   margin: 0;
   text-align: center;
-  &-1{
+
+  &-1 {
     background-color: #CC7F08;
-    &:hover {
-      background-color: #e5940a;
-    }
-    &:focus {
-      background-color: #CC7F08;
-    }
+    &:hover  { background-color: #e5940a; }
+    &:focus  { background-color: #CC7F08; }
   }
-  &-2{
+  &-2 {
     background-color: #0066cc;
-    &:hover {
-      background-color: #0071e3;
-    }
-    &:focus {
-      background-color: #0066cc;
-    }
+    &:hover  { background-color: #0071e3; }
+    &:focus  { background-color: #0066cc; }
   }
 }
 
-td {
-  white-space: nowrap !important;
-}
-
-table{
+table {
   table-layout: fixed !important;
 }
 </style>

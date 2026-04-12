@@ -12,47 +12,44 @@ const show = ref(false)
 <template>
   <div>
     <v-card
-      class="mx-0 px-0 px-lg-4"
+      class="mx-2 px-0 px-lg-4"
     >
       <pokemon-info :role="props.role" />
       <pokemon-select :role="props.role" />
       <pokemon-stat :role="props.role" />
       <v-container class="px-0 py-2">
-        <v-row>
-          <v-col cols="9" md="10" class="pb-0">
+        <v-row no-gutters>
+          <v-col cols="6" class="pb-0 pr-1">
             <selection list-type="Move" :role="props.role"/>
           </v-col>
-          <v-col cols="3" md="2" class="pb-0 pl-0">
-            <move-list-filter :role="props.role" />
+          <v-col cols="6" class="pb-0 pl-1">
+            <selection list-type="Item" :role="props.role" />
+          </v-col>
+        </v-row>
+        <v-row no-gutters class="mt-1 mb-2">
+          <v-col cols="6" class="pb-0 pr-1">
+            <selection list-type="Ability" :role="props.role" />
+          </v-col>
+          <v-col cols="6" class="pb-0 pl-1 d-flex justify-end align-center">
+            <v-card-actions class="py-0">
+              <v-btn
+                color="primary-darken-1"
+                class="font-weight-bold"
+                disabled
+                :text="$t('condition.title')"
+              />
+              <v-btn
+                :icon="show ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+                @click="show = !show"
+              />
+            </v-card-actions>
           </v-col>
         </v-row>
       </v-container>
-      <v-card-actions class="py-0 justify-end">
-        <v-btn
-          color="primary-darken-1"
-          class="font-weight-bold"
-          disabled
-          :text="$t('condition.title')"
-        />
-        <v-btn
-          :icon="show ? 'mdi-chevron-up' : 'mdi-chevron-down'"
-          @click="show = !show"
-        />
-      </v-card-actions>
 
       <v-expand-transition>
         <div v-show="show">
           <v-divider />
-          <v-container class="px-0 py-2">
-            <v-row>
-              <v-col cols="12" sm="6" class="pb-0 pb-sm-2">
-                <selection list-type="Item" :role="props.role" />
-              </v-col>
-              <v-col cols="12" sm="6" class="pb-0 pb-sm-2">
-                <selection list-type="Ability" :role="props.role" />
-              </v-col>
-            </v-row>
-          </v-container>
           <condition :role="props.role" />
         </div>
       </v-expand-transition>
