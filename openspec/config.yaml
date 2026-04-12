@@ -1,5 +1,8 @@
 schema: spec-driven
 locale: tw
+tdd: true
+parallel_tasks: true
+audit: true
 
 # Project context (optional)
 # This is shown to AI when creating artifacts.
