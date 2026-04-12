@@ -250,5 +250,21 @@
   "Beads of Ruin": {
     "name": "（不受災禍之玉氣場影響）",
     "effect": "description.ability['Beads of Ruin']"
+  },
+  "Refrigerate": {
+    "name": "冰凍皮膚",
+    "effect": "description.ability['Refrigerate']"
+  },
+  "Aerilate": {
+    "name": "飛行皮膚",
+    "effect": "description.ability['Aerilate']"
+  },
+  "Dragonize": {
+    "name": "龍皮膚",
+    "effect": "description.ability['Dragonize']"
+  },
+  "Mega Sol": {
+    "name": "超級日光",
+    "effect": "description.ability['Mega Sol']"
   }
 }
