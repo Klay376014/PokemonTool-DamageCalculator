@@ -115,8 +115,8 @@ const dragOptions = computed(() => {
 
 <template>
   <div class="d-md-flex">
-    <v-btn icon="mdi-content-save" color="purple-lighten-2" variant="plain" class="text-md-h6" size="40" @click="openSaveDialog" />
-    <v-btn icon="mdi-import" color="red-lighten-1" variant="plain" class="text-h6" size="40" @click="openLoadDialog" />
+    <v-btn icon="mdi-content-save" variant="tonal" class="text-md-h6" size="40" style="color: #0066cc" @click="openSaveDialog" />
+    <v-btn icon="mdi-import" variant="tonal" class="text-h6" size="40" style="color: #CC7F08" @click="openLoadDialog" />
   </div>
 
   <v-dialog

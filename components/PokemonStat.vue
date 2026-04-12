@@ -184,7 +184,7 @@ input:disabled {
 }
 
 .evButton {
-  background-color: #533194;
+  background-color: #0066cc;
   cursor: pointer;
   border-radius: 4px;
   border-style: none;
@@ -198,21 +198,21 @@ input:disabled {
   margin: 0;
   text-align: center;
   &-1{
-    background-color: #C42F3D;
+    background-color: #CC7F08;
     &:hover {
-      background-color: #da5562;
+      background-color: #e5940a;
     }
     &:focus {
-      background-color: #C42F3D;
+      background-color: #CC7F08;
     }
   }
   &-2{
-    background-color: #533194;
+    background-color: #0066cc;
     &:hover {
-      background-color: #664f92;
+      background-color: #0071e3;
     }
     &:focus {
-      background-color: #533194;
+      background-color: #0066cc;
     }
   }
 }

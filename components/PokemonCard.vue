@@ -27,16 +27,13 @@ const show = ref(false)
           </v-col>
         </v-row>
       </v-container>
-      <v-card-actions class="py-0">
+      <v-card-actions class="py-0 justify-end">
         <v-btn
-          color="purple-lighten-2"
+          color="primary-darken-1"
           class="font-weight-bold"
           disabled
           :text="$t('condition.title')"
         />
-
-        <v-spacer />
-
         <v-btn
           :icon="show ? 'mdi-chevron-up' : 'mdi-chevron-down'"
           @click="show = !show"

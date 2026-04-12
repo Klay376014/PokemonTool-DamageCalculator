@@ -1,0 +1,86 @@
+/* ============================================================
+ * Apple Visual Theme — Global Overwrite
+ * ============================================================ */
+
+/* ------------------------------------------------------------
+ * Typography — Apple System Font Stack
+ * ------------------------------------------------------------ */
+:root {
+  --apple-font-display: -apple-system, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --apple-font-text:    -apple-system, "SF Pro Text",    "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body, .v-application {
+  font-family: var(--apple-font-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, .text-h4, .text-h5, .text-h6 {
+  font-family: var(--apple-font-display);
+  letter-spacing: -0.28px;
+}
+
+.text-body-1, .text-body-2 {
+  letter-spacing: -0.224px;
+}
+
+.text-caption {
+  letter-spacing: -0.12px;
+}
+
+/* ------------------------------------------------------------
+ * AppBar — Glass Morphism Effect
+ * ------------------------------------------------------------ */
+.v-app-bar {
+  background: rgba(0, 0, 0, 0.82) !important;
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.v-theme--lightMode .v-app-bar {
+  background: #FF9F0A !important;
+  border-bottom: none;
+}
+
+/* ------------------------------------------------------------
+ * Navigation Drawer — Frosted Glass Background
+ * ------------------------------------------------------------ */
+.v-navigation-drawer {
+  background: rgba(28, 28, 30, 0.95) !important;
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+.v-theme--lightMode .v-navigation-drawer {
+  background: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* ------------------------------------------------------------
+ * Buttons — Apple-Style Border Radius
+ * ------------------------------------------------------------ */
+.v-btn:not(.v-btn--icon):not(.v-btn--outlined-pill) {
+  border-radius: 8px !important;
+}
+
+.v-btn--variant-outlined {
+  border-radius: 980px !important;
+}
+
+.v-btn-toggle {
+  border-radius: 8px !important;
+}
+
+/* ------------------------------------------------------------
+ * Cards — Apple-Style Shadow & Border
+ * ------------------------------------------------------------ */
+.v-card {
+  border: none !important;
+  border-radius: 8px !important;
+  box-shadow: rgba(0, 0, 0, 0.22) 3px 5px 30px 0px !important;
+}
+
+.v-theme--lightMode .v-card {
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 12px !important;
+}

@@ -8,12 +8,12 @@ import ja from '../locales/ja.json'
 const darkMode: ThemeDefinition = {
   dark: true,
   colors: {
-    'background': '#202020',
-    'surface': '#121212',
-    'primary': '#8A4DFF',
-    'primary-darken-1': '#533194',
-    'secondary': '#DC3545',
-    'secondary-darken-1': '#C42F3D',
+    'background': '#000000',
+    'surface': '#1c1c1e',
+    'primary': '#0071e3',
+    'primary-darken-1': '#0066cc',
+    'secondary': '#FF9F0A',
+    'secondary-darken-1': '#CC7F08',
     'warning': '#FF0000'
   }
 }
@@ -21,12 +21,12 @@ const darkMode: ThemeDefinition = {
 const lightMode: ThemeDefinition = {
   dark: true,
   colors: {
-    'background': '#d6d6d6',
-    'surface': '#FFFFFF',
-    'primary': '#59359A',
-    'primary-darken-1': '#533194',
-    'secondary': '#DC3545',
-    'secondary-darken-1': '#C42F3D',
+    'background': '#f5f5f7',
+    'surface': '#ffffff',
+    'primary': '#0071e3',
+    'primary-darken-1': '#0066cc',
+    'secondary': '#FF9F0A',
+    'secondary-darken-1': '#CC7F08',
     'warning': '#FF0000'
   },
 }
