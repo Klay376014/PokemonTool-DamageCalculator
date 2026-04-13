@@ -15,8 +15,7 @@ const props = defineProps({
   },
   role: {
     type: String,
-    required: true,
-    default: 'attacker'
+    required: true
   }
 })
 
@@ -46,6 +45,7 @@ const assetList = computed((): string[] => {
 // ── Current selection ──────────────────────────────────────
 const currentValue = computed((): string | undefined => {
   if (props.listType === 'Pokemon') return pm.pokemonRef.name ?? undefined
+  if (props.listType === 'Move') return pm.pokemonRef.moves?.[0] ?? undefined
   return pm.pokemonRef[assetType[props.listType as AssetType]] as string | undefined
 })
 
