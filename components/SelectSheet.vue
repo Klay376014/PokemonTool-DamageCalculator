@@ -15,8 +15,7 @@ const props = defineProps({
   },
   role: {
     type: String,
-    required: true,
-    default: 'attacker'
+    required: true
   }
 })
 
@@ -54,9 +53,9 @@ const canClear = computed(() =>
 )
 
 // ── Display helpers ────────────────────────────────────────
-const getItemProps = (item: string): { title: string; subtitle: string } => {
+const getItemProps = (item: string): { title: string; subtitle: string | undefined } => {
   if (props.listType === 'Pokemon') {
-    return { title: t(`pokemon.${item}`), subtitle: '' }
+    return { title: t(`pokemon.${item}`), subtitle: undefined }
   }
   const raw = assetToPropsMapping[props.listType as AssetType](item, defaultList[item])
   const parts = raw.subtitle.split('/')
@@ -212,8 +211,7 @@ const clearValue = () => {
         <template #default="{ item }">
           <v-list-item
             :key="item"
-            :title="getItemProps(item).title"
-            :subtitle="getItemProps(item).subtitle || undefined"
+            v-bind="getItemProps(item)"
             density="compact"
             :append-icon="item === currentValue ? 'mdi-check' : undefined"
             :active="item === currentValue"
@@ -242,6 +240,11 @@ const clearValue = () => {
 .select-trigger:active {
   background: rgba(var(--v-theme-on-surface), 0.07);
 }
+.trigger-text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
 .trigger-label {
   font-size: 10px;
   text-transform: uppercase;
@@ -253,6 +256,9 @@ const clearValue = () => {
   font-size: 14px;
   font-weight: 500;
   line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .trigger-placeholder {
   color: rgba(var(--v-theme-on-surface), 0.4);
