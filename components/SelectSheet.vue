@@ -15,7 +15,8 @@ const props = defineProps({
   },
   role: {
     type: String,
-    required: true
+    required: true,
+    default: 'attacker'
   }
 })
 
