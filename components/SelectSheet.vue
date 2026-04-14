@@ -192,11 +192,6 @@ const clearValue = () => {
     :scrim="true"
   >
     <v-card rounded="t-xl" class="sheet-card pa-0">
-      <!-- Drag handle -->
-      <div class="handle-row">
-        <div class="handle-bar" />
-      </div>
-
       <!-- Search field -->
       <div class="px-3 pb-2">
         <v-text-field
