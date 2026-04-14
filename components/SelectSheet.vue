@@ -226,7 +226,7 @@ const clearValue = () => {
             density="compact"
             :append-icon="item === currentValue ? 'mdi-check' : undefined"
             :active="item === currentValue"
-            active-color="primary"
+            active-color="secondary"
             @click="selectItem(item)"
           />
         </template>
@@ -293,7 +293,7 @@ const clearValue = () => {
 .handle-bar {
   width: 36px;
   height: 4px;
-  background: rgba(var(--v-theme-on-surface), 0.18);
+  background: rgb(var(--v-theme-secondary));
   border-radius: 2px;
 }
 .sheet-card {
