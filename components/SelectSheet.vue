@@ -203,7 +203,8 @@ const clearValue = () => {
           v-model="searchText"
           :placeholder="$t(`choose${listType}`)"
           prepend-inner-icon="mdi-magnify"
-          variant="filled"
+          variant="outlined"
+          color="secondary"
           density="compact"
           hide-details
           autofocus
