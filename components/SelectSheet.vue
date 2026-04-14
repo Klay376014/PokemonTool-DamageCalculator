@@ -7,6 +7,7 @@ import { hiraToKata, romanToKana } from '~/utils/convertKana'
 import { effectByEviolite } from '~/utils/evioliteMap'
 import json from '../locales/en.json'
 import type { PokemonType } from '~/utils/schema'
+import { useDisplay } from 'vuetify'
 
 const props = defineProps({
   listType: {
@@ -17,6 +18,13 @@ const props = defineProps({
     type: String,
     required: true
   }
+})
+
+const { lgAndUp, xlAndUp } = useDisplay()
+
+const dialogMaxWidth = computed(() => {
+  if (!lgAndUp.value) return '100%'
+  return xlAndUp.value ? '1200px' : '1280px'
 })
 
 const { t } = useI18n()
@@ -179,6 +187,7 @@ const clearValue = () => {
     v-model="dialog"
     location="bottom"
     width="100%"
+    :max-width="dialogMaxWidth"
     max-height="55vh"
     :scrim="true"
   >
