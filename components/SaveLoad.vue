@@ -207,23 +207,32 @@ const dragOptions = computed(() => {
     width="350px"
   >
     <v-card
-      prepend-icon="mdi-content-save"
       :text="$t('pokemonSaveConfirm')"
       :title="$t('pokemonSave')"
+      class="px-2 pb-2"
     >
-    <v-text-field v-model="note" :label="$t('writeNote')"></v-text-field>
+      <v-card-text class="px-4 pt-0 pb-3">
+        <v-text-field
+          v-model="note"
+          :label="$t('writeNote')"
+          variant="outlined"
+          color="primary"
+          density="compact"
+          hide-details
+        />
+      </v-card-text>
       <v-divider />
-
-      <v-card-actions>
+      <v-card-actions class="px-4 pt-3">
         <v-btn
+          variant="outlined"
           :text="$t('close')"
           @click="dialogSave = false"
         />
         <v-btn
-          color="surface-variant"
+          color="primary"
+          variant="flat"
           class="ms-auto"
           :text="$t('confirm')"
-          variant="flat"
           @click="saveCurrentPokemonSetting"
         />
       </v-card-actions>
