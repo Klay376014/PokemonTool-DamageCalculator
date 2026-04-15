@@ -116,19 +116,19 @@ const dragOptions = computed(() => {
 <template>
   <div class="d-flex justify-center ga-2">
     <v-btn
+      icon="mdi-content-save"
       variant="outlined"
       color="primary"
       size="small"
-      prepend-icon="mdi-content-save"
       @click="openSaveDialog"
-    >{{ $t('pokemonSave') }}</v-btn>
+    />
     <v-btn
+      icon="mdi-import"
       variant="outlined"
       color="secondary"
       size="small"
-      prepend-icon="mdi-import"
       @click="openLoadDialog"
-    >{{ $t('pokemonLoad') }}</v-btn>
+    />
   </div>
 
   <v-dialog
@@ -152,8 +152,8 @@ const dragOptions = computed(() => {
           <template #item="{ element: pokemon, index }">
             <div class="pokemon-row d-flex align-center justify-space-between px-2 py-2 mb-1">
               <v-img
-                max-width="44"
-                :aspect-ratio="1"
+                width="44"
+                height="44"
                 :src="pokemon.sprite"
                 class="pokemon-sprite flex-grow-0"
               >
