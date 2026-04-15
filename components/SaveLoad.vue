@@ -114,9 +114,21 @@ const dragOptions = computed(() => {
 </script>
 
 <template>
-  <div class="d-flex justify-center">
-    <v-btn icon="mdi-content-save" variant="tonal" class="text-h6" size="40" style="color: #0066cc" @click="openSaveDialog" />
-    <v-btn icon="mdi-import" variant="tonal" class="text-h6 pl-1" size="40" style="color: #CC7F08" @click="openLoadDialog" />
+  <div class="d-flex justify-center ga-2">
+    <v-btn
+      variant="outlined"
+      color="primary"
+      size="small"
+      prepend-icon="mdi-content-save"
+      @click="openSaveDialog"
+    >{{ $t('pokemonSave') }}</v-btn>
+    <v-btn
+      variant="outlined"
+      color="secondary"
+      size="small"
+      prepend-icon="mdi-import"
+      @click="openLoadDialog"
+    >{{ $t('pokemonLoad') }}</v-btn>
   </div>
 
   <v-dialog
