@@ -259,6 +259,7 @@ const dragOptions = computed(() => {
           density="compact"
           hide-details
           clearable
+          @keyup.enter="importFromUrl"
         />
       </v-card-text>
       <v-card-actions class="px-4 pt-0">
