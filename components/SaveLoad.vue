@@ -187,15 +187,17 @@ const dragOptions = computed(() => {
         
         <v-divider />
 
-      <v-card-actions>
+      <v-card-actions class="px-2">
         <v-btn
+          variant="outlined"
           :text="$t('close')"
           @click="dialogLoad = false"
         />
         <v-btn
-          :text="$t('importFromPaste')"
           color="primary"
+          variant="flat"
           class="ms-auto"
+          :text="$t('importFromPaste')"
           @click="dialogImportFromUrl = true"
         />
       </v-card-actions>
@@ -244,26 +246,32 @@ const dragOptions = computed(() => {
     width="350px"
   >
     <v-card
-      prepend-icon="mdi-arrow-down-bold-hexagon-outline"
       :text="$t('pasteUrl')"
       :title="$t('pokemonImport')"
+      class="px-2 pb-2"
     >
-      <form>
+      <v-card-text class="px-4 pt-0 pb-3">
         <v-text-field
           label="url"
           v-model="pokePasteUrl"
+          variant="outlined"
+          color="primary"
+          density="compact"
+          hide-details
           clearable
         />
-
+      </v-card-text>
+      <v-card-actions class="px-4 pt-0">
         <v-btn
           @click="importFromUrl"
           :disabled="importing"
           class="w-100"
           color="primary"
+          variant="flat"
         >
-          {{ $t('submit')}}
+          {{ $t('submit') }}
         </v-btn>
-      </form>
+      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
