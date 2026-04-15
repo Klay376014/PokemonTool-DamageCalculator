@@ -151,37 +151,37 @@ const dragOptions = computed(() => {
           item-key="note"
         >
           <template #item="{ element: pokemon, index }">
-              <div class="d-flex justify-space-between py-2">
-              <v-img
-                max-width="50"
-                aspect-ratio="1"
-                :src="pokemon.sprite"
-              >
-                <v-tooltip
-                  v-if="pokemon.note"
-                  activator="parent"
-                  location="top"
-                  >{{ $te(pokemon.note) ? $t(pokemon.note) : pokemon.note }}
-                </v-tooltip>
-              </v-img>
-              <div>
-                <p>{{ `H${internalToDisplay(pokemon.effortValues.hp)}` }}</p>
-                <p>{{ `C${internalToDisplay(pokemon.effortValues.specialAttack)}${natureOperator(pokemon.nature, 'specialAttack')}` }}</p>
-              </div>
-              <div>
-                <p>{{ `A${internalToDisplay(pokemon.effortValues.attack)}${natureOperator(pokemon.nature, 'attack')}` }}</p>
-                <p>{{ `D${internalToDisplay(pokemon.effortValues.specialDefense)}${natureOperator(pokemon.nature, 'specialDefense')}` }}</p>
-              </div>
-              <div class="mr-4">
-                <p>{{ `B${internalToDisplay(pokemon.effortValues.defense)}${natureOperator(pokemon.nature, 'defense')}` }}</p>
-                <p>{{ `S${internalToDisplay(pokemon.effortValues.speed)}${natureOperator(pokemon.nature, 'speed')}` }}</p>
-              </div>
-              <div class="d-flex align-center pb-3">
-                <v-btn icon="mdi-import" color="red-lighten-1" variant="plain" class="text-h6 mr-2" size="20" @click="loadSelectedPoekmon(index)" />
-                <v-btn icon="mdi-trash-can-outline" variant="plain" class="text-h6" size="20" @click="deleteSelectedPokemon(index)" />
-              </div>
-            </div>
-            </template>
+  <div class="pokemon-row d-flex align-center justify-space-between px-2 py-2 mb-1">
+    <v-img
+      max-width="44"
+      :aspect-ratio="1"
+      :src="pokemon.sprite"
+      class="pokemon-sprite flex-grow-0"
+    >
+      <v-tooltip
+        v-if="pokemon.note"
+        activator="parent"
+        location="top"
+      >{{ $te(pokemon.note) ? $t(pokemon.note) : pokemon.note }}</v-tooltip>
+    </v-img>
+    <div class="ev-col text-caption">
+      <p>{{ `H${internalToDisplay(pokemon.effortValues.hp)}` }}</p>
+      <p>{{ `C${internalToDisplay(pokemon.effortValues.specialAttack)}${natureOperator(pokemon.nature, 'specialAttack')}` }}</p>
+    </div>
+    <div class="ev-col text-caption">
+      <p>{{ `A${internalToDisplay(pokemon.effortValues.attack)}${natureOperator(pokemon.nature, 'attack')}` }}</p>
+      <p>{{ `D${internalToDisplay(pokemon.effortValues.specialDefense)}${natureOperator(pokemon.nature, 'specialDefense')}` }}</p>
+    </div>
+    <div class="ev-col text-caption">
+      <p>{{ `B${internalToDisplay(pokemon.effortValues.defense)}${natureOperator(pokemon.nature, 'defense')}` }}</p>
+      <p>{{ `S${internalToDisplay(pokemon.effortValues.speed)}${natureOperator(pokemon.nature, 'speed')}` }}</p>
+    </div>
+    <div class="d-flex align-center ga-1">
+      <v-btn icon="mdi-import" color="primary" variant="tonal" size="28" @click="loadSelectedPoekmon(index)" />
+      <v-btn icon="mdi-trash-can-outline" color="error" variant="tonal" size="28" @click="deleteSelectedPokemon(index)" />
+    </div>
+  </div>
+</template>
           </draggable>
         </v-card-text>
         
@@ -268,5 +268,18 @@ const dragOptions = computed(() => {
   </v-dialog>
 </template>
 
-<style>
+<style scoped>
+.pokemon-row {
+  border-radius: 8px;
+  background: rgba(var(--v-theme-on-surface), 0.04);
+  border: 1px solid rgba(var(--v-border-color), 0.08);
+}
+.pokemon-sprite {
+  border-radius: 6px;
+}
+.ev-col {
+  line-height: 1.5;
+  letter-spacing: -0.12px;
+  min-width: 32px;
+}
 </style>
