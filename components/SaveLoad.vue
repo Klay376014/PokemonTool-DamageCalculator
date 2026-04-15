@@ -137,7 +137,6 @@ const dragOptions = computed(() => {
     scrollable
   >
     <v-card
-      prepend-icon="mdi-import"
       :title="$t('pokemonLoad')"
       class="px-2 overflow-y-auto"
     >
