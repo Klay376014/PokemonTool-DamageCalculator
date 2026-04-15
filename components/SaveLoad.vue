@@ -151,37 +151,37 @@ const dragOptions = computed(() => {
           item-key="note"
         >
           <template #item="{ element: pokemon, index }">
-  <div class="pokemon-row d-flex align-center justify-space-between px-2 py-2 mb-1">
-    <v-img
-      max-width="44"
-      :aspect-ratio="1"
-      :src="pokemon.sprite"
-      class="pokemon-sprite flex-grow-0"
-    >
-      <v-tooltip
-        v-if="pokemon.note"
-        activator="parent"
-        location="top"
-      >{{ $te(pokemon.note) ? $t(pokemon.note) : pokemon.note }}</v-tooltip>
-    </v-img>
-    <div class="ev-col text-caption">
-      <p>{{ `H${internalToDisplay(pokemon.effortValues.hp)}` }}</p>
-      <p>{{ `C${internalToDisplay(pokemon.effortValues.specialAttack)}${natureOperator(pokemon.nature, 'specialAttack')}` }}</p>
-    </div>
-    <div class="ev-col text-caption">
-      <p>{{ `A${internalToDisplay(pokemon.effortValues.attack)}${natureOperator(pokemon.nature, 'attack')}` }}</p>
-      <p>{{ `D${internalToDisplay(pokemon.effortValues.specialDefense)}${natureOperator(pokemon.nature, 'specialDefense')}` }}</p>
-    </div>
-    <div class="ev-col text-caption">
-      <p>{{ `B${internalToDisplay(pokemon.effortValues.defense)}${natureOperator(pokemon.nature, 'defense')}` }}</p>
-      <p>{{ `S${internalToDisplay(pokemon.effortValues.speed)}${natureOperator(pokemon.nature, 'speed')}` }}</p>
-    </div>
-    <div class="d-flex align-center ga-1">
-      <v-btn icon="mdi-import" color="primary" variant="tonal" size="28" @click="loadSelectedPoekmon(index)" />
-      <v-btn icon="mdi-trash-can-outline" color="error" variant="tonal" size="28" @click="deleteSelectedPokemon(index)" />
-    </div>
-  </div>
-        </template>
+            <div class="pokemon-row d-flex align-center justify-space-between px-2 py-2 mb-1">
+              <v-img
+                max-width="44"
+                :aspect-ratio="1"
+                :src="pokemon.sprite"
+                class="pokemon-sprite flex-grow-0"
+              >
+                <v-tooltip
+                  v-if="pokemon.note"
+                  activator="parent"
+                  location="top"
+                >{{ $te(pokemon.note) ? $t(pokemon.note) : pokemon.note }}</v-tooltip>
+              </v-img>
+              <div class="ev-col text-caption">
+                <p>{{ `H${internalToDisplay(pokemon.effortValues.hp)}` }}</p>
+                <p>{{ `C${internalToDisplay(pokemon.effortValues.specialAttack)}${natureOperator(pokemon.nature, 'specialAttack')}` }}</p>
+              </div>
+              <div class="ev-col text-caption">
+                <p>{{ `A${internalToDisplay(pokemon.effortValues.attack)}${natureOperator(pokemon.nature, 'attack')}` }}</p>
+                <p>{{ `D${internalToDisplay(pokemon.effortValues.specialDefense)}${natureOperator(pokemon.nature, 'specialDefense')}` }}</p>
+              </div>
+              <div class="ev-col text-caption">
+                <p>{{ `B${internalToDisplay(pokemon.effortValues.defense)}${natureOperator(pokemon.nature, 'defense')}` }}</p>
+                <p>{{ `S${internalToDisplay(pokemon.effortValues.speed)}${natureOperator(pokemon.nature, 'speed')}` }}</p>
+              </div>
+              <div class="d-flex align-center ga-1">
+                <v-btn icon="mdi-import" color="primary" variant="tonal" size="28" @click="loadSelectedPoekmon(index)" />
+                <v-btn icon="mdi-trash-can-outline" color="error" variant="tonal" size="28" @click="deleteSelectedPokemon(index)" />
+              </div>
+            </div>
+          </template>
         </draggable>
         </v-card-text>
         
