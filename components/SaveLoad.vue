@@ -181,8 +181,8 @@ const dragOptions = computed(() => {
       <v-btn icon="mdi-trash-can-outline" color="error" variant="tonal" size="28" @click="deleteSelectedPokemon(index)" />
     </div>
   </div>
-</template>
-          </draggable>
+        </template>
+        </draggable>
         </v-card-text>
         
         <v-divider />
@@ -269,6 +269,8 @@ const dragOptions = computed(() => {
 </template>
 
 <style scoped>
+/* .pokemon-row is rendered directly by this component's VNode inside <draggable>.
+   Vue attaches this file's scoped attribute to it, so `scoped` works correctly. */
 .pokemon-row {
   border-radius: 8px;
   background: rgba(var(--v-theme-on-surface), 0.04);
@@ -279,7 +281,7 @@ const dragOptions = computed(() => {
 }
 .ev-col {
   line-height: 1.5;
-  letter-spacing: -0.12px;
   min-width: 32px;
+  flex-shrink: 0;
 }
 </style>
