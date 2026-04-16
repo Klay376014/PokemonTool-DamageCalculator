@@ -1,9 +1,12 @@
 <script lang="ts" setup>
+import { useDisplay } from 'vuetify'
+
 const isOpen = ref(true)
+const { lgAndUp } = useDisplay()
 </script>
 
 <template>
-  <div class="damage-bottom-panel">
+  <div class="damage-bottom-panel" :style="lgAndUp ? { right: '300px' } : {}">
     <div class="damage-handle" @click="isOpen = !isOpen">
       <v-icon size="x-small" class="mr-1">
         {{ isOpen ? 'mdi-chevron-down' : 'mdi-chevron-up' }}

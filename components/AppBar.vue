@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { useTheme } from 'vuetify'
+import { useDisplay, useTheme } from 'vuetify'
 
 const { locale } = useI18n()
 
+const { lgAndUp } = useDisplay()
 const theme = useTheme()
 
 const toggleTheme = () => {
@@ -30,9 +31,6 @@ const nv = useNavigationStore()
 
 <template>
   <v-app-bar density="compact" color="primary-darken-1" prominent class="mb-4">
-    <template #prepend>
-      <v-app-bar-nav-icon class="w-100 pl-1" @click.stop="nv.condition = !nv.condition" />
-    </template>
     <v-app-bar-title class="text-caption text-sm-h6 flex-basis-0" :text="$t('title')" />
 
     <v-btn icon @click="toggleTheme">
@@ -47,6 +45,9 @@ const nv = useNavigationStore()
         </v-list>
       </v-menu>
       <v-icon>mdi-translate</v-icon>
+    </v-btn>
+    <v-btn v-if="!lgAndUp" icon @click.stop="nv.condition = !nv.condition">
+      <v-icon>mdi-tune</v-icon>
     </v-btn>
 
   </v-app-bar>

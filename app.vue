@@ -8,7 +8,9 @@ useHead({
   <NuxtLayout>
     <v-app>
       <app-bar />
-      <NuxtPage />
+      <v-main>
+        <NuxtPage />
+      </v-main>
     </v-app>
   </NuxtLayout>
 </template>

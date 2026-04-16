@@ -1,5 +1,8 @@
 <!-- eslint-disable vue/no-mutating-props -->
 <script lang="ts" setup>
+import { useDisplay } from 'vuetify'
+
+const { lgAndUp } = useDisplay()
 const field = useFieldStore()
 const nv = useNavigationStore()
 const battleByAttacker = usePokemonBattleStore('attacker')
@@ -34,8 +37,9 @@ const setIsDouble = () => {
 <template>
   <v-navigation-drawer
     v-model="nv.condition"
-    location="left"
+    location="right"
     width="300"
+    :permanent="lgAndUp"
   >
     <v-container>
       <v-row>
