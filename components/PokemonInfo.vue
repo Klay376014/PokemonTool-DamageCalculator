@@ -25,7 +25,7 @@ const changeTeraType = (type: string) => {
 
 <template>
   <div>
-    <v-container class="px-0 py-1">
+    <v-container class="px-2 py-1">
       <v-row
         align="center"
         no-gutters

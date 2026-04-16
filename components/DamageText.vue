@@ -274,6 +274,9 @@ watch(
       battle.battleField.move = move
       damageText.value = damageTextI18n.value
       detailDamageText.value = `${composeDetailText()}\n${damageText.value} ${t(OHKOChance.value, [OHKOPercentage.value])}`
+    } else {
+      damageText.value = ''
+      detailDamageText.value = ''
     }
   }, { immediate: true, deep: true }
 )
