@@ -5,6 +5,11 @@ import { useDisplay } from 'vuetify'
 const { lgAndUp } = useDisplay()
 const field = useFieldStore()
 const nv = useNavigationStore()
+
+const drawerModel = computed({
+  get: () => lgAndUp.value || nv.condition,
+  set: (val) => { if (!lgAndUp.value) nv.condition = val },
+})
 const battleByAttacker = usePokemonBattleStore('attacker')
 const battleByDefender = usePokemonBattleStore('defender')
 
@@ -36,7 +41,7 @@ const setIsDouble = () => {
 
 <template>
   <v-navigation-drawer
-    v-model="nv.condition"
+    v-model="drawerModel"
     location="right"
     width="300"
     :permanent="lgAndUp"
