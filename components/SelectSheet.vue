@@ -193,7 +193,7 @@ const clearValue = () => {
   >
     <v-card rounded="t-xl" class="sheet-card pa-0">
       <!-- Search field -->
-      <div class="px-3 pb-2">
+      <div class="px-3 py-3">
         <v-text-field
           v-model="searchText"
           :placeholder="$t(`choose${listType}`)"

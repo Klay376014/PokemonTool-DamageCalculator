@@ -140,7 +140,7 @@ const getStageEffectColor = (key: StatKeys) => {
           <td class="text-center">{{ $t('stat.stage') }}</td>
           <td v-for="(_, key) in stats" :key="key">
             <template v-if="key === 'hp'" />
-            <v-select v-else :items="stages" variant="solo" density="compact" :model-value="getStageModelValue(pm.pokemonRef.statStage[key])" flat hide-details @update:model-value="(val: typeof stages[number] | null) => setStatStages(key, val)">
+            <v-select v-else :items="stages" variant="solo" density="compact" :model-value="getStageModelValue(pm.pokemonRef.statStage[key])" flat hide-details append-inner-icon="" @update:model-value="(val: typeof stages[number] | null) => setStatStages(key, val)">
               <template #selection="{ item }">
                 <span class="text-subtitle-2">{{ item.title }}</span>
               </template>
@@ -156,8 +156,8 @@ const getStageEffectColor = (key: StatKeys) => {
 th {
   padding: 0;
   &:first-child {
-    width: 68px;
-    min-width: 68px;
+    width: 52px;
+    min-width: 52px;
   }
 }
 
@@ -167,12 +167,12 @@ td {
   white-space: nowrap !important;
 
   &:first-child {
-    padding-left: 8px !important;
+    padding-left: 4px !important;
     padding-right: 4px !important;
     text-align: left;
     white-space: normal !important;
-    width: 68px;
-    min-width: 68px;
+    width: 52px;
+    min-width: 52px;
   }
 }
 
@@ -188,6 +188,11 @@ input:disabled {
 .stat-table-scroll {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+}
+
+.v-select :deep(.v-input__append-inner),
+.v-select :deep(.v-select__menu-icon) {
+  display: none !important;
 }
 
 .v-select {
