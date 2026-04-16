@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { watchPausable } from '@vueuse/core';
 import { internalToDisplay } from '~/utils/evConversion'
 import type { Pokemon } from 'vgc_data_wrapper';
 import { createMove } from 'vgc_data_wrapper';
@@ -7,16 +6,9 @@ import { useI18n } from 'vue-i18n';
 import moves from '../assets/pokemonMove.json';
 
 const props = defineProps<{
-  pokemon: string[],
-  index: number
+  pokemon: string[]
 }>()
 
-const emit = defineEmits<{
-  remove: [index: number]
-}>()
-const handleRemove = () => {
-  emit('remove', props.index)
-}
 const attackerPokemon = usePokemonDataStore(props.pokemon[0])
 const defenderPokemon = usePokemonDataStore(props.pokemon[1])
 const battle = usePokemonBattleStore(props.pokemon[0])
@@ -119,13 +111,13 @@ const composeDetailText = (): string => {
   } else {
     detailArray.push(`${internalToDisplay(defenderPokemon.pokemonRef.effortValues[attacker.atk])}${stats[attacker.atk]}${natureCheck('defense', attacker.atk)}`)
   }
-  
+
 
   // atk tera
   if (attacker.isTera) {
     detailArray.push(teraI18n('attack'))
   }
-  
+
   // atk ability
   if (attacker.ability) {
     detailArray.push(t(`ability.${attackerPokemon.pokemonRef.ability}`))
@@ -254,7 +246,7 @@ const composeDetailText = (): string => {
   return detailArray.join(' ')
 }
 
-const watcher = watchPausable(
+watch(
   [attackerPokemon.pokemonRef, defenderPokemon.pokemonRef, battle.battleField.attacker, battle.battleField.defender, battle.battleField.field, cd.conditions, locale],
   () => {
     if (attackerPokemon.pokemonRef.name && defenderPokemon.pokemonRef.name && attackerPokemon.pokemonRef.moves.length > 0) {
@@ -283,35 +275,8 @@ const watcher = watchPausable(
       damageText.value = damageTextI18n.value
       detailDamageText.value = `${composeDetailText()}\n${damageText.value} ${t(OHKOChance.value, [OHKOPercentage.value])}`
     }
-  }, { immediate: true }
+  }, { immediate: true, deep: true }
 )
-
-
-
-const isPause = ref(false)
-
-const stoppedResult: Ref<{ [key: string]: string | null }> = ref({
-  attackerSprite: null,
-  defenderSprite: null,
-})
-
-const pauseWatch = () => {
-  stoppedResult.value.attackerSprite = attackerPokemon.pokemonRef.sprite ?? attackerPokemon.defaultImage
-  stoppedResult.value.defenderSprite = defenderPokemon.pokemonRef.sprite ?? defenderPokemon.defaultImage
-  isPause.value = true
-  watcher.pause()
-}
-
-const resumeWatch = () => {
-  stoppedResult.value.attackerSprite = null
-  stoppedResult.value.defenderSprite = null
-  isPause.value = false
-  watcher.resume()
-  const damageResult = battle.battleField.getDamage()
-  // 此數值暫時無作用，借用來幫忙觸發resumeWatch時更動OHKO數值
-  attackerPokemon.pokemonRef.id = attackerPokemon.pokemonRef.id ? attackerPokemon.pokemonRef.id-- : 1
-  damageText.value = `${damageResult.rolls[0].number} ~ ${damageResult.rolls[15].number} (${damageResult.rolls[0].percentage}% ~${damageResult.rolls[15].percentage}%)`
-}
 
 const copyText = () => {
   navigator.clipboard.writeText(detailDamageText.value)
@@ -319,48 +284,34 @@ const copyText = () => {
 </script>
 
 <template>
-  <div class="px-3">
-    <div class="d-flex align-center justify-space-between">
-      <div class="d-flex align-center justify-space-around flex-1-1">
-        <v-img
-          max-width="50"
-          aspect-ratio="1"
-          :src="stoppedResult.attackerSprite ?? attackerPokemon.pokemonRef.sprite"
-        />
-        <v-icon icon="mdi-arrow-right-bold" class="text-h4 text-primary" />
-        <v-img
-          max-width="50"
-          aspect-ratio="1"
-          :src="stoppedResult.defenderSprite ?? defenderPokemon.pokemonRef.sprite"
-        />
-      </div>
-
-      <div class="d-flex align-center justify-space-between">
-        <v-tooltip :text="detailDamageText">
-          <template #activator="{ props }">
-            <v-icon color="primary" v-bind="props" @click="copyText">
-              mdi-content-copy
-            </v-icon>
-          </template>
-        </v-tooltip>
-        <v-icon color="secondary" class="mx-3" style="cursor: pointer;" @click="pauseWatch" v-if="!isPause">
-          mdi-cancel
-        </v-icon>
-        <v-icon color="secondary" class="mx-3" style="cursor: pointer;" @click="resumeWatch" v-else>
-          mdi-play
-        </v-icon>
-        <v-icon color="info" style="cursor: pointer;" @click="handleRemove">
-          mdi-trash-can-outline
-        </v-icon>
-      </div>
+  <div class="d-flex flex-column align-center justify-center px-4 h-100 w-100">
+    <div class="d-flex align-center justify-center">
+      <v-img
+        width="50"
+        max-width="50"
+        aspect-ratio="1"
+        :src="attackerPokemon.pokemonRef.sprite"
+      />
+      <v-icon icon="mdi-arrow-right-bold" class="text-h4 text-primary mx-2" />
+      <v-img
+        width="50"
+        max-width="50"
+        aspect-ratio="1"
+        :src="defenderPokemon.pokemonRef.sprite"
+      />
     </div>
-    <div class="pt-4" style="font-size: 18px;">
-      <p class="text-center text-subtitle-1 w-100">
-        {{ damageText ? damageText : $t('setPokemonAndMove') }}
+
+    <div class="d-flex align-center justify-center">
+      <p class="text-center text-subtitle-1 mr-2">
+        {{ damageText ? `${damageText}${OHKOChance ? '　' + $t(OHKOChance, [OHKOPercentage]) : ''}` : $t('setPokemonAndMove') }}
       </p>
-      <p class="text-center text-subtitle-1 w-100">
-        {{ damageText ? $t(OHKOChance, [OHKOPercentage]) : '' }}
-      </p>
+      <v-tooltip :text="detailDamageText">
+        <template #activator="{ props }">
+          <v-icon color="primary" v-bind="props" @click="copyText">
+            mdi-content-copy
+          </v-icon>
+        </template>
+      </v-tooltip>
     </div>
   </div>
 </template>

@@ -8,7 +8,7 @@ const activeTab = ref<string>('attacker')
 <template>
   <div>
     <!-- Mobile / tablet: tab layout (< lg) -->
-    <v-container v-if="!lgAndUp" class="mt-4 px-0 pt-8" :fluid="false">
+    <v-container v-if="!lgAndUp" class="mt-4 px-0 pt-8 pb-panel" :fluid="false">
       <v-tabs v-model="activeTab" fixed-tabs class="mb-2">
         <v-tab value="attacker">
           <template #prepend>
@@ -40,7 +40,7 @@ const activeTab = ref<string>('attacker')
     </v-container>
 
     <!-- Desktop: original side-by-side layout (>= lg) -->
-    <v-container v-else class="mt-4 px-0" :fluid="false">
+    <v-container v-else class="mt-4 px-0 pb-panel" :fluid="false">
       <v-row class="pt-8" no-gutters justify="center">
         <v-col cols="12" lg="6" class="px-0 px-sm-2 px-md-3 mb-4 mb-lg-0">
           <div class="d-flex flex-column flex-shrink-0">
@@ -71,5 +71,9 @@ const activeTab = ref<string>('attacker')
   .v-container {
     max-width: 1200px !important;
   }
+}
+
+.pb-panel {
+  padding-bottom: 124px !important;
 }
 </style>

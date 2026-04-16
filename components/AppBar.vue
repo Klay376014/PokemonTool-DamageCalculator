@@ -49,9 +49,6 @@ const nv = useNavigationStore()
       <v-icon>mdi-translate</v-icon>
     </v-btn>
 
-    <v-btn icon @click.stop="nv.damage = !nv.damage">
-      <v-icon>mdi-calculator-variant</v-icon>
-    </v-btn>
   </v-app-bar>
   <navigation />
   <damage-result />

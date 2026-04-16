@@ -1,49 +1,49 @@
 <script lang="ts" setup>
-
-const nv = useNavigationStore()
-const pokemonSet = ref(<{id: number, pokemon: string[]}[]>[])
-pokemonSet.value.push({id: 1, pokemon: ['attacker', 'defender']})
-const addResult = (attacker: string) => {
-  if (attacker === 'attacker')
-    pokemonSet.value.push({ id: Math.random(), pokemon:['attacker', 'defender'] })
-  else
-    pokemonSet.value.push({ id: Math.random(), pokemon:['defender', 'attacker'] })
-}
-const removeResult = (index: number) => {
-  pokemonSet.value.splice(index, 1)
-}
+const isOpen = ref(true)
 </script>
 
 <template>
-  <v-navigation-drawer
-    v-model="nv.damage"
-    location="right"
-    width="350"
-    class="pt-4"
-  >
-    <damage-text
-      v-for="(pokemon, index) in pokemonSet"
-      :key="pokemon.id"
-      :pokemon="pokemon.pokemon"
-      :index="index"
-      @remove="removeResult"
-      class="mb-8" 
-    />
-    <div v-if="pokemonSet.length < 5" class="d-flex align-center justify-space-around">
-      <v-btn color="primary" @click="addResult('attacker')">
-        <v-icon icon="mdi-numeric-1-box" class="mr-2" />
-        <v-icon icon="mdi-arrow-right-thin" />
-        <v-icon icon="mdi-numeric-2-box" class="ml-2" />
-      </v-btn>
-      <v-btn color="secondary" @click="addResult('defender')">
-        <v-icon icon="mdi-numeric-2-box" class="mr-2" />
-        <v-icon icon="mdi-arrow-right-thin" />
-        <v-icon icon="mdi-numeric-1-box" class="ml-2" />
-      </v-btn>
+  <div class="damage-bottom-panel">
+    <div class="damage-handle" @click="isOpen = !isOpen">
+      <v-icon size="x-small" class="mr-1">
+        {{ isOpen ? 'mdi-chevron-down' : 'mdi-chevron-up' }}
+      </v-icon>
+      <span class="text-caption">{{ $t('damageResult') }}</span>
     </div>
-  </v-navigation-drawer>
+    <div v-show="isOpen" class="damage-content">
+      <damage-text :pokemon="['attacker', 'defender']" class="w-100 h-100" />
+    </div>
+  </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
+.damage-bottom-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgb(var(--v-theme-surface));
+  border-top: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+}
 
+.damage-handle {
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  opacity: 0.7;
+}
+
+.damage-handle:hover {
+  opacity: 1;
+}
+
+.damage-content {
+  height: 100px;
+  display: flex;
+  align-items: center;
+}
 </style>
