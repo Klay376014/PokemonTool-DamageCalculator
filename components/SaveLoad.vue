@@ -3,7 +3,7 @@ import { useI18n } from 'vue-i18n'
 import { getPokemonsFromPasteUrl, type Pokemon } from 'vgc_data_wrapper'
 import draggable from 'vuedraggable'
 import { effectByEviolite } from '~/utils/evioliteMap'
-import { internalToDisplay } from '~/utils/evConversion'
+import { displayToInternal, internalToDisplay } from '~/utils/evConversion'
 import { useLocalStorage } from '@vueuse/core';
 import type { Stats } from '~/utils/schema'
 draggable.compatConfig = { MODE: 3 }
@@ -80,8 +80,17 @@ const importFromUrl = async () => {
   try {
     const pokemons = (await getPokemonsFromPasteUrl(pokePasteUrl.value)).map(pokemon => {
       if (pokemon.name) pm.pokemonRef.setFlags({ hasEvolution: effectByEviolite(pokemon.name) })
+      const ev = pokemon.effortValues
       return {
         ...pokemon,
+        effortValues: {
+          hp: displayToInternal(ev.hp),
+          attack: displayToInternal(ev.attack),
+          defense: displayToInternal(ev.defense),
+          specialAttack: displayToInternal(ev.specialAttack),
+          specialDefense: displayToInternal(ev.specialDefense),
+          speed: displayToInternal(ev.speed),
+        },
         note: 'notesFromPaste'
       }
     })
