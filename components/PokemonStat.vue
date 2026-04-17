@@ -48,12 +48,13 @@ const getEvRemaining = computed((): number => {
   return 66 - Object.values(pm.pokemonRef.effortValues).reduce((sum, value) => sum + internalToDisplay(value), 0)
 })
 
-const checkIv = (key: StatKeys): void => {
-  if (!pm.pokemonRef.individualValues[key] || pm.pokemonRef.individualValues[key] < 0)
-    pm.pokemonRef.individualValues[key] = 0
-  else if (pm.pokemonRef.individualValues[key] > 31)
-    pm.pokemonRef.individualValues[key] = 31
-}
+// Pokemon Champions make Pokemon's EV at 31
+// const checkIv = (key: StatKeys): void => {
+//   if (!pm.pokemonRef.individualValues[key] || pm.pokemonRef.individualValues[key] < 0)
+//     pm.pokemonRef.individualValues[key] = 0
+//   else if (pm.pokemonRef.individualValues[key] > 31)
+//     pm.pokemonRef.individualValues[key] = 31
+// }
 
 const setEvFromDisplay = (key: StatKeys, event: Event): void => {
   let val = Number((event.target as HTMLInputElement).value)
@@ -110,7 +111,7 @@ const getStageEffectColor = (key: StatKeys) => {
         <tr>
           <td class="text-center">{{ $t('stat.base') }}</td>
           <td v-for="(_, key) in pm.pokemonRef.baseStat" :key="key">
-            <input :name="key" type="number" class="py-2 w-75" :value="pm.pokemonRef.baseStat[key]" disabled>
+            <input :name="key" type="number" class="py-2 w-75 text-center" :value="pm.pokemonRef.baseStat[key]" disabled>
           </td>
         </tr>
         <tr>
@@ -130,10 +131,7 @@ const getStageEffectColor = (key: StatKeys) => {
         <tr>
           <td class="text-center">{{ $t('stat.stat') }}</td>
           <td v-for="(_, key) in pm.pokemonRef.baseStat" :key="key">
-            <div class="d-flex flex-column align-center pr-3">
-              <input :name="key" class="pt-1 w-75 text-center" :value="`${pm.pokemonRef.getStat(key, false)}`" disabled>
-              <input v-if="key !== 'hp'" :name="key" class="pb-1 w-75 text-center" :value="`(${pm.pokemonRef.getStat(key, true)})`" :class="getStageEffectColor(key)" disabled>
-            </div>
+            <input :name="key" class="py-2 w-75 text-center pr-lg-3" :value="`${pm.pokemonRef.getStat(key, true)}`" :class="getStageEffectColor(key)" disabled>
           </td>
         </tr>
         <tr>
