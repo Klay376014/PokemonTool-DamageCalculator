@@ -48,6 +48,17 @@ export default defineNuxtConfig({
         transformAssetUrls,
       },
     },
+    optimizeDeps: {
+      include: [
+        '@vue/devtools-core',
+        '@vue/devtools-kit',
+        'vue-i18n',
+        'vgc_data_wrapper',
+        'zod',
+        'vuedraggable',
+        '@vueuse/core',
+      ],
+    },
   },
   typescript: {
     typeCheck: true,
