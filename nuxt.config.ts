@@ -55,12 +55,10 @@ export default defineNuxtConfig({
       compilerOptions: {
         verbatimModuleSyntax: false, // FIXME 友亮：測試過幾次但vue-tsc不讓我ignore codegen產生的檔案，只好disable此規則
         noUnusedLocals: false,
-        noUnusedParameters: false
+        noUnusedParameters: false,
+        noUncheckedIndexedAccess: false
       }
     },
-  },
-  experimental: {
-    renderJsonPayloads: false
   },
   runtimeConfig: {
     rotomDexBaseUrl: process.env.ROTOM_DEX_BASE_URL || 'http://localhost:8080',
