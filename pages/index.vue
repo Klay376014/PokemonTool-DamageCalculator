@@ -8,7 +8,7 @@ const activeTab = ref<string>('attacker')
 <template>
   <div>
     <!-- Mobile / tablet: tab layout (< lg) -->
-    <v-container v-if="!lgAndUp" class="mt-4 px-0 pt-8 pb-panel" :fluid="false">
+    <v-container v-if="!lgAndUp" class="px-0 pt-0 pb-panel" :fluid="false">
       <v-tabs v-model="activeTab" fixed-tabs class="mb-2">
         <v-tab value="attacker">
           <template #prepend>
