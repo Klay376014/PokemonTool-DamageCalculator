@@ -7,8 +7,12 @@ const { locale } = useI18n()
 const { lgAndUp } = useDisplay()
 const theme = useTheme()
 
+const defaultTheme = localStorage.getItem('theme') ?? 'darkMode'
+theme.global.name.value = defaultTheme
+
 const toggleTheme = () => {
   theme.global.name.value = theme.global.name.value === 'darkMode' ? 'lightMode' : 'darkMode'
+  localStorage.setItem('theme', theme.global.name.value)
 }
 
 const languages = [
