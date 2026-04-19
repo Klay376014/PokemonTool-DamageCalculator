@@ -1,3 +1,5 @@
+[中文](README.md) | [English](README.en.md) | [日本語](README.ja.md)
+
 # 寶可夢傷害計算機　對應遊戲版本：Pokemon Champions M-A
 ## 基本介面
 ![基本介面](https://github.com/user-attachments/assets/b55c9a71-30a4-487e-a1ec-2b6f797314d1)
