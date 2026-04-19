@@ -155,29 +155,6 @@ const clearValue = () => {
   }
 }
 
-// ── Type colors ────────────────────────────────────────────
-const typeColorMap: Record<string, { bg: string; textColor: string }> = {
-  Fire:     { bg: '#dd6620', textColor: '#ffffff' },
-  Water:    { bg: '#4f90d0', textColor: '#ffffff' },
-  Grass:    { bg: '#5a9e40', textColor: '#ffffff' },
-  Electric: { bg: '#c8a800', textColor: '#1c1c1e' },
-  Ice:      { bg: '#5aacbd', textColor: '#ffffff' },
-  Psychic:  { bg: '#e05080', textColor: '#ffffff' },
-  Dragon:   { bg: '#6040d0', textColor: '#ffffff' },
-  Dark:     { bg: '#6a5040', textColor: '#ffffff' },
-  Steel:    { bg: '#9898b8', textColor: '#ffffff' },
-  Normal:   { bg: '#9898a0', textColor: '#ffffff' },
-  Fighting: { bg: '#b03028', textColor: '#ffffff' },
-  Poison:   { bg: '#9040a0', textColor: '#ffffff' },
-  Ground:   { bg: '#9a7020', textColor: '#ffffff' },
-  Flying:   { bg: '#8870d0', textColor: '#ffffff' },
-  Bug:      { bg: '#8a9820', textColor: '#ffffff' },
-  Rock:     { bg: '#a89030', textColor: '#ffffff' },
-  Ghost:    { bg: '#6050a0', textColor: '#ffffff' },
-  Fairy:    { bg: '#d070a0', textColor: '#ffffff' },
-  Stellar:  { bg: '#5588cc', textColor: '#ffffff' },
-}
-
 type MoveEntry = { type: string; basePower: number; category: string }
 const getMoveData = (item: string): MoveEntry =>
   (defaultList[item] as MoveEntry) ?? { type: 'Normal', basePower: 0, category: 'Status' }
@@ -260,13 +237,7 @@ const itemHeight = computed(() => props.listType === 'Move' ? 64 : 52)
                   <template v-for="ip in [getItemProps(item)]" :key="`ip-${item}`">
                     <div class="item-title">{{ ip.title }}</div>
                     <div class="move-item__chips">
-                      <span
-                        class="type-chip"
-                        :style="{
-                          background: typeColorMap[md.type]?.bg ?? '#888',
-                          color: typeColorMap[md.type]?.textColor ?? '#fff'
-                        }"
-                      >{{ $t(`type.${md.type}`) }}</span>
+                      <TypeChip :type="md.type" />
                       <span v-if="md.basePower > 0" class="power-badge">{{ md.basePower }}</span>
                       <span
                         class="category-label"
@@ -402,16 +373,6 @@ const itemHeight = computed(() => props.listType === 'Move' ? 64 : 52)
 .move-item:active { background: rgba(var(--v-theme-on-surface), 0.05); }
 .move-item__content { flex: 1; min-width: 0; }
 .move-item__chips { display: flex; align-items: center; margin-top: 5px; gap: 4px; }
-.type-chip {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 8px;
-  border-radius: 20px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.4px;
-  text-transform: uppercase;
-}
 .power-badge {
   background: rgba(var(--v-theme-on-surface), 0.14);
   color: rgba(var(--v-theme-on-surface), 0.8);

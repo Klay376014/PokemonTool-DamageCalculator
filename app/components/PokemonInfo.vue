@@ -41,11 +41,9 @@ const changeTeraType = (type: string) => {
         <v-col cols="7" class="pl-4">
           <div class="d-flex justify-space-between">
             <div>
-              <p class="pt-2 font-weight-bold">
-                {{ pm.pokemonRef.types.length > 1
-                  ? `${$t(`type.${pm.pokemonRef.types[0]}`)} / ${$t(`type.${pm.pokemonRef.types[1]}`)}`
-                  : `${$t(`type.${pm.pokemonRef.types[0]}`)}` }}
-              </p>
+              <div class="pt-2 d-flex gap-1">
+                <TypeChip v-for="type in pm.pokemonRef.types" :key="type" :type="type" size="sm" class="mr-1" />
+              </div>
               <!-- Champions 規則目前無太晶化 -->
               <!-- <div class="d-flex">
                 <p>
