@@ -9,7 +9,6 @@ const props = defineProps({
   }
 })
 
-const stages = ['+6', '+5', '+4', '+3', '+2', '+1', '0', '-1', '-2', '-3', '-4', '-5', '-6'] as const
 // TODO get information from props
 const pm = usePokemonDataStore(props.role)
 
@@ -70,14 +69,18 @@ const setEvMax = (key: StatKeys): void => {
   pm.pokemonRef.effortValues[key] = 252
 }
 
-const setStatStages = (key: StatKeysWithoutHP, value: typeof stages[number] | null) => {
-  if (!value)
-    return
-  pm.pokemonRef.statStage[key] = +value
+const incrementStage = (key: StatKeysWithoutHP) => {
+  if (pm.pokemonRef.statStage[key] < 6)
+    pm.pokemonRef.statStage[key]++
 }
 
-const getStageModelValue = (val: number): typeof stages[number] => {
-  return (val > 0 ? `+${val}` : val === 0 ? '0' : `${val}`) as typeof stages[number]
+const decrementStage = (key: StatKeysWithoutHP) => {
+  if (pm.pokemonRef.statStage[key] > -6)
+    pm.pokemonRef.statStage[key]--
+}
+
+const resetStage = (key: StatKeysWithoutHP) => {
+  pm.pokemonRef.statStage[key] = 0
 }
 
 const getStageEffectColor = (key: StatKeys) => {
@@ -138,11 +141,17 @@ const getStageEffectColor = (key: StatKeys) => {
           <td class="text-center">{{ $t('stat.stage') }}</td>
           <td v-for="(_, key) in stats" :key="key">
             <template v-if="key === 'hp'" />
-            <v-select v-else :items="stages" variant="solo" density="compact" :model-value="getStageModelValue(pm.pokemonRef.statStage[key])" flat hide-details append-inner-icon="" @update:model-value="(val: typeof stages[number] | null) => setStatStages(key, val)">
-              <template #selection="{ item }">
-                <span class="text-subtitle-2">{{ item.title }}</span>
-              </template>
-            </v-select>
+            <div v-else class="stepper">
+              <v-btn icon density="compact" variant="text" size="x-small" :disabled="pm.pokemonRef.statStage[key] <= -6" @click="decrementStage(key)">
+                <v-icon size="12">mdi-minus</v-icon>
+              </v-btn>
+              <span class="stage-val text-subtitle-2" :class="getStageEffectColor(key)" @click="resetStage(key)">
+                {{ pm.pokemonRef.statStage[key] > 0 ? `+${pm.pokemonRef.statStage[key]}` : pm.pokemonRef.statStage[key] }}
+              </span>
+              <v-btn icon density="compact" variant="text" size="x-small" :disabled="pm.pokemonRef.statStage[key] >= 6" @click="incrementStage(key)">
+                <v-icon size="12">mdi-plus</v-icon>
+              </v-btn>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -188,17 +197,18 @@ input:disabled {
   -webkit-overflow-scrolling: touch;
 }
 
-.v-select :deep(.v-input__append-inner),
-.v-select :deep(.v-select__menu-icon) {
-  display: none !important;
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
 }
 
-.v-select {
-  padding: 0 8px;
+.stage-val {
+  min-width: 24px;
   text-align: center;
-  @media (max-width: 576px) {
-    padding: 0;
-  }
+  cursor: pointer;
+  user-select: none;
 }
 
 .v-icon {
