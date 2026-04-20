@@ -143,13 +143,13 @@ const getStageEffectColor = (key: StatKeys) => {
             <template v-if="key === 'hp'" />
             <div v-else class="stepper">
               <v-btn icon density="compact" variant="text" size="x-small" :disabled="pm.pokemonRef.statStage[key] <= -6" @click="decrementStage(key)">
-                <v-icon size="12">mdi-minus</v-icon>
+                <v-icon size="10">mdi-minus</v-icon>
               </v-btn>
               <span class="stage-val text-subtitle-2" :class="getStageEffectColor(key)" @click="resetStage(key)">
                 {{ pm.pokemonRef.statStage[key] > 0 ? `+${pm.pokemonRef.statStage[key]}` : pm.pokemonRef.statStage[key] }}
               </span>
               <v-btn icon density="compact" variant="text" size="x-small" :disabled="pm.pokemonRef.statStage[key] >= 6" @click="incrementStage(key)">
-                <v-icon size="12">mdi-plus</v-icon>
+                <v-icon size="10">mdi-plus</v-icon>
               </v-btn>
             </div>
           </td>
