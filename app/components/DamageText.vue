@@ -50,7 +50,8 @@ const OHKOPercentage = ref(0)
 const damageTextI18n = computed(() => {
   const { koChance, rolls } = battle.battleField.getDamage()
   const { number: minNumber, percentage: minPercentage } = rolls[0]
-  const { number: maxNumber, percentage: maxPercentage } = rolls[15]
+  // Champions 經測試只有 15 個亂數 (0.86 ~ 1)
+  const { number: maxNumber, percentage: maxPercentage } = rolls[14]
   OHKOPercentage.value = koChance
   if (koChance >= 100) {
     OHKOChance.value = 'description.damage.OHKO'
