@@ -3,6 +3,9 @@ import { useDisplay } from 'vuetify'
 
 const isOpen = ref(true)
 const { lgAndUp } = useDisplay()
+
+const attackerStore = usePokemonDataStore('attacker')
+const defenderStore = usePokemonDataStore('defender')
 </script>
 
 <template>
@@ -13,8 +16,29 @@ const { lgAndUp } = useDisplay()
       </v-icon>
       <span class="text-caption">{{ $t('damageResult') }}</span>
     </div>
-    <div v-show="isOpen" class="damage-content">
-      <damage-text :pokemon="['attacker', 'defender']" class="w-100 h-100" />
+    <div v-show="isOpen" class="damage-content" :class="lgAndUp ? 'flex-row' : 'flex-column'">
+      <!-- 2→1 reverse：行動版排序 1（最上），桌面版排序 2（右欄） -->
+      <damage-text
+        :pokemon="['defender', 'attacker']"
+        :show-sprites="lgAndUp"
+        direction="reverse"
+        class="w-100 h-100 damage-reverse"
+      />
+
+      <!-- 行動版：共用 sprite，排序 2（中間） -->
+      <div v-if="!lgAndUp" class="shared-sprites d-flex align-center justify-center">
+        <v-img width="40" max-width="40" aspect-ratio="1" :src="attackerStore.pokemonRef.sprite" />
+        <v-icon icon="mdi-swap-horizontal" class="mx-3 text-h5 text-medium-emphasis" />
+        <v-img width="40" max-width="40" aspect-ratio="1" :src="defenderStore.pokemonRef.sprite" />
+      </div>
+
+      <!-- 1→2 forward：行動版排序 3（最下），桌面版排序 1（左欄） -->
+      <damage-text
+        :pokemon="['attacker', 'defender']"
+        :show-sprites="lgAndUp"
+        direction="forward"
+        class="w-100 h-100 damage-forward"
+      />
     </div>
   </div>
 </template>
@@ -45,8 +69,28 @@ const { lgAndUp } = useDisplay()
 }
 
 .damage-content {
-  height: 100px;
   display: flex;
-  align-items: center;
+  height: 115px;
+}
+
+.shared-sprites {
+  height: 48px;
+  flex-shrink: 0;
+  order: 2;
+}
+
+/* 行動版：forward 上、sprites 中、reverse 下 */
+.damage-forward { order: 1; }
+.damage-reverse { order: 3; }
+
+@media (min-width: 1280px) {
+  .damage-content {
+    height: 100px;
+    align-items: center;
+  }
+
+  /* 桌面版：forward 左、reverse 右 */
+  .damage-forward { order: 1; }
+  .damage-reverse { order: 2; }
 }
 </style>

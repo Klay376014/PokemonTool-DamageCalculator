@@ -74,6 +74,12 @@ const activeTab = ref<string>('attacker')
 }
 
 .pb-panel {
-  padding-bottom: 124px !important;
+  padding-bottom: 155px !important;
+}
+
+@media (min-width: 1280px) {
+  .pb-panel {
+    padding-bottom: 124px !important;
+  }
 }
 </style>

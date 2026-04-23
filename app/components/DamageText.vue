@@ -7,6 +7,8 @@ import moves from '../assets/pokemonMove.json';
 
 const props = defineProps<{
   pokemon: string[]
+  showSprites?: boolean
+  direction?: 'forward' | 'reverse'
 }>()
 
 const attackerPokemon = usePokemonDataStore(props.pokemon[0])
@@ -289,14 +291,14 @@ const copyText = () => {
 
 <template>
   <div class="d-flex flex-column align-center justify-center px-4 h-100 w-100">
-    <div class="d-flex align-center justify-center">
+    <div v-if="showSprites !== false" class="d-flex align-center justify-center">
       <v-img
         width="50"
         max-width="50"
         aspect-ratio="1"
         :src="attackerPokemon.pokemonRef.sprite"
       />
-      <v-icon icon="mdi-arrow-right-bold" class="text-h4 text-primary mx-2" />
+      <v-icon icon="mdi-arrow-right-bold" :class="['text-h4', 'mx-2', direction === 'reverse' ? 'text-secondary' : 'text-primary']" />
       <v-img
         width="50"
         max-width="50"
@@ -306,6 +308,13 @@ const copyText = () => {
     </div>
 
     <div class="d-flex align-center justify-center">
+      <v-icon
+        v-if="showSprites === false"
+        :icon="direction === 'reverse' ? 'mdi-arrow-left-bold' : 'mdi-arrow-right-bold'"
+        :color="direction === 'reverse' ? 'secondary' : 'primary'"
+        size="small"
+        class="mr-1 flex-shrink-0"
+      />
       <p class="text-center text-subtitle-1 mr-2">
         {{ damageText ? `${damageText}${OHKOChance ? '　' + $t(OHKOChance, [OHKOPercentage]) : ''}` : $t('setPokemonAndMove') }}
       </p>
