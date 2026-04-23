@@ -45,14 +45,14 @@ type JSONMove = {
 }
 
 const OHKOChance = ref('')
-const OHKOPercentage = ref(0)
+const OHKOPercentage = ref('')
 
 const damageTextI18n = computed(() => {
   const { koChance, rolls } = battle.battleField.getDamage()
   const { number: minNumber, percentage: minPercentage } = rolls[0]
   // Champions 經測試只有 15 個亂數 (0.86 ~ 1)
   const { number: maxNumber, percentage: maxPercentage } = rolls[14]
-  OHKOPercentage.value = koChance
+  OHKOPercentage.value = koChance.toFixed(2)
   if (koChance >= 100) {
     OHKOChance.value = 'description.damage.OHKO'
   } else if (koChance > 0) {

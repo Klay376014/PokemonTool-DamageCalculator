@@ -1441,7 +1441,8 @@
     "Refrigerate": "Refrigerate",
     "Aerilate": "Aerilate",
     "Dragonize": "Dragonize",
-    "Mega Sol": "Mega Sol"
+    "Mega Sol": "Mega Sol",
+    "Scrappy": "Scrappy"
   },
   "move": {
     "Flail-20": "Flail-20",
@@ -2016,7 +2017,8 @@
       "Refrigerate": "（Turns Normal-type moves into Ice-type and increases their power by 1.2x）",
       "Aerilate": "（Turns Normal-type moves into Flying-type and increases their power by 1.2x）",
       "Dragonize": "(Turns Normal-type moves into Dragon-type and increases their power by 1.2x)",
-      "Mega Sol": "(All moves used by the Pokémon to behave as if the weather were harsh sunlight)"
+      "Mega Sol": "(All moves used by the Pokémon to behave as if the weather were harsh sunlight)",
+      "Scrappy": "（Enables Normal-type and Fighting-type moves to hit Ghost-type foes）"
     },
     "damage": {
       "OHKO": "guaranteed OHKO",

@@ -1441,7 +1441,8 @@
     "Refrigerate": "冰凍皮膚",
     "Aerilate": "飛行皮膚",
     "Dragonize": "龍皮膚",
-    "Mega Sol": "超級日光"
+    "Mega Sol": "超級日光",
+    "Scrappy": "膽量"
   },
   "move": {
     "Flail-20": "抓狂-20",
@@ -2018,7 +2019,8 @@
       "Refrigerate": "（一般系招式變成冰屬性，且威力x1.2）",
       "Aerilate": "（一般系招式變成飛行屬性，且威力x1.2）",
       "Dragonize": "（一般系招式變成龍屬性，且威力x1.2）",
-      "Mega Sol": "（使用招式時視為在晴天下使出）"
+      "Mega Sol": "（使用招式時視為在晴天下使出）",
+      "Scrappy": "（一般及格鬥系招式可擊中幽靈系）"
     },
     "damage": {
       "OHKO": "確一",
