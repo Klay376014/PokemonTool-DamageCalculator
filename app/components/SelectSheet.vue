@@ -89,14 +89,18 @@ const filteredList = computed((): string[] => {
   const lower = q.toLowerCase()
   const kana = hiraToKata(q)
   const roman = romanToKana(q)
+  const power = /^\d+$/.test(q) ? parseInt(q) : null
   return assetList.value.filter(item => {
     const title = getItemProps(item).title
-    return (
+    if (
       item.toLowerCase().includes(lower) ||
       title.toLowerCase().includes(lower) ||
       hiraToKata(title).includes(kana) ||
       hiraToKata(title).includes(roman)
-    )
+    ) return true
+    return power !== null &&
+           props.listType === 'Move' &&
+           getMoveData(item).basePower === power
   })
 })
 
