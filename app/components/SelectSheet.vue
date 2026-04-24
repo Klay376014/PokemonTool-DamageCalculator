@@ -89,7 +89,8 @@ const filteredList = computed((): string[] => {
   const lower = q.toLowerCase()
   const kana = hiraToKata(q)
   const roman = romanToKana(q)
-  const power = /^\d+$/.test(q) ? parseInt(q) : null
+  const power = /^\d+$/.test(q) ? parseInt(q, 10) : null
+  const powerMatchEnabled = power !== null && props.listType === 'Move'
   return assetList.value.filter(item => {
     const title = getItemProps(item).title
     if (
@@ -98,9 +99,7 @@ const filteredList = computed((): string[] => {
       hiraToKata(title).includes(kana) ||
       hiraToKata(title).includes(roman)
     ) return true
-    return power !== null &&
-           props.listType === 'Move' &&
-           getMoveData(item).basePower === power
+    return powerMatchEnabled && Number(getMoveData(item).basePower) === power
   })
 })
 
